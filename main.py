@@ -107,40 +107,34 @@ if userID > 0:
         jsonParsed = json.loads(response.content)
         listAnime = jsonParsed["data"]["MediaListCollection"]["lists"]
         print("anime list is generated!")
-        # Iterate over the MediaCollection List
+        
         # Write to file
         f = open("anime.json","a+")
         f.write('[ ')
         f.close()
+
+        # Iterate over the MediaCollection List
         for anime in listAnime:
           animeInfo = anime["entries"]
           # Iterate over the anime information, inside the entries
           for entry in animeInfo:
             jsontoAdd = "{ "
             jsontoAdd += '"idAnilist": ' + str(entry["media"]["id"]) + ", "
-            jsontoAdd += '"idMal": ' + str(entry["media"]["idMal"]) + ", "
-            jsontoAdd += '"titleEnglish": "' + str(entry["media"]["title"]["english"]) + '", '
-            jsontoAdd += '"titleRomaji": "' + str(entry["media"]["title"]["romaji"]) + '", '
-            jsontoAdd += '"format": "' + str(entry["media"]["format"]) + '", '
-            jsontoAdd += '"status": "' + str(entry["status"]) + '", '
-            jsontoAdd += '"startedAt": "' + str(entry["startedAt"]["year"]) + "-" + str(entry["startedAt"]["month"]) + "-" + str(entry["startedAt"]["day"]) + '", '
-            jsontoAdd += '"completedAt": "' + str(entry["completedAt"]["year"]) + "-" + str(entry["completedAt"]["month"]) + "-" + str(entry["completedAt"]["day"]) + '", '
-            jsontoAdd += '"progress": ' + str(entry["progress"]) + ", "
-            jsontoAdd += '"progressTotal": ' + str(entry["media"]["episodes"]) + ", "
-            jsontoAdd += '"score": ' + str(entry["score"]) + ", "
-            jsontoAdd += '"notes": "' + str(entry["notes"]) + '" }, '
+            jsontoAdd += '"idMal": ' + validateInt(entry["media"]["idMal"]) + ", "
+            jsontoAdd += '"titleEnglish": "' + validateStr(entry["media"]["title"]["english"]) + '", '
+            jsontoAdd += '"titleRomaji": "' + validateStr(entry["media"]["title"]["romaji"]) + '", '
+            jsontoAdd += '"format": "' + validateStr(entry["media"]["format"]) + '", '
+            jsontoAdd += '"status": "' + validateStr(entry["status"]) + '", '
+            jsontoAdd += '"startedAt": "' + validateStr(entry["startedAt"]["year"]) + "-" + validateStr(entry["startedAt"]["month"]) + "-" + validateStr(entry["startedAt"]["day"]) + '", '
+            jsontoAdd += '"completedAt": "' + validateStr(entry["completedAt"]["year"]) + "-" + validateStr(entry["completedAt"]["month"]) + "-" + validateStr(entry["completedAt"]["day"]) + '", '
+            jsontoAdd += '"progress": ' + validateInt(entry["progress"]) + ", "
+            jsontoAdd += '"progressTotal": ' + validateInt(entry["media"]["episodes"]) + ", "
+            jsontoAdd += '"score": ' + validateInt(entry["score"]) + ", "
+            jsontoAdd += '"notes": "' + validateStr(entry["notes"]) + '" }, '
             # jsontoAdd += "" + str(entry["media"]["coverImage"]["medium"])
-
-            # Replace 'None" with Zero
-            jsontoAdd = jsontoAdd.replace('"progress": None', '"progress": 0')
-            jsontoAdd = jsontoAdd.replace('"progressTotal": None', '"progressTotal": 0')
-            jsontoAdd = jsontoAdd.replace('"idMal": None', '"idMal": 0')
-            jsontoAdd = jsontoAdd.replace('"score": None', '"score": 0')
 
             # Remove last comma ','
             jsontoAdd = jsontoAdd.replace('}, ]', '} ]')
-
-            # jsonResult += jsontoAdd
 
             # Write to file
             with open("anime.json","a+", encoding='utf-8') as f:
@@ -190,8 +184,8 @@ if userID > 0:
           jsontoAdd += '"idMal": ' + validateInt(entry["media"]["idMal"]) + ", "
           jsontoAdd += '"titleEnglish": "' + validateStr(entry["media"]["title"]["english"]) + '", '
           jsontoAdd += '"titleRomaji": "' + validateStr(entry["media"]["title"]["romaji"]) + '", '
-          jsontoAdd += '"format": "' + str(entry["media"]["format"]) + '", '
-          jsontoAdd += '"status": "' + str(entry["status"]) + '", '
+          jsontoAdd += '"format": "' + validateStr(entry["media"]["format"]) + '", '
+          jsontoAdd += '"status": "' + validateStr(entry["status"]) + '", '
           jsontoAdd += '"startedAt": "' + validateStr(entry["startedAt"]["year"]) + "-" + validateStr(entry["startedAt"]["month"]) + "-" + validateStr(entry["startedAt"]["day"]) + '", '
           jsontoAdd += '"completedAt": "' + validateStr(entry["completedAt"]["year"]) + "-" + validateStr(entry["completedAt"]["month"]) + "-" + validateStr(entry["completedAt"]["day"]) + '", '
           jsontoAdd += '"progress": ' + validateInt(entry["progress"]) + ", "
