@@ -86,30 +86,55 @@ if userID > 0:
   }
 
   # Get Anime List
+  jsonResult = ""
   response = requests.post(url, json={'query': query, 'variables': varQueryAnime})
   if (response.status_code == 200):
     jsonParsed = json.loads(response.content)
     listAnime = jsonParsed["data"]["MediaListCollection"]["lists"]
     # Iterate over the MediaCollection List
+    # Write to file
+    f = open("anime.json","a+")
+    f.write('[ ')
+    f.close()
     for anime in listAnime:
       animeInfo = anime["entries"]
       # Iterate over the anime information, inside the entries
       for entry in animeInfo:
-        print("--------------------------------------------------")
-        print("ID: " + str(entry["media"]["id"]))
-        print("Title: " + str(entry["media"]["title"]["english"]))
-        print("Romaji: " + str(entry["media"]["title"]["romaji"]))
-        print("Format: " + str(entry["media"]["format"]))
-        print("Status" + str(entry["status"]) + ": ")
-        print("StartedAt: " + str(entry["startedAt"]["year"]))
-        print("CompletedAt: " + str(entry["completedAt"]["year"]))
-        print("Progress: " + str(entry["progress"]) + "/" + str(entry["media"]["episodes"]))
-        print("Progress Vols: " + str(entry["progressVolumes"]))
-        print("Score: " + str(entry["score"]))
-        print("Notes: " + str(entry["notes"]))
-        print(str(entry["media"]["coverImage"]["medium"]))
+        jsontoAdd = "{ "
+        jsontoAdd += '"idAnilist": ' + str(entry["media"]["id"]) + ", "
+        jsontoAdd += '"idMal": ' + str(entry["media"]["idMal"]) + ", "
+        jsontoAdd += '"titleEnglish": "' + str(entry["media"]["title"]["english"]) + '", '
+        jsontoAdd += '"titleRomaji": "' + str(entry["media"]["title"]["romaji"]) + '", '
+        jsontoAdd += '"format": "' + str(entry["media"]["format"]) + '", '
+        jsontoAdd += '"status": "' + str(entry["status"]) + '", '
+        jsontoAdd += '"startedAt": "' + str(entry["startedAt"]["year"]) + "-" + str(entry["startedAt"]["month"]) + "-" + str(entry["startedAt"]["day"]) + '", '
+        jsontoAdd += '"completedAt": "' + str(entry["completedAt"]["year"]) + "-" + str(entry["completedAt"]["month"]) + "-" + str(entry["completedAt"]["day"]) + '", '
+        jsontoAdd += '"progress": ' + str(entry["progress"]) + ", "
+        jsontoAdd += '"progressTotal": ' + str(entry["media"]["episodes"]) + ", "
+        jsontoAdd += '"score": ' + str(entry["score"]) + ", "
+        jsontoAdd += '"notes": "' + str(entry["notes"]) + '" }, '
+        # jsontoAdd += "" + str(entry["media"]["coverImage"]["medium"])
+
+        # Replace 'None" with Zero, for 'progress'
+        jsontoAdd = jsontoAdd.replace('"progressTotal": None', '"progressTotal": 0')
+
+        # Remove last comma ','
+        jsontoAdd = jsontoAdd.replace('}, ]', '} ]')
+
+        # jsonResult += jsontoAdd
+
+        # Write to file
+        f = open("anime.json","a+")
+        f.writelines(jsontoAdd)
+        f.close()
+
         break
       #break
+    # Write to file
+    f = open("anime.json","a+")
+    f.write('] ')
+    f.close()
+      
   else:
     print("Anime Request Error! [Status code: " + str(response.status_code) + "]")
     print(response.content)
