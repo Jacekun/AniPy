@@ -1,7 +1,7 @@
 # imports
 import requests
 import json
-from os import path
+import os
 
 # Define functions
 def validateStr(x):
@@ -95,7 +95,8 @@ if userID > 0:
   '''  
 
   # Get Anime List
-  if not (path.exists("anime.json")):
+  outputAnime = "anime.json"
+  if not (os.path.exists(outputAnime)):
       varQueryAnime = {
           'userID': userID,
           'MEDIA' : 'ANIME'
@@ -109,7 +110,7 @@ if userID > 0:
         print("anime list is generated!")
         
         # Write to file
-        f = open("anime.json","a+")
+        f = open(outputAnime,"a+")
         f.write('[ ')
         f.close()
 
@@ -133,19 +134,18 @@ if userID > 0:
             jsontoAdd += '"notes": "' + validateStr(entry["notes"]) + '" }, '
             # jsontoAdd += "" + str(entry["media"]["coverImage"]["medium"])
 
-            # Remove last comma ','
-            jsontoAdd = jsontoAdd.replace('}, ]', '} ]')
-
             # Write to file
-            with open("anime.json","a+", encoding='utf-8') as f:
+            with open(outputAnime,"a+", encoding='utf-8') as f:
               f.write(jsontoAdd)
 
-            #break
+        # Delete last comma ','
+        with open(outputAnime, 'rb+') as filehandle:
+          filehandle.seek(-2, os.SEEK_END)
+          filehandle.truncate()
 
         # Write to file
-        f = open("anime.json","a+")
-        f.write('] ')
-        f.close()
+        with open(outputAnime,"a+") as f:
+          f.write(']')
         
         # Done anime
         print("Done Anime!")
@@ -157,7 +157,8 @@ if userID > 0:
     print("anime.json file already exist!")
     
   # Get Manga List
-  if not (path.exists("manga.json")):
+  outputManga = "manga.json"
+  if not (os.path.exists(outputManga)):
     varQueryManga = {
         'userID': userID,
         'MEDIA' : 'MANGA'
@@ -170,8 +171,8 @@ if userID > 0:
       print("manga list is generated!")
       
       # Write to file
-      f = open("manga.json","a+")
-      f.write('[ ')
+      f = open(outputManga,"a+")
+      f.write('[')
       f.close()
 
       # Iterate over the MediaCollection List
@@ -194,17 +195,18 @@ if userID > 0:
           jsontoAdd += '"score": ' + validateInt(entry["score"]) + ", "
           jsontoAdd += '"notes": "' + validateStr(entry["notes"]) + '" }, '
 
-          # Remove last comma ','
-          jsontoAdd = jsontoAdd.replace('}, ]', '} ]')
-
           # Write to file
-          with open("manga.json","a+", encoding='utf-8') as f:
+          with open(outputManga,"a+", encoding='utf-8') as f:
             f.write(jsontoAdd)
 
+      # Delete last comma ','
+      with open(outputManga, 'rb+') as filehandle:
+        filehandle.seek(-2, os.SEEK_END)
+        filehandle.truncate()
+
       # Write to file
-      f = open("manga.json","a+")
-      f.write('] ')
-      f.close()
+      with open(outputManga,"a+") as f:
+        f.write(']')
       
       # Done manga
       print("Done manga!")
