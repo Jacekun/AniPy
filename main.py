@@ -25,28 +25,54 @@ response = requests.post(url, json={'query': queryUser, 'variables': varUser})
 if (response.status_code == 200):
   jsonParsed = json.loads(response.content)
   userID = jsonParsed["data"]["User"]["id"]
+  print("User ID: " + str(userID))
 else:
-  print("Request Error! Check username or Internet connection.")
+  print("Cannot get User!")
   print(response.content)
   userID = 0
 
 if userID > 0:
   # Query for Anime
-  queryAnime = '''
-  query ($userID: Int) {
-  MediaListCollection (userId: $userID, type: ANIME) { 
+  query = '''
+  query ($userID: Int, $MEDIA: MediaType) {
+  MediaListCollection (userId: $userID, type: $MEDIA) { 
     lists {
       status
       entries
       {
+        status
+        completedAt {
+          year
+          month
+          day
+        }
+        startedAt {
+          year
+          month
+          day
+        }
+        progress
+        progressVolumes
+        score
+        notes
         media
         {
           id
           idMal
-          status
+          season
+          seasonYear
+          format
+          episodes
+          chapters
           title
           {
             english
+            romaji
+          }
+          description
+          coverImage
+          {
+            medium
           }
         }
       }
@@ -54,12 +80,13 @@ if userID > 0:
   }
   }
   '''
-  varAnime = {
-      'userID': userID
+  varQueryAnime = {
+      'userID': userID,
+      'MEDIA' : 'ANIME'
   }
 
   # Get Anime List
-  response = requests.post(url, json={'query': queryAnime, 'variables': varAnime})
+  response = requests.post(url, json={'query': query, 'variables': varQueryAnime})
   if (response.status_code == 200):
     jsonParsed = json.loads(response.content)
     listAnime = jsonParsed["data"]["MediaListCollection"]["lists"]
@@ -68,8 +95,21 @@ if userID > 0:
       animeInfo = anime["entries"]
       # Iterate over the anime information, inside the entries
       for entry in animeInfo:
-        print(str(entry["media"]["status"]) + ": " + str(entry["media"]["id"]) + ": " + str(entry["media"]["title"]["english"]))
-  
+        print("--------------------------------------------------")
+        print("ID: " + str(entry["media"]["id"]))
+        print("Title: " + str(entry["media"]["title"]["english"]))
+        print("Romaji: " + str(entry["media"]["title"]["romaji"]))
+        print("Format: " + str(entry["media"]["format"]))
+        print("Status" + str(entry["status"]) + ": ")
+        print("StartedAt: " + str(entry["startedAt"]["year"]))
+        print("CompletedAt: " + str(entry["completedAt"]["year"]))
+        print("Progress: " + str(entry["progress"]) + "/" + str(entry["media"]["episodes"]))
+        print("Progress Vols: " + str(entry["progressVolumes"]))
+        print("Score: " + str(entry["score"]))
+        print("Notes: " + str(entry["notes"]))
+        print(str(entry["media"]["coverImage"]["medium"]))
+        break
+      #break
   else:
-    print("Request Error! Check username or Internet connection.")
+    print("Anime Request Error! [Status code: " + str(response.status_code) + "]")
     print(response.content)
