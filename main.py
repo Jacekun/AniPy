@@ -86,7 +86,7 @@ if userID > 0:
   }
 
   # Get Anime List
-  jsonResult = ""
+  # jsonResult = ""
   response = requests.post(url, json={'query': query, 'variables': varQueryAnime})
   if (response.status_code == 200):
     jsonParsed = json.loads(response.content)
@@ -127,17 +127,19 @@ if userID > 0:
         # jsonResult += jsontoAdd
 
         # Write to file
-        f = open("anime.json","a+")
-        f.writelines(jsontoAdd)
-        f.close()
+        with open("anime.json","a+", encoding='utf-8') as f:
+          f.write(jsontoAdd)
 
-        break
-      #break
+        #break
+
     # Write to file
     f = open("anime.json","a+")
     f.write('] ')
     f.close()
-      
+    
+    # Done
+    print("Done!")
+
   else:
     print("Anime Request Error! [Status code: " + str(response.status_code) + "]")
     print(response.content)
