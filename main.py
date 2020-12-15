@@ -148,7 +148,7 @@ if userID > 0:
           f.write(']')
         
         # Done anime
-        print("Done Anime!")
+        print("Done! File generated: " + outputAnime)
 
       else:
         print("Anime Request Error! [Status code: " + str(response.status_code) + "]")
@@ -209,7 +209,7 @@ if userID > 0:
         f.write(']')
       
       # Done manga
-      print("Done manga!")
+      print("Done! File generated: " + outputManga)
 
     else:
       print("Manga Request Error! [Status code: " + str(response.status_code) + "]")
