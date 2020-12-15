@@ -115,8 +115,11 @@ if userID > 0:
         jsontoAdd += '"notes": "' + str(entry["notes"]) + '" }, '
         # jsontoAdd += "" + str(entry["media"]["coverImage"]["medium"])
 
-        # Replace 'None" with Zero, for 'progress'
+        # Replace 'None" with Zero
+        jsontoAdd = jsontoAdd.replace('"progress": None', '"progress": 0')
         jsontoAdd = jsontoAdd.replace('"progressTotal": None', '"progressTotal": 0')
+        jsontoAdd = jsontoAdd.replace('"idMal": None', '"idMal": 0')
+        jsontoAdd = jsontoAdd.replace('"score": None', '"score": 0')
 
         # Remove last comma ','
         jsontoAdd = jsontoAdd.replace('}, ]', '} ]')
