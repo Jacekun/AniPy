@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.0">
+  <object class="tk.Frame" id="gFrame1">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout manager="pack">
+      <property name="propagate">True</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="tk.Label" id="gLabelUser">
+        <property name="anchor">w</property>
+        <property name="relief">flat</property>
+        <property name="text" translatable="yes">Username: </property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Entry" id="gTextUser">
+        <property name="cursor">arrow</property>
+        <property name="exportselection">true</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">username</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
