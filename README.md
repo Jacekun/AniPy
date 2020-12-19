@@ -6,6 +6,8 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 [**Click to download Latest Release**](https://github.com/Jacekun/AniPy/releases)
 
+**Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.0.0.0/total.svg)]() <br>
+
 # How to use?
 
 1. Extract downloaded **zipped** file.
