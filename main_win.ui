@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.0">
+  <object class="tk.Toplevel" id="gTopLevel">
+    <property name="background">#0a0a0a</property>
+    <property name="height">200</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Anilist Export (Python)</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="gFrameMain">
+        <property name="height">200</property>
+        <property name="takefocus">true</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="gFrame1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="gLabel1">
+                <property name="background">#000000</property>
+                <property name="font">{Calibri} 20 {}</property>
+                <property name="foreground">#efefef</property>
+                <property name="takefocus">false</property>
+                <property name="text" translatable="yes">Enter your username, and Click 'Export'</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Frame" id="gFrame2">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="gLabel2">
+                <property name="background">#000000</property>
+                <property name="font">{Calibri} 16 {}</property>
+                <property name="foreground">#efefef</property>
+                <property name="justify">right</property>
+                <property name="text" translatable="yes">Username: </property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="gTextUser">
+                <property name="font">{Calibri} 16 {}</property>
+                <property name="justify">left</property>
+                <property name="textvariable">string:inputUser</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">right</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label_2">
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="gFrame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tk.Button" id="gButtonExport">
+                <property name="anchor">n</property>
+                <property name="background">#000095</property>
+                <property name="command">buttonExport_callback</property>
+                <property name="font">{Calibri} 20 {}</property>
+                <property name="foreground">#f0f0f0</property>
+                <property name="text" translatable="yes">Export</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="gFrame4">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="gLabelStatus">
+                <property name="font">{Calibri} 20 {}</property>
+                <property name="text" translatable="yes">Standby</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
