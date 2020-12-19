@@ -1,0 +1,1 @@
+pyinstaller --onefile --hidden-import=func --hidden-import=anilist_request --add-data "main_win.ui;files" main_win.py
