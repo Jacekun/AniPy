@@ -6,25 +6,28 @@ import importlib
 import sys
 import pygubu.builder.tkstdwidgets
 import pygubu.builder.ttkstdwidgets
+from datetime import datetime
 
-print("Import scripts from same folder")
-fMain = importlib.import_module("func")
-fReq = importlib.import_module("anilist_request")
+# Log string, and return it
+def logger(text):
+  print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
 
-print("Define Global Vars..")
 # Global Vars
-# App Properties
-appVersion = '1.0'
-appBuild = '001'
-
-# GUI related
+logger("Define Global Vars..")
+# Paths for Files
 PROJECT_PATH = os.path.dirname(sys.executable) #os.path.dirname(__file__)
 PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
+logger("Current path: " + PROJECT_PATH)
 
-# Variables
-# inputUser = ""
+logger("Import scripts from same folder")
+fMain = importlib.import_module("func.func")
+fReq = importlib.import_module("func.anilist_request")
 
-print("Start App from Class: 'Main'.")
+# App Properties
+appVersion = '1.0.0.0'
+appBuild = 1
+
+logger("Start App from Class: 'Main'.")
 # Start App
 class Main:
   # GUI
@@ -46,8 +49,8 @@ class Main:
     labelStatus = self.builder.get_object('gLabelStatus')
 
     # Disable button
-    buttonExport["state"] = "disabled"
     labelStatus.config(text = "Starting export..")
+    buttonExport["state"] = "disabled"
 
     # Get User ID, from Username
     labelStatus["text"] = "Getting user ID.."
@@ -58,7 +61,7 @@ class Main:
       userID = fReq.anilist_getUserID(username)
       if (userID > 0):
         labelStatus["text"] = "User ID received!"
-        print("Successfully received the user ID!")
+        logger("Successfully received the user ID!")
 
         # Request anime list
         labelStatus["text"] = fMain.logString("Requesting anime list..")
@@ -124,22 +127,22 @@ class Main:
 
             # Delete last comma ',', in json file
             labelStatus["text"] = "Finalizing Anime JSON file.."
-            print("Remove last comma from Anime JSON file..")
+            logger("Remove last comma from Anime JSON file..")
             fMain.write_remove(outputAnime, 3)
 
             # Write ']' at the end, to json file
-            print("Write last ']' to Anime JSON file..")
+            logger("Write last ']' to Anime JSON file..")
             fMain.write_append(outputAnime, '\n]')
-            print("Done with Anime JSON file..")
+            logger("Done with Anime JSON file..")
             
             # Write to MAL xml file
             labelStatus["text"] = "Finalizing Anime XML file.."
-            print("Add closing tag..")
+            logger("Add closing tag to Anime XML file..")
             fMain.write_append(xmlAnime, '</myanimelist>')
 
             # Total counts
             cTotal = cWatch + cComplete + cHold + cDrop + cPtw
-            print("Prepend 'myinfo' to Anime XML file..")
+            logger("Prepend 'myinfo' to Anime XML file..")
             malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<myanimelist>\n'
             malprepend += '\t<myinfo>\n'
             malprepend += '\t\t' + fMain.toMalval('', 'user_id') + '\n'
@@ -153,16 +156,16 @@ class Main:
             malprepend += '\t\t' + fMain.toMalval(str(cPtw), 'user_total_plantowatch') + '\n'
             malprepend += '\t</myinfo>\n'
             fMain.line_prepender(xmlAnime, malprepend)
-            print("Done with Anime XML file..")
+            logger("Done with Anime XML file..")
 
             # Done anime
             labelStatus["text"] = "Anime list JSON/XML generated!"
-            print("Done! File generated: " + outputAnime)
-            print("Done! File generated: " + xmlAnime)
+            logger("Done! File generated: " + outputAnime)
+            logger("Done! File generated: " + xmlAnime)
 
         # Already existing!
         else:
-          print(outputAnime + " file already exist!")
+          logger(outputAnime + " file already exist!")
         
         # Request manga list
         labelStatus["text"] = fMain.logString("Requesting manga list..")
@@ -228,22 +231,22 @@ class Main:
 
           # Delete last comma ',', in json file
           labelStatus["text"] = "Finalizing Manga JSON file.."
-          print("Remove last comma from manga JSON file..")
+          logger("Remove last comma from manga JSON file..")
           fMain.write_remove(outputManga, 3)
 
           # Write ']' at the end, to json file
-          print("Write last ']' to manga JSON file..")
+          logger("Write last ']' to manga JSON file..")
           fMain.write_append(outputManga, '\n]')
-          print("Done with Manga JSON file..")
+          logger("Done with Manga JSON file..")
           
           # Write to MAL xml file
           labelStatus["text"] = "Finalizing Manga XML file.."
-          print("Add closing tag..")
+          logger("Add closing tag..")
           fMain.write_append(xmlManga, '</myanimelist>')
 
           # Total counts
           cTotal = cRead + cComplete + cHold + cDrop + cPtr
-          print("Prepend 'myinfo' to Manga XML file..")
+          logger("Prepend 'myinfo' to Manga XML file..")
           malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<myanimelist>\n'
           malprepend += '\t<myinfo>\n'
           malprepend += '\t\t' + fMain.toMalval('', 'user_id') + '\n'
@@ -257,18 +260,18 @@ class Main:
           malprepend += '\t\t' + fMain.toMalval(str(cPtr), 'user_total_plantoread') + '\n'
           malprepend += '\t</myinfo>\n'
           fMain.line_prepender(xmlManga, malprepend)
-          print("Done with Manga XML file..")
+          logger("Done with Manga XML file..")
 
           # Done manga
           labelStatus["text"] = "Manga list JSON/XML generated!"
-          print("Done! File generated: " + outputManga)
-          print("Done! File generated: " + xmlManga)
+          logger("Done! File generated: " + outputManga)
+          logger("Done! File generated: " + xmlManga)
 
         else:
-          print(outputManga + " file already exist!")
+          logger(outputManga + " file already exist!")
 
     else:
-      print("Username is empty!")
+      logger("Username is empty!")
 
     # Enable button
     buttonExport["state"] = "active"
