@@ -1,9 +1,14 @@
 # Imports
 import json
 import requests
+from datetime import datetime
 
 # Anilist API URL
 AnilistURL = 'https://graphql.anilist.co'
+
+# Logger
+def logger(text):
+    print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
 
 # Return media query string
 def queryMedia():
@@ -60,32 +65,34 @@ def queryUser(userName):
 # Return User ID, from Username
 # Get USER ID, from USERNAME
 def anilist_getUserID(userName):
+    logger("Getting User ID from Anilist..")
     try:
         response = requests.post(AnilistURL, json=queryUser(userName))
     except:
-        print("Internet error! Check your connection.")
+        logger("Internet error! Check your connection.")
         return -1
 
     # If successful, get User ID from Username
     if (response.status_code == 200):
         jsonParsed = json.loads(response.content)
         userID = jsonParsed["data"]["User"]["id"]
-        print("User ID: " + str(userID))
+        logger("User ID: " + str(userID))
         return userID
     else:
-        print("Cannot get User ID!")
-        print(response.content)
+        logger("Cannot get User ID!")
+        logger(response.content)
         return 0
 
 # Request user media list, returns JSON Object
 def anilist_userlist(userID, MEDIA = "ANIME"):
+    logger("Getting " + MEDIA + " from Anilist..")
     varQuery = { 'userID': str(userID), 'MEDIA' : MEDIA }
     response = requests.post(AnilistURL, json={'query': queryMedia(), 'variables': varQuery})
     if (response.status_code == 200):
         jsonParsed = json.loads(response.content)
-        print(MEDIA + " request success! Returned JSON object..")
+        logger(MEDIA + " request success! Returned JSON object..")
         return jsonParsed
     else:
-        print(MEDIA + " Request Error! [Status code: " + str(response.status_code) + "]")
-        print(response.content)
+        logger(MEDIA + " Request Error! [Status code: " + str(response.status_code) + "]")
+        logger(response.content)
         return None

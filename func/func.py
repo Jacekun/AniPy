@@ -1,10 +1,11 @@
 # Global functions
 # Imports
 import os
+from datetime import datetime
 
 # Log string, and return it
 def logString(text):
-  print(text)
+  print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
   return text
 
 # Check if not Null, and return
