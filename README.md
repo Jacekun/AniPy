@@ -16,6 +16,11 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 **Note: It would take a long time to fetch the data. Wait for it to finish..** <br>
 
+## Files created:
+
+1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
+2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
+
 # Requirements:
   - Windows 64-bit.
   - 3GB RAM, or higher.
@@ -25,26 +30,22 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - Export User Anime/Manga list to [MAL](https://myanimelist.net/) Xml export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
 - Graphical User Interface, for easy use.
 
-## Files created:
-
-1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
-2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
-
 # Developer
 
-## Packages used
+Written in: **Python 3.9** <br>
 
-### Import (Included in Python 3.x)
-[os](https://docs.python.org/3/library/os.html) <br>
-[sys](https://docs.python.org/3/library/sys.html) <br>
-[json](https://docs.python.org/3/library/json.html) <br>
-[tkinter](https://docs.python.org/3/library/tkinter.html) <br>
-[datetime](https://docs.python.org/3/library/datetime.html) <br>
+## Setup:
 
-### Install, then Import
-[importlib](https://pypi.org/project/importlib/) <br>
-[requests](https://pypi.org/project/requests/) <br>
-[pygubu](https://pypi.org/project/pygubu/) <br>
+1. Install *dependency* packages (run Command Prompt in the same folder as '*main.py*'): <br>
+  ```cmd
+  pip3 install -r packages.txt
+  ```
+**To build Windows GUI:** <br>
+1 Type this into the Command Prompt (Powershell):
+  ```cmd
+  build.cmd
+  ```
+2 Copy **'main_win.ui'** into **'dist/files/main_win.ui'**.
 
 ## Files:
 
