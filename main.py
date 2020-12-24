@@ -83,7 +83,7 @@ class MainApp:
               anilistID = entry["media"]["id"]
               # Get Anilist Status
               AnilistStatus = fMain.validateStr(entry["status"])
-              
+
               # Check if already exists
               if anilistID in entryID:
                 fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Anime entry.\n")
@@ -114,6 +114,8 @@ class MainApp:
                   cDrop = cDrop + 1
                 elif (AnilistStatus == "PLANNING"):
                   cPtw = cPtw + 1
+                elif (AnilistStatus == "REPEATING"):
+                  cWatch = cWatch + 1
 
           # Delete last comma ',', in json file
           logger("Remove last comma from Anime JSON file..")
@@ -207,7 +209,7 @@ class MainApp:
               malID = fMain.validateInt(entry["media"]["idMal"])
               if malID != '0':
                 # Get XML strings
-                xmltoWrite = fMain.entry_mangaxml(malID, entry)
+                xmltoWrite = fMain.entry_mangaxml(malID, entry, str(AnilistStatus))
                 # Write to xml file
                 fMain.write_append(xmlManga, xmltoWrite)
 
@@ -222,6 +224,8 @@ class MainApp:
                   cDrop = cDrop + 1
                 elif (AnilistStatus == "PLANNING"):
                   cPtr = cPtr + 1
+                elif (AnilistStatus == "REPEATING"):
+                  cRead = cRead + 1
 
         # Delete last comma ',', in json file
         logger("Remove last comma from manga JSON file..")
