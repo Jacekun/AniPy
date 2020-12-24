@@ -54,7 +54,7 @@ Written in: **Python 3.9** <br>
 **[main_win.py](main_win.py)** : Windows GUI version, using *Pygubu*. <br>
 **[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
 **[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu' and 'Pygubu-designer'*. <br>
-**[dependencies.txt](dependencies.txt)**    : List of packages required. <br>
+**[packages.txt](packages.txt)**    : List of packages required. <br>
 
 **[func / func.py](func/func.py)**    : Main functions. <br>
 **[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
