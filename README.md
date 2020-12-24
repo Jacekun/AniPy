@@ -45,11 +45,8 @@ Written in: **Python 3.9** <br>
   pip3 install -r packages.txt
   ```
 **To build Windows GUI:** <br>
-1 Type this into the Command Prompt (Powershell):
-  ```cmd
-  build.cmd
-  ```
-2 Copy **'main_win.ui'** into **'dist/files/main_win.ui'**.
+1. Run this file in *Command Prompt* / *Powershell*: **'build.cmd'**.
+2. Copy **'main_win.ui'** into **'dist/files/main_win.ui'**.
 
 ## Files:
 
