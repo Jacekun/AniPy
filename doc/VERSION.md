@@ -1,6 +1,18 @@
 # v1.1.0.0 - Re-write
 **Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
 
+**New:**
+- Added "Rereading" Manga to MAL Manga XML file.
+
+**Inside the Code:**
+- Convert 'response.content' on 'anilist_request.py' to string, for proper error-logging.
+- Code cleanups.
+
+<br>
+
+# v1.1.0.0 - Re-write
+**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
+
 **Fixes:**
 - Removed duplicate entries from List.
 
