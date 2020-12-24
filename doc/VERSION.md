@@ -1,4 +1,4 @@
-# v1.1.0.0 - Re-write
+# v1.1.0.1 - Improvements
 **Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
 
 **New:**
