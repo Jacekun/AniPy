@@ -67,6 +67,11 @@ def toMalStatus(status, media):
       return "Plan to Watch"
     else:
       return "Plan to Read"
+  elif (malstatus == "REPEATING"):
+    if (media == 'anime'):
+      return "Watching"
+    else:
+      return "Reading"
   else:
     return ""
 
