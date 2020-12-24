@@ -80,7 +80,7 @@ def anilist_getUserID(userName):
         return userID
     else:
         logger("Cannot get User ID!")
-        logger(response.content)
+        logger(str(response.content))
         return 0
 
 # Request user media list, returns JSON Object
