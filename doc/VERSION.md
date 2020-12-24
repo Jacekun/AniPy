@@ -3,6 +3,7 @@
 
 **New:**
 - Added "Rereading" Manga to MAL Manga XML file.
+- Handles "Rewatching / Rereading".
 
 **Inside the Code:**
 - Convert 'response.content' on 'anilist_request.py' to string, for proper error-logging.
