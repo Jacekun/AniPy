@@ -248,7 +248,7 @@ class Main:
                 malID = fMain.validateInt(entry["media"]["idMal"])
                 if malID != '0':
                   # Get XML strings
-                  xmltoWrite = fMain.entry_mangaxml(malID, entry)
+                  xmltoWrite = fMain.entry_mangaxml(malID, entry, str(AnilistStatus))
                   # Write to xml file
                   fMain.write_append(xmlManga, xmltoWrite)
 
