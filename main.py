@@ -33,8 +33,11 @@ outputAnime = "anime.json"
 xmlAnime = "anime.xml"
 outputManga = "manga.json"
 xmlManga = "manga.xml"
+entryLog = "entries.log" # Log entries
 # json objects
 jsonAnime = None
+# List of IDs, to prevent duplicates
+entryID = []
 
 # Start of 'Main' class
 class MainApp:
@@ -66,11 +69,25 @@ class MainApp:
           # Write to json file
           fMain.write_append(outputAnime, '[\n')
 
+          # Log duplicate entries
+          fMain.write_append(entryLog, "ANIME Entries Log\n")
+          entryID.clear() # Clear list
+
           # Iterate over the MediaCollection List
           for anime in listAnime:
+            # Get entries
             animeInfo = anime["entries"]
             # Iterate over the anime information, inside the entries
             for entry in animeInfo:
+              # Get Anilist ID
+              anilistID = entry["media"]["id"]
+              # Check if already exists
+              if anilistID in entryID:
+                fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Anime entry.\n")
+                continue
+              else:
+                entryID.append(anilistID)
+
               # Write to json file
               jsontoAdd = fMain.entry_json(entry, 'anime')
               fMain.write_append(outputAnime, jsontoAdd)
@@ -158,11 +175,25 @@ class MainApp:
           # Write to json file
           fMain.write_append(outputManga, '[\n')
 
+          # Log duplicate entries
+          fMain.write_append(entryLog, "MANGA Entries Log\n")
+          entryID.clear() # Clear list
+
           # Iterate over the MediaCollection List
           for manga in listManga:
+            # Get Manga Entries
             mangaInfo = manga["entries"]
             # Iterate over the manga information, inside the entries
             for entry in mangaInfo:
+              # Get Anilist ID
+              anilistID = entry["media"]["id"]
+              # Check if already exists
+              if anilistID in entryID:
+                fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Manga entry.\n")
+                continue
+              else:
+                entryID.append(anilistID)
+
               # Write to json file
               jsontoAdd = fMain.entry_json(entry, 'manga')
               fMain.write_append(outputManga, jsontoAdd)
