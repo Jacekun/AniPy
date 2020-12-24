@@ -4,9 +4,9 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 [**View Project History**](doc/VERSION.md) <br>
 
-[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.0.0.0/AniPy_v1.0.0.0.zip)
+[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.1.0.0/AniPy_v1.1.0.0.zip)
 
-**Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.0.0.0/total.svg)]() <br>
+**Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
 
 # How to use?
 
@@ -27,8 +27,12 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 # Features:
 - Export User Anime/Manga list to JSON file.
-- Export User Anime/Manga list to [MAL](https://myanimelist.net/) Xml export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
+- Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
 - Graphical User Interface, for easy use.
+
+# Limitations:
+- Only works on **Public** User Anilist. (No Authentication).
+- Cannot get information from **"Re-watches / Re-reads"**.
 
 # Developer
 
