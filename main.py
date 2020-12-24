@@ -22,8 +22,8 @@ fMain = importlib.import_module("func.func")
 fReq = importlib.import_module("func.anilist_request")
 
 # App Properties
-appVersion = '1.0.0.0'
-appBuild = 1
+appVersion = '1.1.0.0'
+appBuild = 2
 
 # Get Username
 username = input("Enter your Anilist Username: ")
