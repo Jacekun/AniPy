@@ -127,7 +127,7 @@ def entry_json(entry, media):
   return jsontoAdd
 
 # Return string to add to MAL XML
-def entry_mangaxml(malID, entry):
+def entry_mangaxml(malID, entry, status="CURRENT"):
   xmltoWrite = "\t<manga>\n"
   xmltoWrite += "\t\t" + toMalval(malID, 'manga_mangadb_id') + '\n'
   xmltoWrite += "\t\t" + toMalstr(validateStr(entry["media"]["title"]["romaji"]), 'manga_title') + '\n'
@@ -146,6 +146,10 @@ def entry_mangaxml(malID, entry):
   xmltoWrite += "\t\t" + toMalval('0', 'my_times_read') + '\n'
   xmltoWrite += "\t\t" + toMalstr('', 'my_tags') + '\n'
   xmltoWrite += "\t\t" + toMalval('', 'my_reread_value') + '\n'
+  if (status=="REPEATING"):
+    xmltoWrite += "\t\t" + toMalval('YES', 'my_rereading') + '\n'
+  else:
+    xmltoWrite += "\t\t" + toMalval('NO', 'my_rereading') + '\n'
   xmltoWrite += "\t\t" + toMalval('1', 'update_on_import') + '\n'
   xmltoWrite += "\t</manga>\n"
   return xmltoWrite
