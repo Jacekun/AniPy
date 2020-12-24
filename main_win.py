@@ -16,8 +16,15 @@ def logger(text):
 logger("Define Global Vars..")
 # Paths for Files
 PROJECT_PATH = os.path.dirname(sys.executable) #os.path.dirname(__file__)
-PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
 logger("Current path: " + PROJECT_PATH)
+
+PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
+entryLog = os.path.join(PROJECT_PATH, "entries.log") # Log entries
+# Output file names
+outputAnime = os.path.join(PROJECT_PATH, "anime.json")
+xmlAnime = os.path.join(PROJECT_PATH, "anime.xml")
+outputManga = os.path.join(PROJECT_PATH, "manga.json")
+xmlManga = os.path.join(PROJECT_PATH, "manga.xml")
 
 logger("Import scripts from same folder")
 fMain = importlib.import_module("func.func")
@@ -66,9 +73,6 @@ class Main:
         # Request anime list
         labelStatus["text"] = fMain.logString("Requesting anime list..")
 
-        # Output file names
-        outputAnime = os.path.join(PROJECT_PATH, "anime.json")
-        xmlAnime = os.path.join(PROJECT_PATH, "anime.xml")
         # Check if not existing
         if not (os.path.exists(outputAnime)):
           # Get JSON object
@@ -169,9 +173,6 @@ class Main:
         
         # Request manga list
         labelStatus["text"] = fMain.logString("Requesting manga list..")
-        # Output file names
-        outputManga = os.path.join(PROJECT_PATH, "manga.json")
-        xmlManga = os.path.join(PROJECT_PATH, "manga.xml")
 
         # Check if not existing
         if not (os.path.exists(outputManga)):
