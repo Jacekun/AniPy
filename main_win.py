@@ -146,6 +146,8 @@ class Main:
                     cDrop = cDrop + 1
                   elif (AnilistStatus == "PLANNING"):
                     cPtw = cPtw + 1
+                  elif (AnilistStatus == "REPEATING"):
+                    cWatch = cWatch + 1
 
             # Delete last comma ',', in json file
             labelStatus["text"] = "Finalizing Anime JSON file.."
@@ -261,6 +263,8 @@ class Main:
                     cDrop = cDrop + 1
                   elif (AnilistStatus == "PLANNING"):
                     cPtr = cPtr + 1
+                  elif (AnilistStatus == "REPEATING"):
+                    cRead = cRead + 1
 
           # Delete last comma ',', in json file
           labelStatus["text"] = "Finalizing Manga JSON file.."
