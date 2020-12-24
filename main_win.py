@@ -134,16 +134,16 @@ class Main:
                   fMain.write_append(xmlAnime, xmltoWrite)
                 
                   # Add count
-                  malstatus = fMain.validateStr(entry["status"])
-                  if (malstatus == "COMPLETED"):
+                  AnilistStatus = fMain.validateStr(entry["status"])
+                  if (AnilistStatus == "COMPLETED"):
                     cComplete = cComplete + 1
-                  elif (malstatus == "PAUSED"):
+                  elif (AnilistStatus == "PAUSED"):
                     cHold = cHold + 1
-                  elif (malstatus == "CURRENT"):
+                  elif (AnilistStatus == "CURRENT"):
                     cWatch = cWatch + 1
-                  elif (malstatus == "DROPPED"):
+                  elif (AnilistStatus == "DROPPED"):
                     cDrop = cDrop + 1
-                  elif (malstatus == "PLANNING"):
+                  elif (AnilistStatus == "PLANNING"):
                     cPtw = cPtw + 1
 
             # Delete last comma ',', in json file
@@ -247,16 +247,16 @@ class Main:
                   fMain.write_append(xmlManga, xmltoWrite)
 
                   # Add count
-                  malstatus = fMain.validateStr(entry["status"])
-                  if (malstatus == "COMPLETED"):
+                  AnilistStatus = fMain.validateStr(entry["status"])
+                  if (AnilistStatus == "COMPLETED"):
                     cComplete = cComplete + 1
-                  elif (malstatus == "PAUSED"):
+                  elif (AnilistStatus == "PAUSED"):
                     cHold = cHold + 1
-                  elif (malstatus == "CURRENT"):
+                  elif (AnilistStatus == "CURRENT"):
                     cRead = cRead + 1
-                  elif (malstatus == "DROPPED"):
+                  elif (AnilistStatus == "DROPPED"):
                     cDrop = cDrop + 1
-                  elif (malstatus == "PLANNING"):
+                  elif (AnilistStatus == "PLANNING"):
                     cPtr = cPtr + 1
 
           # Delete last comma ',', in json file
