@@ -50,24 +50,24 @@ def toMaldate(year, month, day):
   return date
 
 def toMalStatus(status, media):
-  malstatus = validateStr(status)
-  if (malstatus == "COMPLETED"):
+  AnilistStatus = validateStr(status)
+  if (AnilistStatus == "COMPLETED"):
     return "Completed"
-  elif (malstatus == "PAUSED"):
+  elif (AnilistStatus == "PAUSED"):
     return "On-Hold"
-  elif (malstatus == "CURRENT"):
+  elif (AnilistStatus == "CURRENT"):
     if (media == 'anime'):
       return "Watching"
     else:
       return "Reading"
-  elif (malstatus == "DROPPED"):
+  elif (AnilistStatus == "DROPPED"):
     return "Dropped"
-  elif (malstatus == "PLANNING"):
+  elif (AnilistStatus == "PLANNING"):
     if (media == 'anime'):
       return "Plan to Watch"
     else:
       return "Plan to Read"
-  elif (malstatus == "REPEATING"):
+  elif (AnilistStatus == "REPEATING"):
     if (media == 'anime'):
       return "Watching"
     else:
