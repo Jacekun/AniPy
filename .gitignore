@@ -126,3 +126,7 @@ dmypy.json
 
 # Custom List
 ignoreFiles/
+anime.json
+anime.xml
+manga.json
+manga.xml
