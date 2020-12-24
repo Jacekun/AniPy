@@ -113,6 +113,8 @@ class Main:
               for entry in animeInfo:
                 # Get Anilist ID
                 anilistID = entry["media"]["id"]
+                # Get Anilist Status
+                AnilistStatus = fMain.validateStr(entry["status"])
 
                 # Check if already exists
                 if anilistID in entryID:
@@ -134,7 +136,6 @@ class Main:
                   fMain.write_append(xmlAnime, xmltoWrite)
                 
                   # Add count
-                  AnilistStatus = fMain.validateStr(entry["status"])
                   if (AnilistStatus == "COMPLETED"):
                     cComplete = cComplete + 1
                   elif (AnilistStatus == "PAUSED"):
@@ -227,6 +228,9 @@ class Main:
               for entry in mangaInfo:
                 # Get Anilist ID
                 anilistID = entry["media"]["id"]
+                # Get Anilist Status
+                AnilistStatus = fMain.validateStr(entry["status"])
+
                 # Check if already exists
                 if anilistID in entryID:
                   fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Manga entry.\n")
@@ -247,7 +251,6 @@ class Main:
                   fMain.write_append(xmlManga, xmltoWrite)
 
                   # Add count
-                  AnilistStatus = fMain.validateStr(entry["status"])
                   if (AnilistStatus == "COMPLETED"):
                     cComplete = cComplete + 1
                   elif (AnilistStatus == "PAUSED"):
