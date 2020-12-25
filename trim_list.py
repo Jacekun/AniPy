@@ -4,7 +4,6 @@ import os
 import sys
 import json
 import importlib
-from datetime import datetime
 
 # Import external 'func'
 fMain = importlib.import_module("func.func")
