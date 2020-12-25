@@ -8,6 +8,10 @@ from datetime import datetime
 # Logger
 def logger(text):
     print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
+# Delete file
+def deleteFile(file):
+    if os.path.exists(file):
+        os.remove(file)
 
 # Paths for Files
 PROJECT_PATH = os.path.dirname(sys.executable)
@@ -27,6 +31,9 @@ appBuild = 1
 # STATS variables
 statScoreTotal = 0
 statScoreCount = 0
+
+# Delete prev files
+deleteFile(outputStats)
 
 # json objects
 logger("Loading " + inputAnime + " into memory..")
