@@ -42,9 +42,12 @@ with open(inputManga, "r+", encoding='utf-8') as F:
     jsonManga = json.load(F)
     fMain.logString("File: " + inputManga + " is loaded!..")
 
+# json Objects
 jsonOutputAnime = []
 jsonOutputManga = []
 
+# Get entries from Anime, not in MAL
+fMain.logString("Checking anime list..")
 for entry in jsonAnime:
     # Get each entry
     if (entry["idMal"] < 1):
@@ -88,6 +91,8 @@ statScoreTotal = 0
 statScoreCount = 0
 
 # For MANGA
+# Get entries from MANGA, not in MAL
+fMain.logString("Checking manga list..")
 for entry in jsonManga:
     # Get each entry
     if (entry["idMal"] < 1):
