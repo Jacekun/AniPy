@@ -1,4 +1,4 @@
-# Global functions
+# Global functions (Main functions)
 # Imports
 import os
 from datetime import datetime
@@ -178,3 +178,8 @@ def entry_animexml(malID, entry):
   xmltoWrite += "\t\t" + toMalval('1', 'update_on_import') + '\n'
   xmltoWrite += "\t</anime>\n"
   return xmltoWrite
+
+# Delete file
+def deleteFile(file):
+    if os.path.exists(file):
+        os.remove(file)

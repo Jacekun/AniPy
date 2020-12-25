@@ -3,19 +3,16 @@
 import os
 import sys
 import json
+import importlib
 from datetime import datetime
 
-# Logger
-def logger(text):
-    print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
-# Delete file
-def deleteFile(file):
-    if os.path.exists(file):
-        os.remove(file)
+# Import external 'func'
+fMain = importlib.import_module("func.func")
+
 
 # Paths for Files
 PROJECT_PATH = os.path.dirname(sys.executable)
-logger("Current path: " + PROJECT_PATH)
+fMain.logString("Current path: " + PROJECT_PATH)
 
 # Files
 inputAnime = "anime.json"
@@ -33,18 +30,18 @@ statScoreTotal = 0
 statScoreCount = 0
 
 # Delete prev files
-deleteFile(outputStats)
+fMain.deleteFile(outputStats)
 
 # json objects
-logger("Loading " + inputAnime + " into memory..")
+fMain.logString("Loading " + inputAnime + " into memory..")
 with open(inputAnime, "r+", encoding='utf-8') as F:
     jsonAnime = json.load(F)
-    logger("File: " + inputAnime + " is loaded!..")
+    fMain.logString("File: " + inputAnime + " is loaded!..")
 
-logger("Loading " + inputManga + " into memory..")
+fMain.logString("Loading " + inputManga + " into memory..")
 with open(inputManga, "r+", encoding='utf-8') as F:
     jsonManga = json.load(F)
-    logger("File: " + inputManga + " is loaded!..")
+    fMain.logString("File: " + inputManga + " is loaded!..")
 
 jsonOutputAnime = []
 jsonOutputManga = []
@@ -77,13 +74,13 @@ for entry in jsonAnime:
         statScoreCount = statScoreCount + 1
 
 # Write 'outputAnime'
-logger("Writing file: " + outputAnime)
+fMain.logString("Writing file: " + outputAnime)
 with open(outputAnime, "w+", encoding='utf-8') as F:
     F.write(json.dumps(jsonOutputAnime, ensure_ascii=False, indent=4).encode('utf8').decode())
-    logger("File generated: " + outputAnime)
+    fMain.logString("File generated: " + outputAnime)
 
 # Write stats for Anime
-logger("Appending to file (Average Score stats): " + outputStats)
+fMain.logString("Appending to file (Average Score stats): " + outputStats)
 with open(outputStats, "a+", encoding='utf-8') as F:
     F.write("Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
 
@@ -122,12 +119,12 @@ for entry in jsonManga:
         statScoreCount = statScoreCount + 1
 
 # Write 'outputManga'
-logger("Writing file: " + outputManga)
+fMain.logString("Writing file: " + outputManga)
 with open(outputManga, "w+", encoding='utf-8') as F:
     F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
-    logger("File generated: " + outputManga)
+    fMain.logString("File generated: " + outputManga)
 
 # Write stats for Manga
-logger("Appending to file (Average Score stats): " + outputStats)
+fMain.logString("Appending to file (Average Score stats): " + outputStats)
 with open(outputStats, "a+", encoding='utf-8') as F:
     F.write("Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
