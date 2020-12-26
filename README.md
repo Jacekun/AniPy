@@ -20,6 +20,8 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
 2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
+3. **anime_NotInMal.json** / **manga_NotInMal.json**  : Entries not existing on MAL.
+4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
 
 # Requirements:
   - Windows 64-bit.
@@ -49,12 +51,15 @@ Written in: **Python 3.9** <br>
 2. Copy **'main_win.ui'** into **'dist/files/main_win.ui'**.
 
 ## Files:
-
+### Main scripts:
 **[main.py](main.py)** : Console version of App. <br>
 **[main_win.py](main_win.py)** : Windows GUI version, using *Pygubu*. <br>
-**[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
-**[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu' and 'Pygubu-designer'*. <br>
-**[packages.txt](packages.txt)**    : List of packages required. <br>
-
+**[trim_list.py](trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
+### External scripts:
 **[func / func.py](func/func.py)**    : Main functions. <br>
 **[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
+### UI Files:
+**[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
+### Misc.:
+**[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu' and 'Pygubu-designer'*. <br>
+**[packages.txt](packages.txt)**    : List of packages required. <br>
