@@ -1,4 +1,5 @@
 # Remove Entries that have MAL ID
+# And additional code to get stats
 # imports
 import os
 import sys
@@ -27,6 +28,13 @@ appBuild = 1
 # STATS variables
 statScoreTotal = 0
 statScoreCount = 0
+# Count entries
+cTotal = 0
+cCurrent = 0
+cComplete = 0
+cHold = 0
+cDrop = 0
+cPlan = 0
 
 # Delete prev files
 fMain.deleteFile(outputStats)
@@ -74,6 +82,21 @@ for entry in jsonAnime:
     if (statScore > 0):
         statScoreTotal = statScoreTotal + statScore
         statScoreCount = statScoreCount + 1
+    
+    # Count entries
+    AnilistStatus = str(entry["status"])
+    if (AnilistStatus == "COMPLETED"):
+        cComplete = cComplete + 1
+    elif (AnilistStatus == "PAUSED"):
+        cHold = cHold + 1
+    elif (AnilistStatus == "CURRENT"):
+        cCurrent = cCurrent + 1
+    elif (AnilistStatus == "DROPPED"):
+        cDrop = cDrop + 1
+    elif (AnilistStatus == "PLANNING"):
+        cPlan = cPlan + 1
+    elif (AnilistStatus == "REPEATING"):
+        cCurrent = cCurrent + 1
 
 # Write 'outputAnime'
 fMain.logString("Writing file: " + outputAnime)
@@ -83,12 +106,21 @@ with open(outputAnime, "w+", encoding='utf-8') as F:
 
 # Write stats for Anime
 fMain.logString("Appending to file (Average Score stats): " + outputStats)
-with open(outputStats, "a+", encoding='utf-8') as F:
-    F.write("Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Watching: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
 
+# Add Line Break
+fMain.write_append(outputStats, "===============================================================\n")
 # Reset vars
 statScoreTotal = 0
 statScoreCount = 0
+# Reset count
+cTotal = 0
+cCurrent = 0
+cComplete = 0
+cHold = 0
+cDrop = 0
+cPlan = 0
 
 # For MANGA
 # Get entries from MANGA, not in MAL
@@ -122,6 +154,21 @@ for entry in jsonManga:
         statScoreTotal = statScoreTotal + statScore
         statScoreCount = statScoreCount + 1
 
+    # Count entries
+    AnilistStatus = str(entry["status"])
+    if (AnilistStatus == "COMPLETED"):
+        cComplete = cComplete + 1
+    elif (AnilistStatus == "PAUSED"):
+        cHold = cHold + 1
+    elif (AnilistStatus == "CURRENT"):
+        cCurrent = cCurrent + 1
+    elif (AnilistStatus == "DROPPED"):
+        cDrop = cDrop + 1
+    elif (AnilistStatus == "PLANNING"):
+        cPlan = cPlan + 1
+    elif (AnilistStatus == "REPEATING"):
+        cCurrent = cCurrent + 1
+        
 # Write 'outputManga'
 fMain.logString("Writing file: " + outputManga)
 with open(outputManga, "w+", encoding='utf-8') as F:
@@ -130,5 +177,5 @@ with open(outputManga, "w+", encoding='utf-8') as F:
 
 # Write stats for Manga
 fMain.logString("Appending to file (Average Score stats): " + outputStats)
-with open(outputStats, "a+", encoding='utf-8') as F:
-    F.write("Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Reading: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
