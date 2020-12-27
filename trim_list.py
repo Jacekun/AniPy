@@ -64,7 +64,10 @@ for entry in jsonAnime:
         jsonData["idAnilist"] = entry["idAnilist"]
         jsonData["titleEnglish"] = entry["titleEnglish"]
         jsonData["titleRomaji"] = entry["titleRomaji"]
-        jsonData["synonyms"] = entry["synonyms"]
+        if str(entry["synonyms"]) == "[]":
+            jsonData["synonyms"] = ""
+        else:
+            jsonData["synonyms"] = entry["synonyms"]
         jsonData["format"] = entry["format"]
         jsonData["source"] = entry["source"]
         jsonData["status"] = entry["status"]
@@ -133,7 +136,10 @@ for entry in jsonManga:
         jsonData["idAnilist"] = entry["idAnilist"]
         jsonData["titleEnglish"] = entry["titleEnglish"]
         jsonData["titleRomaji"] = entry["titleRomaji"]
-        jsonData["synonyms"] = entry["synonyms"]
+        if str(entry["synonyms"]) == "[]":
+            jsonData["synonyms"] = ""
+        else:
+            jsonData["synonyms"] = entry["synonyms"]
         jsonData["format"] = entry["format"]
         jsonData["source"] = entry["source"]
         jsonData["status"] = entry["status"]
