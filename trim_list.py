@@ -11,15 +11,15 @@ fMain = importlib.import_module("func.func")
 
 
 # Paths for Files
-PROJECT_PATH = os.path.dirname(sys.executable)
+PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
 fMain.logString("Current path: " + PROJECT_PATH)
 
 # Files
-inputAnime = "anime.json"
-inputManga = "manga.json"
-outputAnime = "anime_NotInMal.json"
-outputManga = "manga_NotInMal.json"
-outputStats = "animemanga_stats.txt"
+inputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
+inputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
+outputAnime = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
+outputManga = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
+outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
 
 # App Properties
 appVersion = '1.0.0.1'

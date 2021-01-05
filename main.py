@@ -12,7 +12,7 @@ logger("Define Global Vars..")
 # Global Vars
 
 # Paths for Files
-PROJECT_PATH = os.path.dirname(sys.executable) #os.path.dirname(__file__)
+PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
 PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
 logger("Current path: " + PROJECT_PATH)
 
@@ -29,11 +29,11 @@ appBuild = 2
 username = input("Enter your Anilist Username: ")
 userID = 0
 # Output file names
-outputAnime = "anime.json"
-xmlAnime = "anime.xml"
-outputManga = "manga.json"
-xmlManga = "manga.xml"
-entryLog = "entries.log" # Log entries
+outputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
+xmlAnime = os.path.join(PROJECT_PATH, "output\\anime.xml")
+outputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
+xmlManga = os.path.join(PROJECT_PATH, "output\\manga.xml")
+entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
 # json objects
 jsonAnime = None
 # List of IDs, to prevent duplicates
