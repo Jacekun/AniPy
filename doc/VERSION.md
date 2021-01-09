@@ -1,16 +1,27 @@
-# v1.2.0.0 - Improvements
-**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
+# v1.2.0.3 - Improvements
+**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
+
+Based from **main.py** version: 1.2.0.4 <br>
 
 **New:**
-- Added "Rereading" Manga to MAL Manga XML file.
 - Handles "Rewatching / Rereading", saves it as "Watching / Reading".
+- Moved all **'output files'**, from *'root directory'* to *'root/output'* subfolder.
+- Added "Rereading" Manga to MAL Manga XML file.
 - Added script to get Entries which does not exist on MAL. (*Output File:* **anime_NotInMal.json / manga_NotInMal.json**).
 - Get **'Average Score'** and **'Anime/Manga count for Each status'**. (*Output File:* **'animemanga_stats.txt'**).
 
 **Inside the Code:**
-- Script file for Generating lists of Entries not in MAL. Also, gets stats. (*File:* **'trim_list.py'**).
+- Moved code getting anime / manga entries, to separate modules. (*File:* **'func/anilist_getAnime.py', 'func/anilist_getManga.py'**)
+- Script file for Generating lists of Entries not in MAL. Also, gets stats. (*File:* **'func/trim_list.py'**).
 - Convert 'response.content' on 'anilist_request.py' to string, for proper error-logging.
+- Validated **'synonyms'**. If result is **"[]"**, return *empty string*.
+- Renamed module script: **'func.py'** to **'main.py'**.
 - Code cleanups.
+
+**Console-only changes:**
+- Ask for username, until a valid one is provided.
+- Changed **build.cmd**, to include files during **'executable'** build.
+- Added **'main_win.spec'**, to provide options during **'executable'** build.
 
 <br>
 
