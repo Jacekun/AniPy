@@ -22,6 +22,7 @@ fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 fGetAnime = importlib.import_module("func.anilist_getAnime")
 fGetManga = importlib.import_module("func.anilist_getManga")
+fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
 appVersion = '1.1.0.3'
@@ -36,6 +37,10 @@ xmlAnime = os.path.join(PROJECT_PATH, "output\\anime.xml")
 outputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
 xmlManga = os.path.join(PROJECT_PATH, "output\\manga.xml")
 entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
+# Trim List Output
+outputAnimeTrim = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
+outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
+outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
 # json objects
 jsonAnime = None
 # List of IDs, to prevent duplicates
@@ -60,6 +65,9 @@ class MainApp:
 
       # Request manga list
       fGetManga.getMangaEntries(userID, username, outputManga, xmlManga, entryLog)
+
+      # Trim List
+      fTrim.trim_results(outputAnime, outputManga, outputAnimeTrim, outputMangaTrim, outputStats)
 
   else:
     logger("Username is empty!")
