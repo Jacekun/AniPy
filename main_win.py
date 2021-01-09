@@ -21,17 +21,22 @@ logger("Current path: " + PROJECT_PATH)
 PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
 entryLog = os.path.join(PROJECT_PATH, "entries.log") # Log entries
 # Output file names
-outputAnime = os.path.join(PROJECT_PATH, "anime.json")
-xmlAnime = os.path.join(PROJECT_PATH, "anime.xml")
-outputManga = os.path.join(PROJECT_PATH, "manga.json")
-xmlManga = os.path.join(PROJECT_PATH, "manga.xml")
+outputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
+xmlAnime = os.path.join(PROJECT_PATH, "output\\anime.xml")
+outputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
+xmlManga = os.path.join(PROJECT_PATH, "output\\manga.xml")
+entryLog = os.path.join(PROJECT_PATH, "output\\entries.log")
+# Trim List Output
+outputAnimeTrim = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
+outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
+outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
 
 logger("Import scripts from same folder")
 fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 
 # App Properties
-appVersion = '1.1.0.1'
+appVersion = '1.1.0.2'
 appBuild = 2
 
 # Objects
