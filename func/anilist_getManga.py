@@ -3,7 +3,7 @@ import os
 import importlib
 
 # Import libs from 'func'
-fMain = importlib.import_module("func.func")
+fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 fMain.logString("Imported Modules!")
 

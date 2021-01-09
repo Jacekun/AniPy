@@ -18,13 +18,13 @@ logger("Current path: " + PROJECT_PATH)
 
 # Import libs from 'func'
 logger("Import scripts from same folder")
-fMain = importlib.import_module("func.func")
+fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 fGetAnime = importlib.import_module("func.anilist_getAnime")
 fGetManga = importlib.import_module("func.anilist_getManga")
 
 # App Properties
-appVersion = '1.1.0.1'
+appVersion = '1.1.0.2'
 appBuild = 2
 
 # Get Username
