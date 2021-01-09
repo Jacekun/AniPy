@@ -27,11 +27,11 @@ outputManga = os.path.join(PROJECT_PATH, "manga.json")
 xmlManga = os.path.join(PROJECT_PATH, "manga.xml")
 
 logger("Import scripts from same folder")
-fMain = importlib.import_module("func.func")
+fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 
 # App Properties
-appVersion = '1.1.0.0'
+appVersion = '1.1.0.1'
 appBuild = 2
 
 # Objects
