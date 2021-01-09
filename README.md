@@ -4,9 +4,9 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 [**View Project History**](doc/VERSION.md) <br>
 
-[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.1.0.0/AniPy_v1.1.0.0.zip)
+[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.2.0.3/AniPy_v1.2.0.3.zip)
 
-**Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
+**Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
 
 # How to use?
 
@@ -54,12 +54,13 @@ Written in: **Python 3.9** <br>
 ### Main scripts:
 **[main.py](main.py)** : Console version of App. <br>
 **[main_win.py](main_win.py)** : Windows GUI version, using *Pygubu*. <br>
-**[trim_list.py](trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
 ### External scripts:
-**[func / func.py](func/func.py)**    : Main functions. <br>
+**[func / main.py](func/main.py)**    : Main functions. <br>
 **[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
+**[func / trim_list.py](func/trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
 ### UI Files:
 **[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
 ### Misc.:
-**[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu' and 'Pygubu-designer'*. <br>
+**[main_win.spec](main_win.spec)**  : Pyinstaller options for building the **executable** file, in **dist** subfolder.
+**[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu', 'Pygubu-designer', and 'main_win.spec' file*. <br>
 **[packages.txt](packages.txt)**    : List of packages required. <br>
