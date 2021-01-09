@@ -1,1 +1,1 @@
-pyinstaller --onefile --hidden-import=func.func --hidden-import=func.anilist_request --add-data "main_win.ui;files" main_win.py
+pyinstaller --onefile --hidden-import=func.main --hidden-import=func.anilist_request --hidden-import=func.anilist_getAnime.py --hidden-import=func.anilist_getManga.py --add-data "main_win.ui;files" main_win.py
