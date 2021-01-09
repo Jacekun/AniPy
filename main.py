@@ -24,11 +24,11 @@ fGetAnime = importlib.import_module("func.anilist_getAnime")
 fGetManga = importlib.import_module("func.anilist_getManga")
 
 # App Properties
-appVersion = '1.1.0.2'
+appVersion = '1.1.0.3'
 appBuild = 2
 
-# Get Username
-username = input("Enter your Anilist Username: ")
+# User vars
+username = ""
 userID = 0
 # Output file names
 outputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
@@ -46,7 +46,12 @@ class MainApp:
   logger("Starting console app..")
   # Exit if username is null
   if (username is not None):
-    userID = fReq.anilist_getUserID(username)
+
+    while (userID < 1):
+      # Get Username
+      username = input("Enter your Anilist Username: ")
+      userID = fReq.anilist_getUserID(username)
+
     # Check if User ID is valid
     if (userID > 0):
       
