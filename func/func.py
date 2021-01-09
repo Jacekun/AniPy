@@ -14,6 +14,13 @@ def validateStr(x):
     return str(x).replace('"', "'")
   return ""
 
+# Check if array is null, and return empty string
+def validateStrArr(x):
+  text = validateStr(x)
+  if text == "[]":
+    return ""
+  return text
+
 # Check if not Null, and return
 def validateInt(x):
   if x is not None:
@@ -103,7 +110,7 @@ def entry_json(entry, media):
   # Titles
   jsontoAdd += '\t\t"titleEnglish": "' + validateStr(entry["media"]["title"]["english"]) + '",\n'
   jsontoAdd += '\t\t"titleRomaji": "' + validateStr(entry["media"]["title"]["romaji"]) + '",\n'
-  jsontoAdd += '\t\t"synonyms": "' + validateStr(entry["media"]["synonyms"]) + '",\n'
+  jsontoAdd += '\t\t"synonyms": "' + validateStrArr(entry["media"]["synonyms"]) + '",\n'
   # Format and Source
   jsontoAdd += '\t\t"format": "' + validateStr(entry["media"]["format"]) + '",\n'
   jsontoAdd += '\t\t"source": "' + validateStr(entry["media"]["source"]) + '",\n'
