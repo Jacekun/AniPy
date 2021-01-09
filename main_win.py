@@ -40,8 +40,8 @@ outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
 outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
 
 # App Properties
-appVersion = '1.1.0.3'
-appBuild = 2
+appVersion = '1.2.0.3'
+appBuild = 3
 
 # Objects
 # List of IDs, to prevent duplicates
