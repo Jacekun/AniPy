@@ -1,1 +1,6 @@
-pyinstaller --onefile --hidden-import=func.main --hidden-import=func.anilist_request --hidden-import=func.anilist_getAnime --hidden-import=func.anilist_getManga --add-data "main_win.ui;files\main_win.ui" main_win.py
+pyinstaller main_win.spec
+md   "dist\output" >nul 2>&1
+md   "dist\files" >nul 2>&1
+copy "main_win.ui" "dist\files"
+copy "LICENSE" "dist"
+copy "README.md" "dist"
