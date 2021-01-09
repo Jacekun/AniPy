@@ -25,7 +25,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.1.0.4'
+appVersion = '1.2.0.4'
 appBuild = 2
 
 # User vars
