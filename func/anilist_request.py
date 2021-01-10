@@ -8,7 +8,7 @@ AnilistURL = 'https://graphql.anilist.co'
 
 # Logger
 def logger(text):
-    print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
+    print(f'[{datetime.now().strftime("%H:%M:%S")}][anilist_request]: {text}')
 
 # Return media query string
 def queryMedia():
