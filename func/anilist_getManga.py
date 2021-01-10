@@ -17,7 +17,11 @@ logger("Imported Modules!")
 entryID = []
 
 # Main Function
-def getMangaEntries(userID, username, outputManga, xmlManga, entryLog):
+def getMangaEntries(userID, username, filepath, entryLog):
+
+    # Declare filepaths
+    outputManga = os.path.join(filepath, "output\\manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+    xmlManga = os.path.join(filepath, "output\\manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
 
     # Check if not existing
     if not (os.path.exists(outputManga)):
@@ -127,3 +131,5 @@ def getMangaEntries(userID, username, outputManga, xmlManga, entryLog):
 
     else:
         fMain.logString(outputManga + " file already exist!")
+
+    return outputManga

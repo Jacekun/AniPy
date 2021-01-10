@@ -7,8 +7,8 @@ from datetime import datetime
 def logger(text):
     print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
 
-logger("Importing external modules..")
 # Import libs from 'func'
+logger("Importing external modules..")
 fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 logger("Imported Modules!")
@@ -17,7 +17,11 @@ logger("Imported Modules!")
 entryID = []
 
 # Main Function
-def getAnimeEntries(userID, username, outputAnime, xmlAnime, entryLog):
+def getAnimeEntries(userID, username, filepath, entryLog):
+
+    # Declare filepaths
+    outputAnime = os.path.join(filepath, "output\\anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+    xmlAnime = os.path.join(filepath, "output\\anime_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
 
     # Check if not existing
     if not (os.path.exists(outputAnime)):
@@ -128,3 +132,5 @@ def getAnimeEntries(userID, username, outputAnime, xmlAnime, entryLog):
     # Already existing!
     else:
         fMain.logString(outputAnime + " file already exist!")
+    
+    return outputAnime
