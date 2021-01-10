@@ -22,7 +22,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.8'
+appVersion = '1.2.0.9'
 appBuild = 3
 
 # Global Vars
@@ -41,9 +41,9 @@ entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
 # List of IDs, to prevent duplicates
 entryID = []
 
-logger("Start App from Class: 'Main'.")
 # Start App
 class Main:
+  logger("Define class Main()")
   # GUI
   def __init__(self, master=None):
     # build ui
@@ -106,5 +106,6 @@ class Main:
     labelStatus["text"] = "Done!"
 
 if __name__ == '__main__':
+  logger("Run __main__ Main() class")
   app = Main()
   app.run()
