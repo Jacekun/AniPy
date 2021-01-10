@@ -1,3 +1,19 @@
+# vx.x.x.x - Improvements
+**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/vx.x.x.x/total.svg)]() <br>
+
+Based from **main.py** version: 1.2.0.8 <br>
+
+**New and Changes:**
+- Append *current date* to the output filenames.
+
+**Inside the Code:**
+- All output filepaths are declared inside their own modules, instead of inside **'main.py'**.
+- Updated logger format.
+- Added additional log info.
+- Delete previous **'entries.log'**, every run.
+- Code cleanups.
+****
+
 # v1.2.0.3 - Improvements
 **Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
 
@@ -22,8 +38,7 @@ Based from **main.py** version: 1.2.0.4 <br>
 - Ask for username, until a valid one is provided.
 - Changed **build.cmd**, to include files during **'executable'** build.
 - Added **'main_win.spec'**, to provide options during **'executable'** build.
-
-<br>
+****
 
 # v1.1.0.0 - Re-write
 **Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
@@ -34,8 +49,7 @@ Based from **main.py** version: 1.2.0.4 <br>
 **Inside the Code:**
 - Rewritten the Code, making the functions outside of the Main script.
 - Added Logger function, with Current Time.
-
-<br>
+****
 
 # v1.0.0.0 - First Version
 **Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.0.0.0/total.svg)]() <br>
