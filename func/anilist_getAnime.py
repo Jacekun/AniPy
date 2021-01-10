@@ -1,11 +1,17 @@
 # Imports
 import os
 import importlib
+from datetime import datetime
 
+# Logger
+def logger(text):
+    print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
+
+logger("Importing external modules..")
 # Import libs from 'func'
 fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
-fMain.logString("Imported Modules!")
+logger("Imported Modules!")
 
 # List of IDs, to prevent duplicates
 entryID = []
