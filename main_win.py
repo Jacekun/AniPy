@@ -22,7 +22,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.7'
+appVersion = '1.2.0.8'
 appBuild = 3
 
 # Global Vars
@@ -36,9 +36,6 @@ PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
 outputAnime = ""
 outputManga = ""
 entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
-# Trim List Output
-outputAnimeTrim = ""
-outputMangaTrim = ""
 
 # Objects
 # List of IDs, to prevent duplicates
