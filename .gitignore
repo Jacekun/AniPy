@@ -126,10 +126,4 @@ dmypy.json
 
 # Custom List
 ignoreFiles/
-anime.json
-anime.xml
-manga.json
-manga.xml
-anime_NotInMal.json
-manga_NotInMal.json
-animemanga_stats.txt
+output/
