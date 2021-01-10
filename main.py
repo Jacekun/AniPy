@@ -32,15 +32,13 @@ appBuild = 2
 username = ""
 userID = 0
 # Output file names
-outputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
-xmlAnime = os.path.join(PROJECT_PATH, "output\\anime.xml")
-outputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
-xmlManga = os.path.join(PROJECT_PATH, "output\\manga.xml")
+outputAnime = ""
+outputManga = ""
 entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
 # Trim List Output
-outputAnimeTrim = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
-outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
-outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
+outputAnimeTrim = ""
+outputMangaTrim = ""
+
 # json objects
 jsonAnime = None
 # List of IDs, to prevent duplicates
@@ -60,14 +58,19 @@ class MainApp:
     # Check if User ID is valid
     if (userID > 0):
       
+      # Delete prev files
+      fMain.deleteFile(entryLog)
+
       # Request anime list
-      fGetAnime.getAnimeEntries(userID, username, outputAnime, xmlAnime, entryLog)
+      fMain.write_append(entryLog, f'ANIME [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
+      outputAnime = fGetAnime.getAnimeEntries(userID, username, PROJECT_PATH, entryLog)
 
       # Request manga list
-      fGetManga.getMangaEntries(userID, username, outputManga, xmlManga, entryLog)
+      fMain.write_append(entryLog, f'MANGA [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
+      outputManga = fGetManga.getMangaEntries(userID, username, PROJECT_PATH, entryLog)
 
       # Trim List
-      fTrim.trim_results(outputAnime, outputManga, outputAnimeTrim, outputMangaTrim, outputStats)
+      fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
   else:
     logger("Username is empty!")
