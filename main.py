@@ -6,15 +6,7 @@ from datetime import datetime
 
 # Logger
 def logger(text):
-    print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
-    
-logger("Define Global Vars..")
-# Global Vars
-
-# Paths for Files
-PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
-PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
-logger("Current path: " + PROJECT_PATH)
+    print(f'[main][{datetime.now().strftime("%H:%M:%S")}]: {text}')
 
 # Import libs from 'func'
 logger("Import scripts from same folder")
@@ -25,8 +17,15 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.5'
+appVersion = '1.2.0.6'
 appBuild = 2
+
+# Declare variables
+logger("Define Global Vars..")
+# Paths for Files
+PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
+PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
+logger("Current path: " + PROJECT_PATH)
 
 # User vars
 username = ""
