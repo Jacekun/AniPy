@@ -20,6 +20,10 @@ fGetAnime = importlib.import_module("func.anilist_getAnime")
 fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
+# App Properties
+appVersion = '1.2.0.4'
+appBuild = 3
+
 # Global Vars
 logger("Define Global Vars..")
 # Paths for Files
@@ -38,10 +42,6 @@ entryLog = os.path.join(PROJECT_PATH, "output\\entries.log")
 outputAnimeTrim = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
 outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
 outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
-
-# App Properties
-appVersion = '1.2.0.3'
-appBuild = 3
 
 # Objects
 # List of IDs, to prevent duplicates
