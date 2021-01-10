@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Logger
 def logger(text):
-    print(f'[main][{datetime.now().strftime("%H:%M:%S")}]: {text}')
+    print(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
 
 # Import libs from 'func'
 logger("Import scripts from same folder")
@@ -17,7 +17,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.7'
+appVersion = '1.2.0.8'
 appBuild = 2
 
 # Declare variables

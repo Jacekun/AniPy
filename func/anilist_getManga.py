@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Logger
 def logger(text):
-    print(f'[anilist_getManga][{datetime.now().strftime("%H:%M:%S")}]: {text}')
+    print(f'[{datetime.now().strftime("%H:%M:%S")}][anilist_getManga]: {text}')
 
 # Import libs from 'func'
 logger("Importing external modules..")
