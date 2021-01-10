@@ -17,14 +17,13 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.6'
+appVersion = '1.2.0.7'
 appBuild = 2
 
 # Declare variables
 logger("Define Global Vars..")
 # Paths for Files
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
-PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
 logger("Current path: " + PROJECT_PATH)
 
 # User vars
