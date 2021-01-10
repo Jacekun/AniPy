@@ -1,5 +1,5 @@
 # imports
-print("Import packages..")
+print("Importing packages..")
 import os
 import pygubu
 import importlib
@@ -21,27 +21,23 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.4'
+appVersion = '1.2.0.5'
 appBuild = 3
 
 # Global Vars
 logger("Define Global Vars..")
 # Paths for Files
-PROJECT_PATH = os.path.dirname(sys.executable) #os.path.dirname(__file__)
+PROJECT_PATH = os.path.dirname(sys.executable)
 logger("Current path: " + PROJECT_PATH)
 
 PROJECT_UI = os.path.join(PROJECT_PATH, "files\\main_win.ui")
-entryLog = os.path.join(PROJECT_PATH, "entries.log") # Log entries
 # Output file names
-outputAnime = os.path.join(PROJECT_PATH, "output\\anime.json")
-xmlAnime = os.path.join(PROJECT_PATH, "output\\anime.xml")
-outputManga = os.path.join(PROJECT_PATH, "output\\manga.json")
-xmlManga = os.path.join(PROJECT_PATH, "output\\manga.xml")
-entryLog = os.path.join(PROJECT_PATH, "output\\entries.log")
+outputAnime = ""
+outputManga = ""
+entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
 # Trim List Output
-outputAnimeTrim = os.path.join(PROJECT_PATH, "output\\anime_NotInMal.json")
-outputMangaTrim = os.path.join(PROJECT_PATH, "output\\manga_NotInMal.json")
-outputStats = os.path.join(PROJECT_PATH, "output\\animemanga_stats.txt")
+outputAnimeTrim = ""
+outputMangaTrim = ""
 
 # Objects
 # List of IDs, to prevent duplicates
@@ -85,15 +81,15 @@ class Main:
 
         # Request anime list
         labelStatus["text"] = fMain.logString("Requesting anime list..")
-        fGetAnime.getAnimeEntries(userID, username, outputAnime, xmlAnime, entryLog)
+        outputAnime = fGetAnime.getAnimeEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Request manga list
         labelStatus["text"] = fMain.logString("Requesting manga list..")
-        fGetManga.getMangaEntries(userID, username, outputManga, xmlManga, entryLog)
+        outputManga = fGetManga.getMangaEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Trim List
         labelStatus["text"] = fMain.logString("Trimming list..")
-        fTrim.trim_results(outputAnime, outputManga, outputAnimeTrim, outputMangaTrim, outputStats)
+        fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
         # Done
         labelStatus["text"] = fMain.logString("Done!")
