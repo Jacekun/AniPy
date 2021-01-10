@@ -12,7 +12,11 @@ fMain = importlib.import_module("func.main")
 appVersion = '1.0.0.2'
 appBuild = 0
 
-def trim_results(inputAnime, inputManga, outputAnime, outputManga, outputStats):
+def trim_results(filepath, inputAnime, inputManga):
+    # Declare filepaths
+    outputStats = os.path.join(filepath, "output\\animemanga_stats.txt")
+    outputAnime = inputAnime[:-5] + "_NotInMAL.json"
+    outputManga = inputManga[:-5] + "_NotInMAL.json"
     # STATS variables
     statScoreTotal = 0
     statScoreCount = 0
@@ -27,7 +31,7 @@ def trim_results(inputAnime, inputManga, outputAnime, outputManga, outputStats):
     # Delete prev files
     fMain.deleteFile(outputStats)
 
-    # json objects
+    # Load JSON objects
     # Check if anime file Exists!
     if not (os.path.exists(inputAnime)):
         fMain.logString(f"File: {inputAnime} does not exists!")
@@ -36,7 +40,7 @@ def trim_results(inputAnime, inputManga, outputAnime, outputManga, outputStats):
         fMain.logString("Loading " + inputAnime + " into memory..")
         with open(inputAnime, "r+", encoding='utf-8') as F:
             jsonAnime = json.load(F)
-            fMain.logString("File: " + inputAnime + " is loaded!..")
+            fMain.logString("File loaded: " + inputAnime)
     # Check if manga file Exists!
     if not (os.path.exists(inputManga)):
         fMain.logString(f"File: {inputManga} does not exists!")
@@ -45,7 +49,7 @@ def trim_results(inputAnime, inputManga, outputAnime, outputManga, outputStats):
         fMain.logString("Loading " + inputManga + " into memory..")
         with open(inputManga, "r+", encoding='utf-8') as F:
             jsonManga = json.load(F)
-            fMain.logString("File: " + inputManga + " is loaded!..")
+            fMain.logString("File loaded: " + inputManga)
 
     # json Objects
     jsonOutputAnime = []
