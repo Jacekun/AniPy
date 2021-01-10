@@ -4,8 +4,8 @@ import os
 from datetime import datetime
 
 # Log string, and return it
-def logString(text):
-  print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
+def logString(text, source="main"):
+  print(f'[{datetime.now().strftime("%H:%M:%S")}][{source}]: {text}')
   return text
 
 # Check if not Null, and return
