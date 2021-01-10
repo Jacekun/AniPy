@@ -22,7 +22,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.6'
+appVersion = '1.2.0.7'
 appBuild = 3
 
 # Global Vars
@@ -80,12 +80,18 @@ class Main:
         labelStatus["text"] = "User ID received!"
         logger("Successfully received the user ID!")
 
+        # Delete prev files
+        logger("Deleting previous 'entries.log'..")
+        fMain.deleteFile(entryLog)
+
         # Request anime list
         labelStatus["text"] = logger("Requesting anime list..")
+        fMain.write_append(entryLog, f'ANIME [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
         outputAnime = fGetAnime.getAnimeEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Request manga list
         labelStatus["text"] = logger("Requesting manga list..")
+        fMain.write_append(entryLog, f'MANGA [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
         outputManga = fGetManga.getMangaEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Trim List
