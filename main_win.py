@@ -10,7 +10,8 @@ from datetime import datetime
 
 # Log string, and return it
 def logger(text):
-  print("[" + '{0:%H:%M:%S}'.format(datetime.now()) + "]: " + text)
+  print(f'[{datetime.now().strftime("%H:%M:%S")}][main_win]: {text}')
+  return text
 
 # Import Dynamic scripts
 logger("Import scripts from same folder")
@@ -21,7 +22,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.5'
+appVersion = '1.2.0.6'
 appBuild = 3
 
 # Global Vars
@@ -80,19 +81,19 @@ class Main:
         logger("Successfully received the user ID!")
 
         # Request anime list
-        labelStatus["text"] = fMain.logString("Requesting anime list..")
+        labelStatus["text"] = logger("Requesting anime list..")
         outputAnime = fGetAnime.getAnimeEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Request manga list
-        labelStatus["text"] = fMain.logString("Requesting manga list..")
+        labelStatus["text"] = logger("Requesting manga list..")
         outputManga = fGetManga.getMangaEntries(userID, username, PROJECT_PATH, entryLog)
 
         # Trim List
-        labelStatus["text"] = fMain.logString("Trimming list..")
+        labelStatus["text"] = logger("Trimming list..")
         fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
         # Done
-        labelStatus["text"] = fMain.logString("Done!")
+        labelStatus["text"] = logger("Done!")
        
     else:
       logger("Username is empty!")
