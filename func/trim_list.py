@@ -8,10 +8,7 @@ import importlib
 # Import external 'func'
 fMain = importlib.import_module("func.main")
 
-# App Properties
-appVersion = '1.0.0.2'
-appBuild = 0
-
+# Functions
 def trim_results(filepath, inputAnime, inputManga):
     # Declare filepaths
     outputStats = os.path.join(filepath, "output\\animemanga_stats.txt")
