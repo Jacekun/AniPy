@@ -63,7 +63,7 @@ def getAnimeEntries(userID, username, filepath, entryLog):
 
                     # Check if already exists
                     if anilistID in entryID:
-                        fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Anime entry.\n")
+                        fMain.write_append(entryLog, f'[{datetime.now().strftime("%Y-%m-%d")}] Skipped: {str(anilistID)}, Duplicate Anime entry.\n')
                         continue
                     else:
                         entryID.append(anilistID)
@@ -131,6 +131,6 @@ def getAnimeEntries(userID, username, filepath, entryLog):
 
     # Already existing!
     else:
-        fMain.logString(outputAnime + " file already exist!")
+        fMain.logString("Anime file already exist!: " + outputAnime)
     
     return outputAnime

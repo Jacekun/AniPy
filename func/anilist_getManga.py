@@ -63,7 +63,7 @@ def getMangaEntries(userID, username, filepath, entryLog):
 
               # Check if already exists
               if anilistID in entryID:
-                fMain.write_append(entryLog, "Skipped: " + str(anilistID) + ", Duplicate Manga entry.\n")
+                fMain.write_append(entryLog, f'[{datetime.now().strftime("%Y-%m-%d")}] Skipped: {str(anilistID)}, Duplicate manga entry.\n')
                 continue
               else:
                 entryID.append(anilistID)
@@ -130,6 +130,6 @@ def getMangaEntries(userID, username, filepath, entryLog):
         fMain.logString("Done! File generated: " + xmlManga)
 
     else:
-        fMain.logString(outputManga + " file already exist!")
+        fMain.logString("Manga file already exist!: " + outputManga)
 
     return outputManga
