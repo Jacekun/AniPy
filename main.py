@@ -17,7 +17,7 @@ fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
 
 # App Properties
-appVersion = '1.2.0.8'
+appVersion = '1.2.0.9'
 appBuild = 2
 
 # Declare variables
@@ -72,3 +72,5 @@ class MainApp:
 
   else:
     logger("Username is empty!")
+  
+input("Press any key to exit..")
