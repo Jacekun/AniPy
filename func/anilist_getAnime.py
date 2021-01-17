@@ -15,6 +15,7 @@ logger("Imported Modules!")
 
 # List of IDs, to prevent duplicates
 entryID = []
+logger("All vars are initiated")
 
 # Main Function
 def getAnimeEntries(userID, username, filepath, entryLog):
