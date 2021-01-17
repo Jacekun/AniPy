@@ -9,8 +9,15 @@ import importlib
 fMain = importlib.import_module("func.main")
 # Other vars
 logSrc = "trim_list"
+fMain.logString("Imported as func", logSrc)
 
 # Functions
+def sort_byval(json):
+    try:
+        return str(json['format'])
+    except KeyError:
+        return ""
+
 def trim_results(filepath, inputAnime, inputManga):
     # Declare filepaths
     outputStats = os.path.join(filepath, "output\\animemanga_stats.txt")
@@ -19,6 +26,7 @@ def trim_results(filepath, inputAnime, inputManga):
     # STATS variables
     statScoreTotal = 0
     statScoreCount = 0
+    statInMAL = 0
     # Count entries
     cTotal = 0
     cCurrent = 0
@@ -39,6 +47,7 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.logString("Loading " + inputAnime + " into memory..", logSrc)
         with open(inputAnime, "r+", encoding='utf-8') as F:
             jsonAnime = json.load(F)
+            jsonAnime.sort(key=sort_byval, reverse=True)
             fMain.logString("File loaded: " + inputAnime, logSrc)
     # Check if manga file Exists!
     if not (os.path.exists(inputManga)):
@@ -48,6 +57,7 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.logString("Loading " + inputManga + " into memory..", logSrc)
         with open(inputManga, "r+", encoding='utf-8') as F:
             jsonManga = json.load(F)
+            jsonManga.sort(key=sort_byval, reverse=True)
             fMain.logString("File loaded: " + inputManga, logSrc)
 
     # json Objects
@@ -61,6 +71,7 @@ def trim_results(filepath, inputAnime, inputManga):
             # Get each entry
             if (entry["idMal"] < 1):
                 # If not in MAL, ID = 0
+                statInMAL += 1
                 jsonData = {}
                 jsonData["idAnilist"] = entry["idAnilist"]
                 jsonData["titleEnglish"] = entry["titleEnglish"]
@@ -112,12 +123,14 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
         fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Watching: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
+        fMain.write_append(outputStats, "Anime Not in MAL: " + str(statInMAL) + "\n")
 
     # Add Line Break
     fMain.write_append(outputStats, "===============================================================\n")
     # Reset vars
     statScoreTotal = 0
     statScoreCount = 0
+    statInMAL = 0
     # Reset count
     cTotal = 0
     cCurrent = 0
@@ -134,6 +147,7 @@ def trim_results(filepath, inputAnime, inputManga):
             # Get each entry
             if (entry["idMal"] < 1):
                 # If not in MAL, ID = 0
+                statInMAL += 1
                 jsonData = {}
                 jsonData["idAnilist"] = entry["idAnilist"]
                 jsonData["titleEnglish"] = entry["titleEnglish"]
@@ -187,3 +201,4 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
         fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Reading: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
+        fMain.write_append(outputStats, "Manga Not in MAL: " + str(statInMAL) + "\n")
