@@ -127,3 +127,4 @@ dmypy.json
 # Custom List
 ignoreFiles/
 output/
+anilist_config.py
