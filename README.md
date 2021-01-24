@@ -51,8 +51,8 @@ Written in: **Python 3.9** <br>
   - Get information from created client and input them in **anilist_config.py** (Create this file).
   - File must contain at least these lines:
 ```python
-  aniclient = ''
-  anisecret = ''
+  aniclient = '' # Client ID
+  anisecret = '' # Client Secret
 ```
 
 **To build Windows GUI:** <br>
