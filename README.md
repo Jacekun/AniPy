@@ -47,6 +47,14 @@ Written in: **Python 3.9** <br>
   ```cmd
   pip3 install -r packages.txt
   ```
+2. From Anilist Settings, under Developer: Create client.
+  - Get information from created client and input them in **anilist_config.py** (Create this file).
+  - File must contain at least these lines:
+```python
+  aniclient = ''
+  anisecret = ''
+```
+
 **To build Windows GUI:** <br>
 1. Run this file in *Command Prompt* / *Powershell*: **'build.cmd'**.
 2. Copy **'main_win.ui'** into **'dist/files/main_win.ui'**.
