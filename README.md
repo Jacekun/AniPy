@@ -4,11 +4,11 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
 [**View Project History**](doc/VERSION.md) <br>
 
-[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.2.0.3/AniPy_v1.2.0.3.zip)
+[**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.2.0.3/AniPy_v1.2.0.3.zip "Windows")
 
 **Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
 
-# How to use?
+# How to use (Windows)
 
 1. Extract downloaded **zipped** file.
 2. Run '**main_win.exe**'.
@@ -24,17 +24,18 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
 
 # Requirements:
-  - Windows 64-bit.
-  - 3GB RAM, or higher.
+- Python 3.9 *(For console version)*
+- Windows 64-bit. *(For executable)*
+- 3GB RAM, or higher.
 
 # Features:
 - Export User Anime/Manga list to JSON file.
 - Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
-- Graphical User Interface, for easy use.
+- Graphical User Interface, for easy use. *No longer maintained.*
+- Uses Authentication to Fetch private lists.
 
 # Limitations:
-- Only works on **Public** User Anilist. (No Authentication).
-- Cannot get information from **"Re-watches / Re-reads"**.
+- Cannot get full information from **"Re-watches / Re-reads"**.
 
 # Developer
 
