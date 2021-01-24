@@ -130,6 +130,7 @@ def entry_json(entry, media):
   
   # Others
   jsontoAdd += '\t\t"score": ' + validateInt(entry["score"]) + ",\n"
+  jsontoAdd += '\t\t"private": "' + str(entry["private"]) + '",\n'
   jsontoAdd += '\t\t"notes": "' + validateStr(entry["notes"]) + '"\n\t},\n'
   return jsontoAdd
 

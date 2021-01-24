@@ -26,6 +26,7 @@ def queryMedia():
                 progressVolumes
                 score
                 notes
+                private
                 media
                 {
                     id
@@ -37,14 +38,14 @@ def queryMedia():
                     episodes
                     chapters
                     volumes
-                title
-                {
-                    english
-                    romaji
-                }
-                description
-                coverImage { medium }
-                synonyms
+                    title
+                    {
+                        english
+                        romaji
+                    }
+                    description
+                    coverImage { medium }
+                    synonyms
                 }
             }
         }
@@ -63,7 +64,6 @@ def queryUser(userName):
   return json
 
 # Return User ID, from Username
-# Get USER ID, from USERNAME
 def anilist_getUserID(userName):
     logger("Getting User ID from Anilist..")
     try:
@@ -84,10 +84,10 @@ def anilist_getUserID(userName):
         return 0
 
 # Request user media list, returns JSON Object
-def anilist_userlist(userID, MEDIA = "ANIME"):
+def anilist_userlist(accessToken, userID, MEDIA = "ANIME"):
     logger("Getting " + MEDIA + " from Anilist..")
     varQuery = { 'userID': str(userID), 'MEDIA' : MEDIA }
-    response = requests.post(AnilistURL, json={'query': queryMedia(), 'variables': varQuery})
+    response = requests.post(AnilistURL, json={'query': queryMedia(), 'variables': varQuery}, headers={"Authorization": f"Bearer {accessToken}"})
     if (response.status_code == 200):
         jsonParsed = json.loads(response.content)
         logger(MEDIA + " request success! Returned JSON object..")

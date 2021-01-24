@@ -18,7 +18,7 @@ entryID = []
 logger("All vars are initiated")
 
 # Main Function
-def getMangaEntries(userID, username, filepath, entryLog):
+def getMangaEntries(accessToken, userID, username, filepath, entryLog):
 
     # Declare filepaths
     outputManga = os.path.join(filepath, "output\\manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
@@ -27,7 +27,7 @@ def getMangaEntries(userID, username, filepath, entryLog):
     # Check if not existing
     if not (os.path.exists(outputManga)):
         # Get JSON object
-        jsonManga = fReq.anilist_userlist(userID, "MANGA")
+        jsonManga = fReq.anilist_userlist(accessToken, userID, "MANGA")
 
         # Check if not null
         if jsonManga is not None:
