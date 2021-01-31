@@ -120,10 +120,12 @@ def trim_results(filepath, inputAnime, inputManga):
             fMain.logString("File generated: " + outputAnime, logSrc)
 
         # Write stats for Anime
+        cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
         fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
         fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Watching: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
-        fMain.write_append(outputStats, "Anime Not in MAL: " + str(statInMAL) + "\n")
+        fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
+        fMain.write_append(outputStats, "\nAnime Not in MAL: " + str(statInMAL) + "\n")
 
     # Add Line Break
     fMain.write_append(outputStats, "===============================================================\n")
@@ -198,7 +200,9 @@ def trim_results(filepath, inputAnime, inputManga):
             fMain.logString("File generated: " + outputManga, logSrc)
 
         # Write stats for Manga
+        cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
         fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
         fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Reading: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
-        fMain.write_append(outputStats, "Manga Not in MAL: " + str(statInMAL) + "\n")
+        fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
+        fMain.write_append(outputStats, "\nManga Not in MAL: " + str(statInMAL) + "\n")
