@@ -44,21 +44,21 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.logString(f"File: {inputAnime} does not exists!", logSrc)
         jsonAnime = None
     else:
-        fMain.logString("Loading " + inputAnime + " into memory..", logSrc)
+        fMain.logString("Loading " + os.path.basename(inputAnime) + " into memory..", logSrc)
         with open(inputAnime, "r+", encoding='utf-8') as F:
             jsonAnime = json.load(F)
             jsonAnime.sort(key=sort_byval, reverse=True)
-            fMain.logString("File loaded: " + inputAnime, logSrc)
+            fMain.logString("File loaded!", logSrc)
     # Check if manga file Exists!
     if not (os.path.exists(inputManga)):
         fMain.logString(f"File: {inputManga} does not exists!", logSrc)
         jsonManga = None
     else:
-        fMain.logString("Loading " + inputManga + " into memory..", logSrc)
+        fMain.logString("Loading " + os.path.basename(inputManga) + " into memory..", logSrc)
         with open(inputManga, "r+", encoding='utf-8') as F:
             jsonManga = json.load(F)
             jsonManga.sort(key=sort_byval, reverse=True)
-            fMain.logString("File loaded: " + inputManga, logSrc)
+            fMain.logString("File loaded!", logSrc)
 
     # json Objects
     jsonOutputAnime = []
@@ -114,14 +114,14 @@ def trim_results(filepath, inputAnime, inputManga):
                 cCurrent = cCurrent + 1
 
         # Write 'outputAnime'
-        fMain.logString("Writing file: " + outputAnime, logSrc)
+        fMain.logString("Writing to file " + os.path.basename(outputAnime), logSrc)
         with open(outputAnime, "w+", encoding='utf-8') as F:
             F.write(json.dumps(jsonOutputAnime, ensure_ascii=False, indent=4).encode('utf8').decode())
             fMain.logString("File generated: " + outputAnime, logSrc)
 
         # Write stats for Anime
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
-        fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
+        fMain.logString("Appending to file (Average Score stats): " + os.path.basename(outputStats), logSrc)
         fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Watching: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
         fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
@@ -194,14 +194,14 @@ def trim_results(filepath, inputAnime, inputManga):
                 cCurrent = cCurrent + 1
                 
         # Write 'outputManga'
-        fMain.logString("Writing file: " + outputManga, logSrc)
+        fMain.logString("Writing to file " + os.path.basename(outputManga), logSrc)
         with open(outputManga, "w+", encoding='utf-8') as F:
             F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
             fMain.logString("File generated: " + outputManga, logSrc)
 
         # Write stats for Manga
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
-        fMain.logString("Appending to file (Average Score stats): " + outputStats, logSrc)
+        fMain.logString("Appending to file (Average Score stats): " + os.path.basename(outputStats), logSrc)
         fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Reading: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
         fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
