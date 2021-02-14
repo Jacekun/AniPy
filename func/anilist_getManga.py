@@ -12,6 +12,7 @@ logger("Importing external modules..")
 fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 logger("Imported Modules!")
+source = "anilist_getManga"
 
 # List of IDs, to prevent duplicates
 entryID = []
@@ -43,6 +44,7 @@ def getMangaEntries(accessToken, userID, username, filepath, entryLog):
           cPtr = 0
 
           # Start generating JSON and XML..
+          fMain.logString("Generating JSON and XML..", source)
 
           # Write to json file
           fMain.write_append(outputManga, '[\n')
@@ -96,21 +98,21 @@ def getMangaEntries(accessToken, userID, username, filepath, entryLog):
                   cRead = cRead + 1
 
         # Delete last comma ',', in json file
-        fMain.logString("Remove last comma from manga JSON file..")
+        fMain.logString("Remove last comma from manga JSON file..", source)
         fMain.write_remove(outputManga, 3)
 
         # Write ']' at the end, to json file
-        fMain.logString("Write last ']' to manga JSON file..")
+        fMain.logString("Write last ']' to manga JSON file..", source)
         fMain.write_append(outputManga, '\n]')
-        fMain.logString("Done with Manga JSON file..")
+        fMain.logString("Done with Manga JSON file..", source)
         
         # Write to MAL xml file
-        fMain.logString("Finalizing Manga XML file..")
+        fMain.logString("Finalizing Manga XML file..", source)
         fMain.write_append(xmlManga, '</myanimelist>')
 
         # Total counts
         cTotal = cRead + cComplete + cHold + cDrop + cPtr
-        fMain.logString("Prepend 'myinfo' to Manga XML file..")
+        fMain.logString("Prepend 'myinfo' to Manga XML file..", source)
         malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<myanimelist>\n'
         malprepend += '\t<myinfo>\n'
         malprepend += '\t\t' + fMain.toMalval('', 'user_id') + '\n'
@@ -124,13 +126,13 @@ def getMangaEntries(accessToken, userID, username, filepath, entryLog):
         malprepend += '\t\t' + fMain.toMalval(str(cPtr), 'user_total_plantoread') + '\n'
         malprepend += '\t</myinfo>\n'
         fMain.line_prepender(xmlManga, malprepend)
-        fMain.logString("Done with Manga XML file..")
+        fMain.logString("Done with Manga XML file..", source)
 
         # Done manga
-        fMain.logString("Done! File generated: " + outputManga)
-        fMain.logString("Done! File generated: " + xmlManga)
+        fMain.logString("Done! File generated: " + outputManga, source)
+        fMain.logString("Done! File generated: " + xmlManga, source)
 
     else:
-        fMain.logString("Manga file already exist!: " + outputManga)
+        fMain.logString("Manga file already exist!: " + outputManga, source)
 
     return outputManga

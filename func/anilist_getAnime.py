@@ -12,6 +12,7 @@ logger("Importing external modules..")
 fMain = importlib.import_module("func.main")
 fReq = importlib.import_module("func.anilist_request")
 logger("Imported Modules!")
+source = "anilist_getAnime"
 
 # List of IDs, to prevent duplicates
 entryID = []
@@ -43,7 +44,8 @@ def getAnimeEntries(accessToken, userID, username, filepath, entryLog):
             cPtw = 0
 
             # Start generating JSON and XML..
-            
+            fMain.logString("Generating JSON and XML..", source)
+
             # Write to json file
             fMain.write_append(outputAnime, '[\n')
 
@@ -96,21 +98,21 @@ def getAnimeEntries(accessToken, userID, username, filepath, entryLog):
                             cWatch = cWatch + 1
 
             # Delete last comma ',', in json file
-            fMain.logString("Remove last comma from Anime JSON file..")
+            fMain.logString("Remove last comma from Anime JSON file..", source)
             fMain.write_remove(outputAnime, 3)
 
             # Write ']' at the end, to json file
-            fMain.logString("Write last ']' to Anime JSON file..")
+            fMain.logString("Write last ']' to Anime JSON file..", source)
             fMain.write_append(outputAnime, '\n]')
-            fMain.logString("Done with Anime JSON file..")
+            fMain.logString("Done with Anime JSON file..", source)
             
             # Write to MAL xml file
-            fMain.logString("Finalizing Anime XML file..")
+            fMain.logString("Finalizing Anime XML file..", source)
             fMain.write_append(xmlAnime, '</myanimelist>')
 
             # Total counts
             cTotal = cWatch + cComplete + cHold + cDrop + cPtw
-            fMain.logString("Prepend 'myinfo' to Anime XML file..")
+            fMain.logString("Prepend 'myinfo' to Anime XML file..", source)
             malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<myanimelist>\n'
             malprepend += '\t<myinfo>\n'
             malprepend += '\t\t' + fMain.toMalval('', 'user_id') + '\n'
@@ -124,14 +126,14 @@ def getAnimeEntries(accessToken, userID, username, filepath, entryLog):
             malprepend += '\t\t' + fMain.toMalval(str(cPtw), 'user_total_plantowatch') + '\n'
             malprepend += '\t</myinfo>\n'
             fMain.line_prepender(xmlAnime, malprepend)
-            fMain.logString("Done with Anime XML file..")
+            fMain.logString("Done with Anime XML file..", source)
 
             # Done anime
-            fMain.logString("Done! File generated: " + outputAnime)
-            fMain.logString("Done! File generated: " + xmlAnime)
+            fMain.logString("Done! File generated: " + outputAnime, source)
+            fMain.logString("Done! File generated: " + xmlAnime, source)
 
     # Already existing!
     else:
-        fMain.logString("Anime file already exist!: " + outputAnime)
+        fMain.logString("Anime file already exist!: " + outputAnime, source)
     
     return outputAnime
