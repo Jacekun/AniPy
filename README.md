@@ -26,13 +26,13 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 # Requirements:
 - Python 3.9 *(For console version)*
 - Windows 64-bit. *(For executable)*
-- 3GB RAM, or higher.
+- 2GB RAM, or higher.
 
 # Features:
 - Export User Anime/Manga list to JSON file.
 - Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
 - Graphical User Interface, for easy use. *No longer maintained.*
-- Uses Authentication to Fetch private lists.
+- Uses Authentication to Fetch private lists. **Only on Console version.**
 
 # Limitations:
 - Cannot get full information from **"Re-watches / Re-reads"**.
