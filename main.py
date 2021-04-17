@@ -9,7 +9,7 @@ from anilist_config import aniclient, anisecret
 import webbrowser
 
 # App Properties
-appVersion = '1.2.1.0'
+appVersion = '1.3.0.0'
 appBuild = 2 # Used for building executable file
 
 # Logger
@@ -29,6 +29,7 @@ fReq = importlib.import_module("func.anilist_request")
 fGetAnime = importlib.import_module("func.anilist_getAnime")
 fGetManga = importlib.import_module("func.anilist_getManga")
 fTrim = importlib.import_module("func.trim_list")
+fNotOnTachi = importlib.import_module("func.getNotOnTachi")
 
 # Declare variables
 logger("Define Global Vars..")
@@ -106,5 +107,10 @@ outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_P
 
 # Trim List
 fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
+
+# Get Entries not on Tachi
+tempTachi = input("Tachiyomi library json file: ")
+if tempTachi is not tempTachi.isspace():
+  fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
 
 input("Press <Enter> to exit..")
