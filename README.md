@@ -5,6 +5,9 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 [**View Project History**](doc/VERSION.md) <br>
 
 # Windows GUI version
+*No longer maintained. Use console version instead.* <br>
+**NOTE: This only works for 'Public' lists. For 'Private' lists, use the console version.** <br>
+
 [**Click to Download Latest Release**](https://github.com/Jacekun/AniPy/releases/download/v1.2.0.3/AniPy_v1.2.0.3.zip "Windows") <br>
 **Download count :** <br> [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
 
@@ -13,7 +16,6 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 3. Input your **Anilist Username**, and Click **Export** button.
 
 **Note: It would take a long time to fetch the data. Wait for it to finish..** <br>
-**NOTE: This only works for 'Public' lists. For 'Private' lists, use the console version.** <br>
 
 ## Files created:
 
@@ -31,9 +33,8 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 # Features:
 - Export User Anime/Manga list to JSON file.
 - Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
-- Graphical User Interface, for easy use. *No longer maintained. Use console version instead.*
 - Uses Authentication to Fetch private lists. **Only on Console version.**
-- Compare against Tachiyomi backup, and lists all entries not on your library.
+- Compare against Tachiyomi backup, and lists all entries not on your library. **Only on Console version.**
 
 # Limitations:
 - Cannot get full information from **"Re-watches / Re-reads"**.
