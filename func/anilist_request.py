@@ -57,9 +57,7 @@ def queryMedia():
 # Return json query for user ID
 def queryUser(userName):
   queryUser = "query ($userName: String) { User (search: $userName) { id } }"
-  varUser = {
-    'userName': "'" + userName + "'"
-  }
+  varUser = { 'userName': "'" + userName + "'" }
   json={'query': queryUser, 'variables': varUser}
   return json
 
