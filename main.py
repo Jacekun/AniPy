@@ -99,11 +99,11 @@ fMain.deleteFile(entryLog)
 
 # Request anime list
 fMain.write_append(entryLog, f'ANIME [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
-outputAnime = fGetAnime.getAnimeEntries(accessToken, userID, username, PROJECT_PATH, entryLog)
+outputAnime = fGetAnime.getAnimeEntries(accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
 
 # Request manga list
 fMain.write_append(entryLog, f'MANGA [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
-outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_PATH, entryLog)
+outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
 
 # Trim List
 fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
