@@ -114,10 +114,11 @@ def trim_results(filepath, inputAnime, inputManga):
                 cCurrent = cCurrent + 1
 
         # Write 'outputAnime'
-        fMain.logString("Writing to file " + os.path.basename(outputAnime), logSrc)
-        with open(outputAnime, "w+", encoding='utf-8') as F:
-            F.write(json.dumps(jsonOutputAnime, ensure_ascii=False, indent=4).encode('utf8').decode())
-            fMain.logString("File generated: " + outputAnime, logSrc)
+        if jsonOutputAnime:
+            fMain.logString("Writing to file " + os.path.basename(outputAnime), logSrc)
+            with open(outputAnime, "w+", encoding='utf-8') as F:
+                F.write(json.dumps(jsonOutputAnime, ensure_ascii=False, indent=4).encode('utf8').decode())
+                fMain.logString("File generated: " + outputAnime, logSrc)
 
         # Write stats for Anime
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
@@ -194,10 +195,11 @@ def trim_results(filepath, inputAnime, inputManga):
                 cCurrent = cCurrent + 1
                 
         # Write 'outputManga'
-        fMain.logString("Writing to file " + os.path.basename(outputManga), logSrc)
-        with open(outputManga, "w+", encoding='utf-8') as F:
-            F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
-            fMain.logString("File generated: " + outputManga, logSrc)
+        if jsonOutputManga:
+            fMain.logString("Writing to file " + os.path.basename(outputManga), logSrc)
+            with open(outputManga, "w+", encoding='utf-8') as F:
+                F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
+                fMain.logString("File generated: " + outputManga, logSrc)
 
         # Write stats for Manga
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
