@@ -19,7 +19,7 @@ entryID = []
 logger("All vars are initiated")
 
 # Main Function
-def getAnimeEntries(accessToken, userID, username, filepath, entryLog):
+def getAnimeEntries(accessToken, userID, username, filepath, entryLog, useOAuth):
 
     # Declare filepaths
     outputAnime = os.path.join(filepath, "output\\anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
@@ -28,7 +28,10 @@ def getAnimeEntries(accessToken, userID, username, filepath, entryLog):
     # Check if not existing
     if not (os.path.exists(outputAnime)):
         # Get JSON object
-        jsonAnime = fReq.anilist_userlist(accessToken, userID, "ANIME")
+        if useOAuth:
+            jsonAnime = fReq.anilist_userlist(accessToken, userID, "ANIME")
+        else:
+            jsonAnime = fReq.anilist_userlist_public(userID, "ANIME")
 
         # Check if not null
         if jsonAnime is not None:
