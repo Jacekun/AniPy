@@ -65,7 +65,7 @@ Written in: **Python 3.9** <br>
 **[func / main.py](func/main.py)**    : Main functions. <br>
 **[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
 **[func / trim_list.py](func/trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
-**[func / trim_list.py](func/getNotOnTachi.py)** : Script file for Generating lists of Entries not in Tachiyomi library. <br>
+**[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Script file for Generating lists of Entries not in Tachiyomi library. <br>
 ### UI Files:
 **[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
 ### Misc.:
