@@ -70,7 +70,8 @@ def getNotOnTachi(inputManga, inputTachi):
                         tempTrackLink = str(tachiTrack["u"])
                         if "anilist" in tempTrackLink:
                             # logString("Id: [" + tempTrackLink[25:] + "]")
-                            listTachiTracked.append(tempTrackLink[25:])
+                            # listTachiTracked.append(tempTrackLink[25:])
+                            listTachiTracked.append(str(tachiTrack["r"]))
             except:
                 # logString("No tracking!")
                 pass
