@@ -109,11 +109,11 @@ def getNotOnTachi(inputManga, inputTachi):
                             jsonOutputManga.append(jsonData) # add to json list of manga_NotInTachi
                             # Add to Tachiyomi backup json
                             titleEntry = ""
-                            if jsonData["titleRomaji"] is not None:
-                                titleEntry = jsonData["titleRomaji"]
+                            if jsonData["titleEnglish"] is not None:
+                                titleEntry = jsonData["titleEnglish"]
                                 if titleEntry.isspace():
-                                    if jsonData["titleEnglish"] is not None:
-                                        titleEntry = jsonData["titleEnglish"]
+                                    if jsonData["titleRomaji"] is not None:
+                                        titleEntry = jsonData["titleRomaji"]
                             TachiBackupEntry = {
                                 "manga": [
                                     titleEntry,
