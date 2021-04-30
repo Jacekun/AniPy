@@ -30,6 +30,14 @@ def sort_byval(json):
 def getNotOnTachi(inputManga, inputTachi):
     # Declare filepaths
     outputManga = inputManga[:-5] + "_NotInTachi.json"
+    outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
+    TachiBackupJson = {
+        "version": 2,
+        "mangas": [],
+        "categories": [
+            [ "Anilist", 0 ]
+        ]
+    }
 
     # Delete previous file
     deleteFile(outputManga)
@@ -98,10 +106,35 @@ def getNotOnTachi(inputManga, inputTachi):
                     # Append to JSON object
                     if str(entry["status"]) not in listSkippedStatus:
                         if str(entry["format"]) != "NOVEL":
-                            jsonOutputManga.append(jsonData)
+                            jsonOutputManga.append(jsonData) # add to json list of manga_NotInTachi
+                            # Add to Tachiyomi backup json
+                            titleEntry = ""
+                            if jsonData["titleRomaji"] is not None:
+                                titleEntry = jsonData["titleRomaji"]
+                                if titleEntry.isspace():
+                                    if jsonData["titleEnglish"] is not None:
+                                        titleEntry = jsonData["titleEnglish"]
+                            TachiBackupEntry = {
+                                "manga": [
+                                    titleEntry,
+                                    titleEntry,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "categories": [
+                                    "Anilist"
+                                ]
+                            }
+                            TachiBackupJson["mangas"].append(TachiBackupEntry)
                     
-            # Write 'outputManga'
+            # Write 'outputManga': manga_NotInTachi
             logString("Writing to file " + os.path.basename(outputManga))
             with open(outputManga, "w+", encoding='utf-8') as F:
                 F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
                 logString("File generated: " + outputManga)
+            # Write TachiBackupJson to file: __TachiyomiBackup.json
+            logString("Writing to file " + os.path.basename(outputTachiBackup))
+            with open(outputTachiBackup, "w+", encoding='utf-8') as F:
+                F.write(json.dumps(TachiBackupJson, ensure_ascii=False, indent=4).encode('utf8').decode())
+                logString("File generated: " + outputTachiBackup)

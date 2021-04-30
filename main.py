@@ -9,7 +9,7 @@ from anilist_config import aniclient, anisecret
 import webbrowser
 
 # App Properties
-appVersion = '1.3.0.0'
+appVersion = '1.4.0.0'
 appBuild = 2 # Used for building executable file
 
 # Logger
