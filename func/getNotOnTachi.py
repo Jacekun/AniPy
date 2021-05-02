@@ -111,7 +111,7 @@ def getNotOnTachi(inputManga, inputTachi):
                             titleEntry = ""
                             if jsonData["titleEnglish"] is not None:
                                 titleEntry = jsonData["titleEnglish"]
-                                if titleEntry.isspace():
+                                if not titleEntry:
                                     if jsonData["titleRomaji"] is not None:
                                         titleEntry = jsonData["titleRomaji"]
                             TachiBackupEntry = {
