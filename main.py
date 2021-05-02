@@ -110,7 +110,7 @@ fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
 # Get Entries not on Tachi
 tempTachi = input("Tachiyomi library json file: ")
-if tempTachi is not tempTachi.isspace():
+if tempTachi:
   fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
 
 input("Press <Enter> to exit..")
