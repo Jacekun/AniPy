@@ -9,7 +9,7 @@ from anilist_config import aniclient, anisecret
 import webbrowser
 
 # App Properties
-appVersion = '1.4.0.0'
+appVersion = '1.5.0.0'
 appBuild = 2 # Used for building executable file
 
 # Logger
@@ -37,6 +37,9 @@ logger("Define Global Vars..")
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
 logger("Current path: " + PROJECT_PATH)
 
+# Variables
+inputChoice = input("Type '1' to skip oAuth (use Public), otherwise '0': ")
+
 # Vars for Authentication
 useOAuth = False
 # User vars
@@ -55,35 +58,39 @@ jsonAnime = None
 # List of IDs, to prevent duplicates
 entryID = []
 
-# Get OAuth and Access Token
-logger("Login Anilist on browser, and Authorize AniPy")
-redirect_uri = "https://anilist.co/api/v2/oauth/pin"
-url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={redirect_uri}&response_type=code"
-webbrowser.open(url)
-
-code = input("Paste your token code here (Copied from Anilist webpage result): ")
-
-body = {
-    'grant_type': 'authorization_code',
-    'client_id': ANICLIENT,
-    'client_secret': ANISECRET,
-    'redirect_uri': redirect_uri,
-    'code': code
-}
-logger("Getting access token..")
-accessToken = requests.post("https://anilist.co/api/v2/oauth/token", json=body).json().get("access_token")
-#logger("Access Token: [" + accessToken + "]")
-if accessToken:
-  useOAuth = True
-  logger("Has access token!")
-else:
+if inputChoice == '1':
   useOAuth = False
-  logger("Cannot Authenticate! Will use Public Username.")
+else:
+  # Get OAuth and Access Token
+  logger("Login Anilist on browser, and Authorize AniPy")
+  redirect_uri = "https://anilist.co/api/v2/oauth/pin"
+  url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={redirect_uri}&response_type=code"
+  webbrowser.open(url)
+
+  code = input("Paste your token code here (Copied from Anilist webpage result): ")
+
+  body = {
+      'grant_type': 'authorization_code',
+      'client_id': ANICLIENT,
+      'client_secret': ANISECRET,
+      'redirect_uri': redirect_uri,
+      'code': code
+  }
+  logger("Getting access token..")
+  accessToken = requests.post("https://anilist.co/api/v2/oauth/token", json=body).json().get("access_token")
+  #logger("Access Token: [" + accessToken + "]")
+  if accessToken:
+    useOAuth = True
+    logger("Has access token!")
+  else:
+    useOAuth = False
+    logger("Cannot Authenticate! Will use Public Username.")
 
 
 # Check whether authenticated, or use public Username
 if not useOAuth:
   logger("'Public Username' Mode")
+  accessToken = ""
   while (userID < 1):
     # Get Username
     username = input("Enter your Anilist Username: ")
