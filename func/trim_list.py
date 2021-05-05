@@ -123,13 +123,14 @@ def trim_results(filepath, inputAnime, inputManga):
         # Write stats for Anime
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
         fMain.logString("Appending to file (Average Score stats): " + os.path.basename(outputStats), logSrc)
-        fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+        averageScore = "{:.2f}".format(statScoreTotal/statScoreCount * 10)
+        fMain.write_append(outputStats, "Anime stats:\nAverage Score (out of 100): " + averageScore + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Watching: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
         fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
         fMain.write_append(outputStats, "\nAnime Not in MAL: " + str(statInMAL) + "\n")
 
     # Add Line Break
-    fMain.write_append(outputStats, "===============================================================\n")
+    fMain.write_append(outputStats, "==============================================\n")
     # Reset vars
     statScoreTotal = 0
     statScoreCount = 0
@@ -204,7 +205,8 @@ def trim_results(filepath, inputAnime, inputManga):
         # Write stats for Manga
         cTotal = cComplete + cCurrent + cHold + cPlan + cDrop
         fMain.logString("Appending to file (Average Score stats): " + os.path.basename(outputStats), logSrc)
-        fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + str((statScoreTotal/statScoreCount)*10) + "\n")
+        averageScore = "{:.2f}".format(statScoreTotal/statScoreCount * 10)
+        fMain.write_append(outputStats, "Manga stats:\nAverage Score (out of 100): " + averageScore + "\n")
         fMain.write_append(outputStats, "Count:\nCompleted: " + str(cComplete) + "\nCurrently Reading: " + str(cCurrent) + "\nPaused: " + str(cHold) + "\nPlanning: " + str(cPlan) + "\nDropped: " + str(cDrop) + "\n")
         fMain.write_append(outputStats, "\nTotal: " + str(cTotal))
         fMain.write_append(outputStats, "\nManga Not in MAL: " + str(statInMAL) + "\n")
