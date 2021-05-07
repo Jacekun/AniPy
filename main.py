@@ -68,16 +68,8 @@ else:
   webbrowser.open(url)
 
   code = input("Paste your token code here (Copied from Anilist webpage result): ")
+  accessToken = fReq.request_accesstkn(ANICLIENT, ANISECRET, REDIRECT_URL, code)
 
-  body = {
-      'grant_type': 'authorization_code',
-      'client_id': ANICLIENT,
-      'client_secret': ANISECRET,
-      'redirect_uri': REDIRECT_URL,
-      'code': code
-  }
-  logger("Getting access token..")
-  accessToken = requests.post("https://anilist.co/api/v2/oauth/token", json=body).json().get("access_token")
   #logger("Access Token: [" + accessToken + "]")
   if accessToken:
     useOAuth = True

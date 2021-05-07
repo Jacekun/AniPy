@@ -108,3 +108,18 @@ def anilist_userlist_public(userID, MEDIA = "ANIME"):
         logger(MEDIA + " Request Error! [Status code: " + str(response.status_code) + "]")
         logger(response.content)
         return None
+    
+# Request access token, using code
+def request_accesstkn(ANICLIENT, ANISECRET, REDIRECT_URL, code):
+    body = {
+        'grant_type': 'authorization_code',
+        'client_id': ANICLIENT,
+        'client_secret': ANISECRET,
+        'redirect_uri': REDIRECT_URL,
+        'code': code
+    }
+    try:
+        accessToken = requests.post("https://anilist.co/api/v2/oauth/token", json=body).json().get("access_token")
+    except:
+        accessToken = None
+    return accessToken
