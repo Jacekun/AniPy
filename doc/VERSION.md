@@ -1,16 +1,23 @@
-# vx.x.x.x - Improvements
-**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/vx.x.x.x/total.svg)]() <br>
+# v1.06
+**This lists all changes after the last Executable update** <br>
+## New features:
+- Use Authentication to fetch private lists from user.
+- Compare list to Tachiyomi library backup and generate json file to be imported to Tachiyomi.
+- Use **Press <Enter> key to Exit..** upon process done.
+- Count entries from Anilist not in MyAnimeList and export to **'animemanga_stats.txt'**.
+- Count total entries and export to **'animemanga_stats.txt'**.
+- Toggle use of Authenticated lists and Public list.
 
-Based from **main.py** version: 1.2.0.8 <br>
-
-**New and Changes:**
+## Changes: 
+- Use JSON file: **'anilistConfig.json'** to store Anilist config.
 - Append *current date* to the output filenames.
-
-**Inside the Code:**
 - All output filepaths are declared inside their own modules, instead of inside **'main.py'**.
+- Pass global path to modules.
+- Delete previous **'entries.log'**, every run.
+- Updated **'packages.txt'** to match required *imports*.
+- Round Average score stat to 2 decimal places.
 - Updated logger format.
 - Added additional log info.
-- Delete previous **'entries.log'**, every run.
 - Code cleanups.
 ****
 
