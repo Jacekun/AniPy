@@ -35,11 +35,11 @@ def GetAnimeEntries(list):
 def GetMangaEntries(list):
     return fGetManga.getMangaEntries("", list[0], list[1], PROJECT_PATH, entryLog, False)
 
-def TrimResults():
-    fTrim.trim_results(PROJECT_PATH, OutputAnime, OutputManga)
+def TrimResults(list):
+    fTrim.trim_results(PROJECT_PATH, list[0], list[1])
 
-def NotOnTachi():
-    fNotOnTachi.getNotOnTachi(OutputManga, TachiLib)
+def NotOnTachi(list):
+    fNotOnTachi.getNotOnTachi(list[0], list[1])
 
 def GoSimple(self):
     window.disableButtons() # Prevent button events
@@ -67,12 +67,12 @@ def GoSimple(self):
     
     window.setStatus("Trimming list..")
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        threadCall = executor.submit(TrimResults)
+        threadCall = executor.submit(TrimResults, [ OutputAnime, OutputManga ])
     
     window.setStatus("Comparing against Tachiyomi library..")
     TachiLib = window.getTachiFile()
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        threadCall = executor.submit(NotOnTachi)
+        threadCall = executor.submit(NotOnTachi, [ OutputManga, TachiLib ])
     
     window.setStatus("Done!")
     window.enableButtons()
