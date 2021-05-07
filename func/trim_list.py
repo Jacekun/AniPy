@@ -41,24 +41,24 @@ def trim_results(filepath, inputAnime, inputManga):
     # Load JSON objects
     # Check if anime file Exists!
     if not (os.path.exists(inputAnime)):
-        fMain.logString(f"File: {inputAnime} does not exists!", logSrc)
+        fMain.logString("Anime json file does not exists!", logSrc)
         jsonAnime = None
     else:
         fMain.logString("Loading " + os.path.basename(inputAnime) + " into memory..", logSrc)
         with open(inputAnime, "r+", encoding='utf-8') as F:
             jsonAnime = json.load(F)
             jsonAnime.sort(key=sort_byval, reverse=True)
-            fMain.logString("File loaded!", logSrc)
+            fMain.logString("Anime json file loaded!", logSrc)
     # Check if manga file Exists!
     if not (os.path.exists(inputManga)):
-        fMain.logString(f"File: {inputManga} does not exists!", logSrc)
+        fMain.logString("Manga json file does not exists!", logSrc)
         jsonManga = None
     else:
         fMain.logString("Loading " + os.path.basename(inputManga) + " into memory..", logSrc)
         with open(inputManga, "r+", encoding='utf-8') as F:
             jsonManga = json.load(F)
             jsonManga.sort(key=sort_byval, reverse=True)
-            fMain.logString("File loaded!", logSrc)
+            fMain.logString("Manga json file loaded!", logSrc)
 
     # json Objects
     jsonOutputAnime = []

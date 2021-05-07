@@ -5,6 +5,7 @@ from mainForm import Ui_mainForm
 import importlib
 import concurrent.futures
 import os
+from datetime import datetime
 
 # Import external scripts
 fReq = importlib.import_module("func.anilist_request")
@@ -21,7 +22,10 @@ OutputAnime = ""
 OutputManga = ""
 TachiLib = ""
 
-# Events
+# Functions
+def Log(text):
+    print(f'[{datetime.now().strftime("%H:%M:%S")}][mainGUI]: {text}')
+
 def GetUserID(username):
     return fReq.anilist_getUserID(username)
 
@@ -53,13 +57,13 @@ def GoSimple(self):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         threadCall = executor.submit(GetAnimeEntries, [ userID, username ])
         OutputAnime = threadCall.result()
-        print(f'Output anime: {OutputAnime}')
+        Log(f'Output anime: {OutputAnime}')
     
     window.setStatus("Fetching manga list..")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         threadCall = executor.submit(GetMangaEntries, [ userID, username ])
         OutputManga = threadCall.result()
-        print(f'Output manga: {OutputManga}')
+        Log(f'Output manga: {OutputManga}')
     
     window.setStatus("Trimming list..")
     with concurrent.futures.ThreadPoolExecutor() as executor:
