@@ -47,13 +47,13 @@ def getNotOnTachi(inputManga, inputTachi):
 
     # Load Tachiyomi Library
     if not (os.path.exists(inputTachi)):
-        logString(f"File: {inputTachi} does not exists!", logSrc)
+        logString("Tachiyomi library does not exists!", logSrc)
         tachiManga = None
     else:
         logString("Loading " + os.path.basename(inputTachi) + " into memory..")
         with open(inputTachi, "r+", encoding='utf-8') as F:
             tachiManga = json.load(F)
-            logString("File loaded!")
+            logString("Tachi library json file loaded!")
 
     # Get entries from Tachiyomi, and turn into simple list
     if tachiManga is not None:
@@ -79,14 +79,14 @@ def getNotOnTachi(inputManga, inputTachi):
     else:
         # Load Anilist MANGA
         if not (os.path.exists(inputManga)):
-            logString(f"File: {inputManga} does not exists!", logSrc)
+            logString("Manga json file does not exists!", logSrc)
             jsonManga = None
         else:
             logString("Loading " + os.path.basename(inputManga) + " into memory..", logSrc)
             with open(inputManga, "r+", encoding='utf-8') as F:
                 jsonManga = json.load(F)
                 jsonManga.sort(key=sort_byval, reverse=True)
-                logString("File loaded!", logSrc)
+                logString("Manga JSON File loaded!", logSrc)
         # Get entries from Anilist Manga, and dispose entries already on Tachi tracked lib
         if jsonManga is not None:
             logString("Checking Anilist manga entries..")
