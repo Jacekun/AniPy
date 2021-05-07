@@ -44,17 +44,14 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 ```
 
 # Scripts and Files:
-### Main scripts:
+## Main scripts:
 **[main.py](main.py)** : Console version of App. <br>
-**[main_win.py](main_win.py)** : Windows GUI version, using *Pygubu*. <br>
-### External scripts:
+
+## External scripts (Modules):
 **[func / main.py](func/main.py)**    : Main functions. <br>
 **[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
 **[func / trim_list.py](func/trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
 **[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Script file for Generating lists of Entries not in Tachiyomi library. <br>
-### UI Files:
-**[main_win.ui](main_win.ui)**     : UI file used. Can be viewed/edited in *[Pygubu-designer](https://pypi.org/project/pygubu-designer/)*. <br>
-### Misc.:
-**[main_win.spec](main_win.spec)**  : Pyinstaller options for building the **executable** file, in **dist** subfolder. <br>
-**[build.cmd](build.cmd)**   : Command line script to build Windows GUI. *Requires 'Pygubu', 'Pygubu-designer', and 'main_win.spec' file*. <br>
+
+## Miscellaneous:
 **[packages.txt](packages.txt)**    : List of packages required. <br>
