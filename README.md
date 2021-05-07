@@ -42,21 +42,24 @@ Create Local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - Cannot get full information from **"Re-watches / Re-reads"**.
 
 # Developer
-
 Written in: **Python 3.9** <br>
 
 ## Setup:
 
-1. Install *dependency* packages (run Command Prompt in the same folder as '*main.py*'): <br>
+1. Install required packages (run Command Prompt in the same folder as '*main.py*'): <br>
   ```cmd
   pip3 install -r packages.txt
   ```
-2. From Anilist Settings, under **Developer**: **Create client**.
-  - Get information from created client and input them in **anilist_config.py** (Create this file).
-  - File must contain at least these lines:
-```python
-  aniclient = '' # Client ID
-  anisecret = '' # Client Secret
+2. Go to Anilist [**Settings** -> **Developer**](https://anilist.co/settings/developer), and click **Create client**.
+  - Type whatever in **Name** field, and use ``https://anilist.co/api/v2/oauth/pin`` as **Redirect URL**.
+  - Get information from created client and input them in **anilistConfig.json** (Create this file).
+  - File must contain these lines. *Replace lines with appropriate values*:
+```json
+{
+    "aniclient": "ID",
+    "anisecret": "Secret",
+    "redirectUrl": "https://anilist.co/api/v2/oauth/pin"
+}
 ```
 
 ## Files:

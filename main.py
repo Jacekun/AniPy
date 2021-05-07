@@ -1,11 +1,9 @@
 # imports
 import os
-import sys
 import importlib
 import json
 import requests
 from datetime import datetime
-from anilist_config import aniclient, anisecret
 import webbrowser
 
 # App Properties
@@ -18,8 +16,11 @@ def logger(text):
 
 # Import config for Anilist OAuth
 logger("Importing config")
-ANICLIENT = aniclient
-ANISECRET = anisecret
+with open('anilistConfig.json') as f:
+  configData = json.load(f)
+ANICLIENT = configData['aniclient']
+ANISECRET = configData['anisecret']
+REDIRECT_URL = configData['redirectUrl']
 # logger("\nClient: " + ANICLIENT + "\nSecret: " + ANISECRET)
 
 # Import libs from 'func'
@@ -63,8 +64,7 @@ if inputChoice == '1':
 else:
   # Get OAuth and Access Token
   logger("Login Anilist on browser, and Authorize AniPy")
-  redirect_uri = "https://anilist.co/api/v2/oauth/pin"
-  url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={redirect_uri}&response_type=code"
+  url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={REDIRECT_URL}&response_type=code"
   webbrowser.open(url)
 
   code = input("Paste your token code here (Copied from Anilist webpage result): ")
@@ -73,7 +73,7 @@ else:
       'grant_type': 'authorization_code',
       'client_id': ANICLIENT,
       'client_secret': ANISECRET,
-      'redirect_uri': redirect_uri,
+      'redirect_uri': REDIRECT_URL,
       'code': code
   }
   logger("Getting access token..")
