@@ -43,7 +43,7 @@ def NotOnTachi(list):
 
 def GoSimple(self):
     window.disableButtons() # Prevent button events
-    window.setStatus("Starting..")
+    window.setStatus("Starting Simple Mode..")
     # vars
     username = window.getUsername()
     userID = 0
