@@ -46,12 +46,14 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 # Scripts and Files:
 ## Main scripts:
 **[main.py](main.py)** : Console version of App. <br>
+**[func / main.py](func/main.py)**    : Main global functions. <br>
 
 ## External scripts (Modules):
-**[func / main.py](func/main.py)**    : Main functions. <br>
-**[func / anilist_request.py](func/anilist_request.py)**    : Requests to [Anilist.co](https://anilist.co/). <br>
-**[func / trim_list.py](func/trim_list.py)** : Script file for Generating lists of Entries not in MAL. Also, gets stats. <br>
-**[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Script file for Generating lists of Entries not in Tachiyomi library. <br>
+**[func / anilist_getAnime.py](func/anilist_getAnime.py)** : Generate JSON/XML file with entries from [Anilist.co](https://anilist.co/). <br>
+**[func / anilist_getManga.py](func/anilist_getManga.py)** : Generate JSON/XML file with entries from [Anilist.co](https://anilist.co/). <br>
+**[func / anilist_request.py](func/anilist_request.py)** : Query Requests to [Anilist.co](https://anilist.co/). <br>
+**[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Generates list of Entries not in Tachiyomi library. <br>
+**[func / trim_list.py](func/trim_list.py)** : Generate list of Entries not in MAL. Also gets stats. <br>
 
 ## Miscellaneous:
 **[packages.txt](packages.txt)**    : List of packages required. <br>
