@@ -42,6 +42,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
     "redirectUrl": "https://anilist.co/api/v2/oauth/pin"
 }
 ```
+3. Run **[main.py](main.py)**.
 
 # Scripts and Files:
 ## Main scripts:
