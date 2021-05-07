@@ -130,7 +130,7 @@ def trim_results(filepath, inputAnime, inputManga):
         fMain.write_append(outputStats, "\nAnime Not in MAL: " + str(statInMAL) + "\n")
 
     # Add Line Break
-    fMain.write_append(outputStats, "==============================================\n")
+    fMain.write_append(outputStats, "=========================================\n")
     # Reset vars
     statScoreTotal = 0
     statScoreCount = 0
