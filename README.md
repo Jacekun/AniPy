@@ -29,7 +29,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 # Setup:
 1. Install required packages (run Command Prompt in the same folder as '*main.py*'): <br>
   ```cmd
-  pip3 install -r packages.txt
+  pip3 install -r requirements.txt
   ```
 2. Go to Anilist [**Settings** -> **Developer**](https://anilist.co/settings/developer), and click **Create client**.
   - Type whatever in **Name** field, and use ``https://anilist.co/api/v2/oauth/pin`` as **Redirect URL**.
@@ -57,4 +57,4 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 **[func / trim_list.py](func/trim_list.py)** : Generate list of Entries not in MAL. Also gets stats. <br>
 
 ## Miscellaneous:
-**[packages.txt](packages.txt)**    : List of packages required. <br>
+**[requirements.txt](requirements.txt)**    : List of packages required. <br>
