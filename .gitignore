@@ -129,3 +129,4 @@ ignoreFiles/
 output/
 anilist_config.py
 anilistConfig.json
+tachiyomi_*.json
