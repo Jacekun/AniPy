@@ -22,10 +22,6 @@
 ****
 
 # v1.2.0.3 - Improvements
-**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.2.0.3/total.svg)]() <br>
-
-Based from **main.py** version: 1.2.0.4 <br>
-
 **New:**
 - Handles "Rewatching / Rereading", saves it as "Watching / Reading".
 - Moved all **'output files'**, from *'root directory'* to *'root/output'* subfolder.
@@ -48,8 +44,6 @@ Based from **main.py** version: 1.2.0.4 <br>
 ****
 
 # v1.1.0.0 - Re-write
-**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.1.0.0/total.svg)]() <br>
-
 **Fixes:**
 - Removed duplicate entries from List.
 
@@ -59,8 +53,6 @@ Based from **main.py** version: 1.2.0.4 <br>
 ****
 
 # v1.0.0.0 - First Version
-**Download count :** [![](https://img.shields.io/github/downloads/Jacekun/AniPy/v1.0.0.0/total.svg)]() <br>
-
 **Features:**
 - Export User Anime/Manga list to JSON file.
 - Export User Anime/Manga list to [MAL](https://myanimelist.net/) Xml export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
