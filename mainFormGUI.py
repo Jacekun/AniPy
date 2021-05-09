@@ -6,6 +6,8 @@ import importlib
 import concurrent.futures
 import os
 from datetime import datetime
+import json
+import webbrowser
 
 # Import external scripts
 fReq = importlib.import_module("func.anilist_request")
@@ -17,14 +19,31 @@ fNotOnTachi = importlib.import_module("func.getNotOnTachi")
 # Global Vars
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
 entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
-AccessTkn = ""
 OutputAnime = ""
 OutputManga = ""
 TachiLib = ""
 
+ANICLIENT = ""
+ANISECRET = ""
+REDIRECT_URL = ""
+AccessTkn = ""
+UseOAuth = False
+
 # Create 'output' directory
 if not os.path.exists('output'):
     os.makedirs('output')
+
+# Load config automatically
+try:
+    with open('anilistConfig.json') as f:
+        configData = json.load(f)
+    ANICLIENT = configData['aniclient']
+    ANISECRET = configData['anisecret']
+    REDIRECT_URL = configData['redirectUrl']
+    UseOAuth = True
+except:
+    Log("Cannot load Anilist config!")
+    UseOAuth = False
 
 # Functions
 def Log(text):
@@ -44,6 +63,14 @@ def TrimResults(list):
 
 def NotOnTachi(list):
     fNotOnTachi.getNotOnTachi(list[0], list[1])
+
+def GetAccessTkn():
+    try:
+        url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={REDIRECT_URL}&response_type=code"
+        webbrowser.open(url)
+        return True
+    except:
+        return False
 
 def GoSimple(self):
     window.disableButtons() # Prevent button events
