@@ -53,7 +53,7 @@ def getMangaEntries(accessToken, userID, username, filepath, entryLog, useOAuth)
           fMain.write_append(outputManga, '[\n')
 
           # Log duplicate entries
-          fMain.write_append(entryLog, "MANGA Entries Log\n")
+          fMain.write_append(entryLog, f'MANGA Entries [{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]\n')
           entryID.clear() # Clear list
 
           # Iterate over the MediaCollection List
