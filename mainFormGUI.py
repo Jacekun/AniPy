@@ -22,6 +22,10 @@ OutputAnime = ""
 OutputManga = ""
 TachiLib = ""
 
+# Create 'output' directory
+if not os.path.exists('output'):
+    os.makedirs('output')
+
 # Functions
 def Log(text):
     print(f'[{datetime.now().strftime("%H:%M:%S")}][mainGUI]: {text}')
