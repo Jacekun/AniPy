@@ -1,3 +1,18 @@
+# v1.07
+## New features:
+- Create 'output' folder when not existing.
+- [WIP] New UI for the script, built using PySide6 and QtDesigner.
+  - **Note: Currently, only 'Simple Mode' is working. 'Advance Mode' is still WIP.**
+
+## Fixes and Changes:
+- Fix: Only use Tachiyomi compare script when file is not None/null.
+- Refactored code for better flow and execution.
+- Load anilist config, only when its the mode used.
+- Renamed **'packages.txt'** to **'requirements.txt'** following Github standard.
+- Correct some log messages.
+- Removed unused variables.
+- Removed download count from this file.
+
 # v1.06
 **This lists all changes after the last Executable update** <br>
 ## New features:
