@@ -112,7 +112,7 @@ outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_P
 fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
 # Get Entries not on Tachi
-tempTachi = input("Tachiyomi library json file: ")
+tempTachi = input("Tachiyomi library json file (legacy backup): ")
 if tempTachi:
   fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
 
