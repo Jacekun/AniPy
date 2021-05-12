@@ -50,10 +50,14 @@ def getNotOnTachi(inputManga, inputTachi):
         logString("Tachiyomi library does not exists!", logSrc)
         tachiManga = None
     else:
-        logString("Loading " + os.path.basename(inputTachi) + " into memory..")
-        with open(inputTachi, "r+", encoding='utf-8') as F:
-            tachiManga = json.load(F)
-            logString("Tachi library json file loaded!")
+        if inputTachi[-4:] == "json":
+            logString("Loading legacy backup '" + os.path.basename(inputTachi) + "' into memory..")
+            with open(inputTachi, "r+", encoding='utf-8') as F:
+                tachiManga = json.load(F)
+                logString("Tachi library json file loaded!")
+        else:
+            tachiManga = None
+            logString("Unrecognized Tachiyomi backup file!")
 
     # Get entries from Tachiyomi, and turn into simple list
     if tachiManga is not None:
