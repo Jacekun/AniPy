@@ -13,6 +13,11 @@ appBuild = 2 # Used for building executable file
 # Logger
 def logger(text):
     print(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+def inputX(text):
+  try:
+    return input(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+  except:
+    return ""
 
 # Declare variables
 logger("Define Global Vars..")
@@ -47,7 +52,7 @@ if not os.path.exists('output'):
     os.makedirs('output')
 
 # Toggle when skipping Public mode, or Authenticated mode
-inputChoice = input("Type '1' to skip oAuth (use Public), otherwise '0': ")
+inputChoice = inputX("Type '1' to skip oAuth (use Public), otherwise '0': ")
 
 if inputChoice == '1':
   useOAuth = False
@@ -56,9 +61,9 @@ else:
   logger("Importing Anilist config")
   if not os.path.exists(anilistConfig):
     while not ANICLIENT:
-      ANICLIENT = input("Enter your Client ID: ")
+      ANICLIENT = inputX("Enter your Client ID: ")
     while not ANISECRET:
-      ANISECRET = input("Enter your Client Secret: ")
+      ANISECRET = inputX("Enter your Client Secret: ")
     anilistConfigJson = {
       "aniclient" : ANICLIENT,
       "anisecret" : ANISECRET,
@@ -85,7 +90,7 @@ else:
     url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={REDIRECT_URL}&response_type=code"
     webbrowser.open(url)
 
-    code = input("Paste your token code here (Copied from Anilist webpage result): ")
+    code = inputX("Paste your token code here (Copied from Anilist webpage result): ")
     accessToken = fReq.request_accesstkn(ANICLIENT, ANISECRET, REDIRECT_URL, code)
     #logger("Access Token: [" + accessToken + "]")
 
@@ -103,7 +108,7 @@ if not useOAuth:
   accessToken = ""
   while (userID < 1):
     # Get Username
-    username = input("Enter your Anilist Username: ")
+    username = inputX("Enter your Anilist Username: ")
     userID = fReq.anilist_getUserID(username)
 else:
   logger("Getting User ID, from Authenticated user..")
@@ -127,8 +132,8 @@ outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_P
 fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
 # Get Entries not on Tachi
-tempTachi = input("Tachiyomi library json file (legacy backup): ")
+tempTachi = inputX("Tachiyomi library json file (legacy backup): ")
 if tempTachi:
   fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
 
-input("Press <Enter> to exit..")
+inputX("Press <Enter> to exit..")
