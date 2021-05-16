@@ -7,7 +7,7 @@ from datetime import datetime
 import webbrowser
 
 # App Properties
-appVersion = '1.06'
+appVersion = '1.08'
 appBuild = 2 # Used for building executable file
 
 # Logger

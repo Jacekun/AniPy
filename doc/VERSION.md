@@ -1,3 +1,9 @@
+# v1.08
+## Fixes and Changes:
+- Clarify that only Legacy version backup of Tachiyomi is accepted.
+- Create **'anilistConfig.json'** file, if it does not exist. Needs to enter client Id and secret.
+- Use same format as logging when accepting inputs from user.
+
 # v1.07
 ## New features:
 - Create 'output' folder when not existing.
