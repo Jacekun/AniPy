@@ -19,6 +19,7 @@ logger("Define Global Vars..")
 # Paths for Files
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
 logger("Current path: " + PROJECT_PATH)
+anilistConfig = "anilistConfig.json"
 
 # Vars for Authentication
 useOAuth = False
@@ -51,8 +52,18 @@ if inputChoice == '1':
 else:
   # Import config for Anilist OAuth
   logger("Importing Anilist config")
+  if not os.path.exists(anilistConfig):
+    ANICLIENT = input("Enter your Client ID: ")
+    ANISECRET = input("Enter your Client Secret: ")
+    anilistConfigJson = {
+      "aniclient" : ANICLIENT,
+      "anisecret" : ANISECRET,
+      "redirectUrl" : "https://anilist.co/api/v2/oauth/pin"
+    }
+    with open(anilistConfig, "w+", encoding='utf-8') as F:
+      F.write(json.dumps(anilistConfigJson, ensure_ascii=False, indent=4).encode('utf8').decode())
   try:
-    with open('anilistConfig.json') as f:
+    with open(anilistConfig) as f:
       configData = json.load(f)
     ANICLIENT = configData['aniclient']
     ANISECRET = configData['anisecret']
@@ -60,7 +71,7 @@ else:
     # logger("\nClient: " + ANICLIENT + "\nSecret: " + ANISECRET)
     useOAuth = True
   except:
-    logger("There's no correct anilistConfig.json file!")
+    logger(f"There's no correct {anilistConfig} file!")
     useOAuth = False
     accessToken = ""
   
