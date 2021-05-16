@@ -22,6 +22,8 @@ logger("Current path: " + PROJECT_PATH)
 anilistConfig = "anilistConfig.json"
 
 # Vars for Authentication
+ANICLIENT = ""
+ANISECRET = ""
 useOAuth = False
 # User vars
 username = ""
@@ -53,8 +55,10 @@ else:
   # Import config for Anilist OAuth
   logger("Importing Anilist config")
   if not os.path.exists(anilistConfig):
-    ANICLIENT = input("Enter your Client ID: ")
-    ANISECRET = input("Enter your Client Secret: ")
+    while not ANICLIENT:
+      ANICLIENT = input("Enter your Client ID: ")
+    while not ANISECRET:
+      ANISECRET = input("Enter your Client Secret: ")
     anilistConfigJson = {
       "aniclient" : ANICLIENT,
       "anisecret" : ANISECRET,
