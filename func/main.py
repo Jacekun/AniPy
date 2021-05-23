@@ -2,6 +2,7 @@
 # Imports
 import os
 from datetime import datetime
+import re
 
 # Log string, and return it
 def logString(text, source="main"):
@@ -11,7 +12,8 @@ def logString(text, source="main"):
 # Check if not Null, and return
 def validateStr(x):
   if x is not None:
-    return str(x).replace('"', "'")
+    fixed = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'', str(x))
+    return fixed.replace('"', "'")
   return ""
 
 # Check if array is null, and return empty string
@@ -45,7 +47,8 @@ def validateDate(year, month, day):
 
 # Create string/int for MAL XML file
 def toMalstr(content, name):
-  return "<" + name + "><![CDATA[" + content + "]]></" + name + ">"
+  fixed = validateStr(content)
+  return "<" + name + "><![CDATA[" + fixed + "]]></" + name + ">"
 
 def toMalval(content, name):
   return "<" + name + ">" + content + "</" + name + ">"
