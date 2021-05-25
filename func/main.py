@@ -12,8 +12,9 @@ def logString(text, source="main"):
 # Check if not Null, and return
 def validateStr(x):
   if x is not None:
-    fixed = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'', str(x))
-    return fixed.replace('"', "'")
+    #fixed = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'', str(x))
+    fixed = str(x).replace('\\', "\\\\") # Allow 'Escape backslash' to be encoded
+    return fixed.replace('"', "'") # Replace double quotes to single quote
   return ""
 
 # Check if array is null, and return empty string
