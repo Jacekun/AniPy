@@ -33,7 +33,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
   ```
 2. Go to Anilist [**Settings** -> **Developer**](https://anilist.co/settings/developer), and click **Create client**.
   - Type whatever in **Name** field, and use ``https://anilist.co/api/v2/oauth/pin`` as **Redirect URL**.
-  - Get information from created client and input them in **anilistConfig.json** (Create this file).
+  - Get information from created client and input them in **anilistConfig.json** (Automatically created if not existing, you need to input the credentials).
   - File must contain these lines. *Replace lines with appropriate values*:
 ```json
 {
@@ -50,8 +50,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 **[func / main.py](func/main.py)**    : Main global functions. <br>
 
 ## External scripts (Modules):
-**[func / anilist_getAnime.py](func/anilist_getAnime.py)** : Generate JSON/XML file with entries from [Anilist.co](https://anilist.co/). <br>
-**[func / anilist_getManga.py](func/anilist_getManga.py)** : Generate JSON/XML file with entries from [Anilist.co](https://anilist.co/). <br>
+**[func / anilist_getMedia.py](func/anilist_getMedia.py)** : Generate Anime and Manga JSON/XML files with entries from [Anilist.co](https://anilist.co/). <br>
 **[func / anilist_request.py](func/anilist_request.py)** : Query Requests to [Anilist.co](https://anilist.co/). <br>
 **[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Generates list of Entries not in Tachiyomi library. <br>
 **[func / trim_list.py](func/trim_list.py)** : Generate list of Entries not in MAL. Also gets stats. <br>
