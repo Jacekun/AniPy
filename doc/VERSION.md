@@ -1,4 +1,4 @@
-# V1.1
+# v1.1
 ## New features:
 - Added Manga re-reading status to MAL xml file.
 

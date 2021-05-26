@@ -12,8 +12,7 @@ import func.trim_list as fTrim
 import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
-appVersion = '1.08'
-appBuild = 2 # Used for building executable file
+appVersion = '1.1'
 
 # Logger
 def logger(text):
