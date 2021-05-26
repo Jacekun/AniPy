@@ -1,3 +1,23 @@
+# V1.1
+## New features:
+- Added Manga re-reading status to MAL xml file.
+
+## Fixes and Changes:
+- Fixed JSON not encoding ASCII properly. Fixes [Issue #1](https://github.com/Jacekun/AniPy/issues/1)
+- Encodes double quotes to JSON, instead of replacing it into single quote.
+- Changed List trimming behavior. Now asks user for explicit permission.
+- Changed behavior of choosing **'Public'** or **'Authenticated'** mode. The default is now **'Public mode'**.
+
+## Dev changes:
+- Re-written imports. Import locally instead of thru importlib.
+- Dump json result as a whole, instead of appending to text file for every result.
+  - Pro: Ensures valid json result; Properly encodes ASCII; Properly write 'escape' characters.
+  - Cons: Uses more RAM; If an exception happens, it doesn't write anything.
+- Combined **'anilist_getAnime'** and **'anilist_getManga'** scripts into one: **'anilist_getMedia'**.
+- Log imports from **'func'** subfolder.
+- Dropped all GUI supports. AniPy is now fully dedicated as an CLI tool.
+- Removed unused *imports* from scripts and *packages* from **'requirements.txt'**.
+
 # v1.08
 ## Fixes and Changes:
 - Clarify that only Legacy version backup of Tachiyomi is accepted.

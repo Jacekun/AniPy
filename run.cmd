@@ -1,1 +1,1 @@
-python mainFormGUI.py
+python main.py

@@ -2,24 +2,14 @@
 # imports
 import os
 import json
-import importlib
-from datetime import datetime
+# Local import
+import func.main as fMain
 
-# Other vars
-logSrc = "getNotOnTachi"
-tempAnilist = ""
-tempTachi = ""
-listTachiTracked = []
-listSkippedStatus = [ "COMPLETED", "DROPPED" ]
+fMain.logString("Imported func.getNotOnTachi", "")
 
 # Functions
-def logString(text, source="getNotOnTachi"):
-  print(f'[{datetime.now().strftime("%H:%M:%S")}][{source}]: {text}')
-  return text
-
-def deleteFile(file):
-    if os.path.exists(file):
-        os.remove(file)
+def logString(text):
+  fMain.logString(text, "getNotOnTachi")
 
 def sort_byval(json):
     try:
@@ -28,6 +18,12 @@ def sort_byval(json):
         return ""
 
 def getNotOnTachi(inputManga, inputTachi):
+    # Vars
+    tempAnilist = ""
+    tempTachi = ""
+    listTachiTracked = []
+    listSkippedStatus = [ "COMPLETED", "DROPPED" ]
+
     # Declare filepaths
     outputManga = inputManga[:-5] + "_NotInTachi.json"
     outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
@@ -40,14 +36,14 @@ def getNotOnTachi(inputManga, inputTachi):
     }
 
     # Delete previous file
-    deleteFile(outputManga)
+    fMain.deleteFile(outputManga)
 
     # json Objects
     jsonOutputManga = []
 
     # Load Tachiyomi Library
     if not (os.path.exists(inputTachi)):
-        logString("Tachiyomi library does not exists!", logSrc)
+        logString("Tachiyomi library does not exists!")
         tachiManga = None
     else:
         if inputTachi[-4:] == "json":
@@ -83,14 +79,14 @@ def getNotOnTachi(inputManga, inputTachi):
     else:
         # Load Anilist MANGA
         if not (os.path.exists(inputManga)):
-            logString("Manga json file does not exists!", logSrc)
+            logString("Manga json file does not exists!")
             jsonManga = None
         else:
-            logString("Loading " + os.path.basename(inputManga) + " into memory..", logSrc)
+            logString("Loading " + os.path.basename(inputManga) + " into memory..")
             with open(inputManga, "r+", encoding='utf-8') as F:
                 jsonManga = json.load(F)
                 jsonManga.sort(key=sort_byval, reverse=True)
-                logString("Manga JSON File loaded!", logSrc)
+                logString("Manga JSON File loaded!")
         # Get entries from Anilist Manga, and dispose entries already on Tachi tracked lib
         if jsonManga is not None:
             logString("Checking Anilist manga entries..")

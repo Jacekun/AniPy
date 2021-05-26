@@ -1,10 +1,15 @@
 # imports
 import os
-import importlib
 import json
 import requests
 from datetime import datetime
 import webbrowser
+# Local Imports
+import func.main as fMain
+import func.anilist_request as fReq
+from func.anilist_getMedia import getMediaEntries
+import func.trim_list as fTrim
+import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
 appVersion = '1.08'
@@ -38,25 +43,16 @@ outputAnime = ""
 outputManga = ""
 entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
 
-# Import libs from 'func'
-logger("Importing scripts from same folder")
-fMain = importlib.import_module("func.main")
-fReq = importlib.import_module("func.anilist_request")
-fGetAnime = importlib.import_module("func.anilist_getAnime")
-fGetManga = importlib.import_module("func.anilist_getManga")
-fTrim = importlib.import_module("func.trim_list")
-fNotOnTachi = importlib.import_module("func.getNotOnTachi")
-
 # Create 'output' directory
 if not os.path.exists('output'):
     os.makedirs('output')
 
 # Toggle when skipping Public mode, or Authenticated mode
-inputChoice = inputX("Type '1' to skip oAuth (use Public), otherwise '0': ")
+inputChoice = inputX("Type 'yes' or 'y' to Use Authenticated mode: ")
+if not inputChoice:
+  inputChoice = "n"
 
-if inputChoice == '1':
-  useOAuth = False
-else:
+if inputChoice.lower()[0] == "y":
   # Import config for Anilist OAuth
   logger("Importing Anilist config")
   if not os.path.exists(anilistConfig):
@@ -100,6 +96,8 @@ else:
   else:
     useOAuth = False
     logger("Cannot Authenticate! Will use Public Username.")
+else:
+  useOAuth = False
 
 
 # Check whether authenticated, or use public Username
@@ -123,13 +121,15 @@ else:
 fMain.deleteFile(entryLog)
 
 # Request anime list
-outputAnime = fGetAnime.getAnimeEntries(accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
 
 # Request manga list
-outputManga = fGetManga.getMangaEntries(accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
 
 # Trim List
-fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
+tempTrim = inputX("Trim list (Create list of Entries not on MAL)? [y/n]: ")
+if tempTrim.lower()[0] == "y":
+  fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
 # Get Entries not on Tachi
 tempTachi = inputX("Tachiyomi library json file (legacy backup): ")

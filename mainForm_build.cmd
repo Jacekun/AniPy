@@ -1,1 +1,0 @@
-pyside6-uic mainForm.ui > mainForm.py

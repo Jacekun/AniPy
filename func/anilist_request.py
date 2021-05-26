@@ -1,14 +1,17 @@
 # Imports
 import json
 import requests
-from datetime import datetime
+# Local import
+from func.main import logString as logMain
 
 # Anilist API URL
 AnilistURL = 'https://graphql.anilist.co'
 
+logMain("Imported func.anilist_request", "")
+
 # Logger
 def logger(text):
-    print(f'[{datetime.now().strftime("%H:%M:%S")}][anilist_request]: {text}')
+    logMain(text, "anilist_request")
 
 # Return media query string
 def queryMedia():

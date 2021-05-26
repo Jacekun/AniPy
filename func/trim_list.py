@@ -3,13 +3,12 @@
 # imports
 import os
 import json
-import importlib
+# Local imports
+import func.main as fMain
 
-# Import external 'func'
-fMain = importlib.import_module("func.main")
 # Other vars
 logSrc = "trim_list"
-fMain.logString("Imported as func", logSrc)
+fMain.logString("Imported func.trim_list", "")
 
 # Functions
 def sort_byval(json):

@@ -1,4 +1,1 @@
-importlib>=1.0.4
-importlib-metadata>=3.4.0
 requests>=2.25.1
-PySide6>=6.0.4
