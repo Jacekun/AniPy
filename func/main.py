@@ -250,3 +250,12 @@ def dumpToJson(objToDump, filePath):
       return True
   except:
     return False
+
+def createJsonFile(filepath, jsonObject, logSrc = "main"):
+  logString("Writing to file " + os.path.basename(filepath), logSrc)
+  try:
+    with open(filepath, "w+", encoding='utf-8') as F:
+        F.write(json.dumps(jsonObject, ensure_ascii=False, indent=4).encode('utf8').decode())
+        logString("File generated: " + filepath, logSrc)
+  except:
+    logString(f"Cannot write json file: {filepath}", logSrc)
