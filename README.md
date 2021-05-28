@@ -13,7 +13,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
 - Uses Authentication to Fetch private lists.
 - Compare against Tachiyomi backup, and lists all entries not on your library.
-- Create Tachiyomi backup file containing Anilist entries not on your library.
+- Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
 
 # Limitations:
 - Cannot get full information from **"Re-watches / Re-reads"**.
