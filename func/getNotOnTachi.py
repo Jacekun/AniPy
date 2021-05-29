@@ -19,6 +19,7 @@ def sort_byval(json):
 
 def getNotOnTachi(inputManga, inputTachi):
     # Vars
+    logSrc = "getNotOnTachi"
     tempAnilist = ""
     tempTachi = ""
     listTachiTracked = []
@@ -127,12 +128,6 @@ def getNotOnTachi(inputManga, inputTachi):
                             TachiBackupJson["mangas"].append(TachiBackupEntry)
                     
             # Write 'outputManga': manga_NotInTachi
-            logString("Writing to file " + os.path.basename(outputManga))
-            with open(outputManga, "w+", encoding='utf-8') as F:
-                F.write(json.dumps(jsonOutputManga, ensure_ascii=False, indent=4).encode('utf8').decode())
-                logString("File generated: " + outputManga)
+            fMain.createJsonFile(outputManga, jsonOutputManga, logSrc)
             # Write TachiBackupJson to file: __TachiyomiBackup.json
-            logString("Writing to file " + os.path.basename(outputTachiBackup))
-            with open(outputTachiBackup, "w+", encoding='utf-8') as F:
-                F.write(json.dumps(TachiBackupJson, ensure_ascii=False, indent=4).encode('utf8').decode())
-                logString("File generated: " + outputTachiBackup)
+            fMain.createJsonFile(outputTachiBackup, TachiBackupJson, logSrc)
