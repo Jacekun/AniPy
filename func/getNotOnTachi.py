@@ -2,9 +2,6 @@
 # imports
 import os
 import json
-import gzip
-import shutil
-import google.protobuf
 # Local import
 import func.main as fMain
 
@@ -30,7 +27,6 @@ def getNotOnTachi(inputManga, inputTachi):
     tachiManga = None
 
     # Declare filepaths
-    protoFile = inputTachi[:-3] # Filepath for .proto ext backup
     outputManga = inputManga[:-5] + "_NotInTachi.json"
     outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
     TachiBackupJson = {
@@ -57,18 +53,9 @@ def getNotOnTachi(inputManga, inputTachi):
             with open(inputTachi, "r+", encoding='utf-8') as F:
                 tachiManga = json.load(F)
                 logString("Tachi library json file loaded!")
-        elif inputTachi[-2:] == "gz":
-            # Extract contents first, and load it
-            logString("Loading proto backup '" + os.path.basename(inputTachi) + "' into memory..")
-            try:
-                with gzip.open(inputTachi, 'rb') as f_in:
-                    with open(protoFile, 'wb') as f_out:
-                        shutil.copyfileobj(f_in, f_out)
-            except:
-                tachiManga = None
         else:
             tachiManga = None
-            logString("Unrecognized Tachiyomi backup file!")
+            logString("Unrecognized Tachiyomi backup file! Make sure you use Tachiyomi's legacy backup (File ends with .json)")
 
     # Get entries from Tachiyomi json (legacy backup), and turn into simple list
     if tachiManga is not None:
