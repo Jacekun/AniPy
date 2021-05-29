@@ -131,3 +131,4 @@ anilist_config.py
 anilistConfig.json
 tachiyomi_*.json
 tachiyomi_*.proto
+tachiyomi_*.gz
