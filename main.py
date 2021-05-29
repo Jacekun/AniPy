@@ -47,7 +47,7 @@ if not os.path.exists('output'):
     os.makedirs('output')
 
 # Toggle when skipping Public mode, or Authenticated mode
-inputChoice = inputX("Type 'yes' or 'y' to Use Authenticated mode: ")
+inputChoice = inputX("Type 'yes' or 'y' to Use Authenticated mode (Default: 'Public mode'): ")
 if not inputChoice:
   inputChoice = "n"
 
@@ -126,7 +126,9 @@ outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PA
 outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
 
 # Trim List
-tempTrim = inputX("Trim list (Create list of Entries not on MAL)? [y/n]: ")
+tempTrim = inputX("Trim list (Create list of Entries not on MAL)? [y/n] (Default: n): ")
+if not tempTrim:
+  tempTrim = "n"
 if tempTrim.lower()[0] == "y":
   fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
 
