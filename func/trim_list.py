@@ -19,7 +19,7 @@ def sort_byval(json):
 
 def trim_results(filepath, inputAnime, inputManga):
     # Declare filepaths
-    outputStats = os.path.join(filepath, "output\\animemanga_stats.txt")
+    outputStats = os.path.join(filepath, "output", "animemanga_stats.txt")
     outputAnime = inputAnime[:-5] + "_NotInMAL.json"
     outputManga = inputManga[:-5] + "_NotInMAL.json"
     # STATS variables
