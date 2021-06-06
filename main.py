@@ -40,7 +40,7 @@ userID = 0
 # Output file names
 outputAnime = ""
 outputManga = ""
-entryLog = os.path.join(PROJECT_PATH, "output\\entries.log") # Log entries
+entryLog = os.path.join(PROJECT_PATH, "output", "entries.log") # Log entries
 
 # Create 'output' directory
 if not os.path.exists('output'):

@@ -17,11 +17,11 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
 
     # Declare filepaths
     if mediaType == "ANIME":
-        outputMedia = os.path.join(filepath, "output\\anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
-        xmlMedia = os.path.join(filepath, "output\\anime_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
+        outputMedia = os.path.join(filepath, "output", "anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+        xmlMedia = os.path.join(filepath, "output", "anime_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
     else:
-        outputMedia = os.path.join(filepath, "output\\manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
-        xmlMedia = os.path.join(filepath, "output\\manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
+        outputMedia = os.path.join(filepath, "output", "manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+        xmlMedia = os.path.join(filepath, "output", "manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
 
     # Check if not existing
     if not (os.path.exists(outputMedia)):
