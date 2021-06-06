@@ -1,3 +1,7 @@
+# v1.11
+## Fixes and Changes:
+- FIX: Script would save output files outside 'output' folder on non-Windows OS, ([#2](https://github.com/Jacekun/AniPy/pull/2)). Thanks to [Kortzy](https://github.com/Kortzy)
+
 # v1.1
 ## New features:
 - Added Manga re-reading status to MAL xml file.
