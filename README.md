@@ -2,7 +2,8 @@
 
 Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
-[**View Project History**](doc/VERSION.md) <br>
+| [**View Project History**](doc/VERSION.md) | [**Contribute to AniPy**](CONTRIBUTING.md) | [**Report Issues**](ISSUE.md) |
+|--------------------------------------------|--------------------------------------------|-------------------------------|
 
 # Requirements:
 - Python 3.9
@@ -14,9 +15,11 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - Uses Authentication to Fetch private lists.
 - Compare against Tachiyomi backup, and lists all entries not on your library.
 - Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
+  - **NOTE** It only works on older Tachiyomi backups. (.json format)
 
 # Limitations:
 - Cannot get full information from **"Re-watches / Re-reads"**.
+- Cannot cherry-pick entries. (*Planned feature*)
 
 ## Output files:
 1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
