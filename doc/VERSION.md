@@ -1,3 +1,10 @@
+# v1.12
+## Changes:
+- Have default value for trimming list. (Defaults to 'n').
+- Clarify default mode used for authentication.
+- Minor code refactors.
+- Add 'Contributing' document
+
 # v1.11
 ## Fixes and Changes:
 - FIX: Script would save output files outside 'output' folder on non-Windows OS, ([#2](https://github.com/Jacekun/AniPy/pull/2)). Thanks to [Kortzy](https://github.com/Kortzy)
