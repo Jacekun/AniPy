@@ -17,11 +17,15 @@ def sort_byval(json):
     except KeyError:
         return ""
 
-def trim_results(filepath, inputAnime, inputManga):
+def trim_results(filepath, inputAnime, inputManga, isNsfw):
     # Declare filepaths
-    outputStats = os.path.join(filepath, "output", "animemanga_stats.txt")
-    outputAnime = inputAnime[:-5] + "_NotInMAL.json"
-    outputManga = inputManga[:-5] + "_NotInMAL.json"
+    if isNsfw:
+        outputStats = os.path.join(filepath, "output", f'nsfw_animemanga_stats.txt')
+    else:
+        outputStats = os.path.join(filepath, "output", f'animemanga_stats.txt')
+
+    outputAnime = f'{inputAnime[:-5]}_NotInMAL.json'
+    outputManga = f'{inputManga[:-5]}_NotInMAL.json'
     # STATS variables
     statScoreTotal = 0
     statScoreCount = 0

@@ -49,6 +49,7 @@ def queryMedia():
                     description
                     coverImage { medium }
                     synonyms
+                    isAdult
                 }
             }
         }

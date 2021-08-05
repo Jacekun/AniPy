@@ -38,8 +38,8 @@ useOAuth = False
 username = ""
 userID = 0
 # Output file names
-outputAnime = ""
-outputManga = ""
+outputAnime = []
+outputManga = []
 entryLog = os.path.join(PROJECT_PATH, "output", "entries.log") # Log entries
 
 # Create 'output' directory
@@ -130,7 +130,8 @@ tempTrim = inputX("Trim list (Create list of Entries not on MAL)? [y/n] (Default
 if not tempTrim:
   tempTrim = "n"
 if tempTrim.lower()[0] == "y":
-  fTrim.trim_results(PROJECT_PATH, outputAnime, outputManga)
+  fTrim.trim_results(PROJECT_PATH, outputAnime.get('main'), outputManga.get('main'), False)
+  fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
 
 # Get Entries not on Tachi
 tempTachi = inputX("Tachiyomi library json file (legacy backup): ")

@@ -10,8 +10,10 @@ fMain.logString("Imported func.anilist_getMedia", "")
 # Main Function
 def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog, useOAuth):
     # Vars and Objects
+    returnMedia = {}
     entryID = [] # List of IDs, to prevent duplicates
     jsonToDump = [] # List of Json dict object of results
+    jsonToDumpNsfw = [] # List of Json dict object of results, 18+ entries
     source = "anilist_get" + mediaType
     fMain.logString("All vars are initiated", source)
 
@@ -19,9 +21,13 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
     if mediaType == "ANIME":
         outputMedia = os.path.join(filepath, "output", "anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
         xmlMedia = os.path.join(filepath, "output", "anime_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
+        outputMedia18 = os.path.join(filepath, "output", "nsfw_anime_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+        xmlMedia18 = os.path.join(filepath, "output", "nsfw_anime_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
     else:
         outputMedia = os.path.join(filepath, "output", "manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
         xmlMedia = os.path.join(filepath, "output", "manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
+        outputMedia18 = os.path.join(filepath, "output", "nsfw_manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
+        xmlMedia18 = os.path.join(filepath, "output", "nsfw_manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
 
     # Check if not existing
     if not (os.path.exists(outputMedia)):
@@ -70,7 +76,11 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                         entryID.append(anilistID)
 
                     # Write to json file
-                    jsonToDump.append(fMain.entry_json(entry, mediaType))
+                    isAdult = bool(entry["media"]["isAdult"])
+                    if isAdult:
+                        jsonToDumpNsfw.append(fMain.entry_json(entry, mediaType))
+                    else:
+                        jsonToDump.append(fMain.entry_json(entry, mediaType))
 
                     # Write to MAL Xml File
                     malID = fMain.validateInt(entry["media"]["idMal"])
@@ -78,7 +88,10 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                         # Get XML strings
                         xmltoWrite = fMain.entry_xmlstr(mediaType, malID, entry, str(AnilistStatus))
                         # Write to xml file
-                        fMain.write_append(xmlMedia, xmltoWrite)
+                        if isAdult:
+                            fMain.write_append(xmlMedia18, xmltoWrite)
+                        else:
+                            fMain.write_append(xmlMedia, xmltoWrite)
                         
                         # Add count
                         if (AnilistStatus == "COMPLETED"):
@@ -100,6 +113,13 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
             else:
                 fMain.logString("Error with creating json file!", source)
             fMain.logString(f"Done with {mediaType} JSON file..", source)
+
+            # Dump JSON (nsfw) to file..
+            if (fMain.dumpToJson(jsonToDumpNsfw, outputMedia18)):
+                fMain.logString("Succesfully created json file!", source)
+            else:
+                fMain.logString("Error with creating json file!", source)
+            fMain.logString(f"Done with {mediaType} JSON file..", source)
             
             # Write to MAL xml file
             fMain.logString(f"Finalizing {mediaType} XML file..", source)
@@ -108,6 +128,7 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
 
             if mediaType == "ANIME":
                 fMain.write_append(xmlMedia, '</myanimelist>')
+                fMain.write_append(xmlMedia18, '</myanimelist>')
                 # Total counts
                 fMain.logString(f"Prepend 'myinfo' to {mediaType} XML file..", source)
                 malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<myanimelist>\n'
@@ -124,6 +145,7 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                 malprepend += '\t</myinfo>\n'
             else:
                 fMain.write_append(xmlMedia, '</mymangalist>')
+                fMain.write_append(xmlMedia18, '</mymangalist>')
                 # Total counts
                 fMain.logString(f"Prepend 'myinfo' to {mediaType} XML file..", source)
                 malprepend = '<?xml version="1.0" encoding="UTF-8" ?>\n<mymangalist>\n'
@@ -140,14 +162,18 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                 malprepend += '\t</myinfo>\n'
                 
             fMain.line_prepender(xmlMedia, malprepend)
+            fMain.line_prepender(xmlMedia18, malprepend)
             fMain.logString(f"Done with {mediaType} XML file..", source)
 
             # Done anime/manga
             fMain.logString("Done! File generated: " + outputMedia, source)
             fMain.logString("Done! File generated: " + xmlMedia, source)
+            fMain.logString("Done! File generated: " + outputMedia18, source)
+            fMain.logString("Done! File generated: " + xmlMedia18, source)
 
     # Already existing!
     else:
         fMain.logString(f"{mediaType} file already exist!: " + outputMedia, source)
     
-    return outputMedia
+    returnMedia = {'main':outputMedia, 'nsfw':outputMedia18}
+    return returnMedia
