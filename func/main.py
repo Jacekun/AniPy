@@ -11,6 +11,10 @@ def logString(text, source="main"):
   print(f'[{datetime.now().strftime("%H:%M:%S")}][{source}]: {text}')
   return text
 
+# Log string to file
+def logFile(file, text):
+  write_append(file, f'[{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]: {text}\n')
+
 # Check if not Null, and return
 def validateStr(x):
   if x is not None:
