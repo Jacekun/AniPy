@@ -209,9 +209,11 @@ def entry_xmlstr(mediaType, malID, entry, status):
     xmltoWrite += "\t\t" + toMalstr('', 'my_tags') + '\n'
     if (status=="REPEATING"):
       xmltoWrite += "\t\t" + toMalval('YES', 'my_rewatching') + '\n'
+      xmltoWrite += "\t\t" + toMalval(validateInt(entry["progress"]), 'my_rewatching_ep') + '\n'
     else:
       xmltoWrite += "\t\t" + toMalval('NO', 'my_rewatching') + '\n'
-    xmltoWrite += "\t\t" + toMalval('0', 'my_rewatching_ep') + '\n'
+      xmltoWrite += "\t\t" + toMalval('0', 'my_rewatching_ep') + '\n'
+    
     xmltoWrite += "\t\t" + toMalval('1', 'update_on_import') + '\n'
     xmltoWrite += "\t</anime>\n"
   else:
