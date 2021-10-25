@@ -9,26 +9,6 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - Python 3.9
 - 2GB RAM, or higher.
 
-# Features:
-- Export User Anime/Manga list to JSON file.
-- Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
-- Uses Authentication to Fetch private lists.
-- Compare against Tachiyomi backup, and lists all entries not on your library.
-- Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
-  - **NOTE** It only works on older Tachiyomi backups. (.json format)
-
-# Limitations:
-- Cannot get full information from **"Re-watches / Re-reads"**.
-- Cannot cherry-pick entries. (*Planned feature*)
-
-## Output files:
-1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
-2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
-3. **anime_NotInMal.json** / **manga_NotInMal.json**  : Entries not existing on MAL.
-4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
-5. **manga_NotInTachi.json** : Anilist manga entries not on your Tachiyomi library.
-6. **manga_TachiyomiBackup.json** : Tachiyomi backup file which contains Anilist entries not on your Tachiyomi library. Import it to your Tachiyomi, and Migrate each entries from **'Anilist'** category to appropriate sources.
-
 # Setup:
 1. Install required packages (run Command Prompt in the same folder as '*main.py*'): <br>
   ```cmd
@@ -45,14 +25,55 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
     "redirectUrl": "https://anilist.co/api/v2/oauth/pin"
 }
 ```
-3. Run **[main.py](main.py)**.
+  - Alternatively, you can directly run 1 of the script modes to input the credentials.
+
+# Usage:
+## 'Easy' mode
+1. Navigate to folder where you saved the source code.
+2. Run **[main.py](main.py)**, with command: ``python main.py``.
+3. Follow on-screen instructions.
+
+## 'Advanced mode
+1. Run command using: ``python anipy.py <MAL Username> -[parameters] --[switches]``
+
+### Parameters:
+- ``-user "<type_here>"`` -> Anilist username, if using 'Public Lists Mode'.
+- ``-tachi "<full_filepath>"`` -> Full filepath where Tachiyomi JSON backup file is located.
+
+### Switches:
+- ``--a`` -> Use Authentication for lists. Disregards the ``-user`` parameter.
+- ``--t`` -> Trim lists, showing which entries are not on MAL. Also, write stats to file.
+
+### Sample command:
+- ``python anipy.py Jace -tachi "D:\Tachi\backup.json" --a --t``
+
+# Features:
+- Export User Anime/Manga list to JSON file.
+- Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
+- Uses Authentication to Fetch private lists.
+- Compare against Tachiyomi backup, and lists all entries not on your library.
+- Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
+  - **NOTE** It only works on older Tachiyomi backups. (.json format)
+
+# Limitations:
+- Cannot get full information from **"Re-watches / Re-reads"**.
+- Cannot cherry-pick entries. (*Planned feature*)
+
+# Output files:
+1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
+2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
+3. **anime_NotInMal.json** / **manga_NotInMal.json**  : Entries not existing on MAL.
+4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
+5. **manga_NotInTachi.json** : Anilist manga entries not on your Tachiyomi library.
+6. **manga_TachiyomiBackup.json** : Tachiyomi backup file which contains Anilist entries not on your Tachiyomi library. Import it to your Tachiyomi, and Migrate each entries from **'Anilist'** category to appropriate sources.
 
 # Scripts and Files:
 ## Main scripts:
-**[main.py](main.py)** : Console version of App. <br>
-**[func / main.py](func/main.py)**    : Main global functions. <br>
+**[anipy.py](anipy.py)** : Advance script, with one-liner command. <br>
+**[main.py](main.py)** : Easy-to-follow script. <br>
 
 ## External scripts (Modules):
+**[func / main.py](func/main.py)**    : Main global functions. <br>
 **[func / anilist_getMedia.py](func/anilist_getMedia.py)** : Generate Anime and Manga JSON/XML files with entries from [Anilist.co](https://anilist.co/). <br>
 **[func / anilist_request.py](func/anilist_request.py)** : Query Requests to [Anilist.co](https://anilist.co/). <br>
 **[func / getNotOnTachi.py](func/getNotOnTachi.py)** : Generates list of Entries not in Tachiyomi library. <br>

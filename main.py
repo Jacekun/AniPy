@@ -11,7 +11,8 @@ import func.trim_list as fTrim
 import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
-appVersion = '1.12'
+appVersion = '1.13'
+appMode = 'AniPy (Easy)'
 mainsrc = "App"
 
 def main():
@@ -21,7 +22,6 @@ def main():
   PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
   fMain.logString("Current path: " + PROJECT_PATH, mainsrc)
   anilistConfig = os.path.join(PROJECT_PATH, "anilistConfig.json")
-
   # Vars for Authentication
   ANICLIENT = ""
   ANISECRET = ""
