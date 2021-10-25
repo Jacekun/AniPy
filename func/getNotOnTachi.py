@@ -17,7 +17,7 @@ def sort_byval(json):
     except KeyError:
         return ""
 
-def getNotOnTachi(inputManga, inputTachi):
+def getNotOnTachi(inputManga, inputTachi, isNsfw):
     # Vars
     logSrc = "getNotOnTachi"
     tempAnilist = ""
@@ -27,8 +27,13 @@ def getNotOnTachi(inputManga, inputTachi):
     tachiManga = None
 
     # Declare filepaths
-    outputManga = inputManga[:-5] + "_NotInTachi.json"
-    outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
+    if isNsfw:
+        outputManga = inputManga[:-5] + "_NotInTachi.json"
+        outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
+    else:
+        outputManga = inputManga[:-5] + "_NotInTachiNsfw.json"
+        outputTachiBackup = inputManga[:-5] + "_TachiyomiBackupNsfw.json"
+
     TachiBackupJson = {
         "version": 2,
         "mangas": [],

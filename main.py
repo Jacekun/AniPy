@@ -102,7 +102,8 @@ def main():
   # Get Entries not on Tachi
   tempTachi = fMain.inputX("Tachiyomi library json file (legacy backup): ")
   if tempTachi:
-    fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
+    fNotOnTachi.getNotOnTachi(outputManga.get('main'), tempTachi, False)
+    fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
 
   fMain.inputX("Press <Enter> to exit..")
 

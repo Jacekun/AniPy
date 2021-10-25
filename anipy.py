@@ -47,14 +47,17 @@ accessToken = ""
 # User vars
 username = args.mal # Required. MAL Username
 userID = 0
-anilistUser = args.user
+anilistUser = None
 # Output file names
 outputAnime = []
 outputManga = []
 
+if args.user is not None:
+    anilistUser = str(args.user)
+
 # use same MAL username if none
 if anilistUser is None:
-    anilistUser = username
+    anilistUser = str(username)
 
 if (args.a):
     useOAuth, ANICLIENT, ANISECRET, REDIRECT_URL = fReq.setup_config(anilistConfig)
@@ -106,8 +109,9 @@ if args.t:
     fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
 
 # Get Entries not on Tachi
-tempTachi = args.tachi
+tempTachi = str(args.tachi)
 if tempTachi:
-    fNotOnTachi.getNotOnTachi(outputManga, tempTachi)
+    fNotOnTachi.getNotOnTachi(outputManga.get('main'), tempTachi, False)
+    fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
 
 fMain.inputX("Press <Enter> to exit..")
