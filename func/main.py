@@ -6,6 +6,10 @@ import json
 # 
 print(f'[{datetime.now().strftime("%H:%M:%S")}][]: Imported func.main')
 
+# Simple log
+def logger(text):
+    print(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+    
 # Log string, and return it
 def logString(text, source="main"):
   print(f'[{datetime.now().strftime("%H:%M:%S")}][{source}]: {text}')
@@ -14,6 +18,13 @@ def logString(text, source="main"):
 # Log string to file
 def logFile(file, text):
   write_append(file, f'[{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]: {text}\n')
+
+# Ask for Input
+def inputX(text):
+  try:
+    return input(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+  except:
+    return ""
 
 # Check if not Null, and return
 def validateStr(x):

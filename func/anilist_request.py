@@ -1,8 +1,11 @@
 # Imports
+import os
 import json
 import requests
+import webbrowser
 # Local import
 from func.main import logString as logMain
+from func.main import inputX as inputX
 
 # Anilist API URL
 AnilistURL = 'https://graphql.anilist.co'
@@ -84,6 +87,15 @@ def anilist_getUserID(userName):
         logger("Cannot get User ID!")
         logger(str(response.content))
         return 0
+    
+# Return User ID, from Access Token
+def anilist_getUserID_auth(accessToken):
+    try:
+        resultUserID = requests.post("https://graphql.anilist.co", headers={"Authorization": f"Bearer {accessToken}"}, json={"query": "{Viewer{id}}"}).json()
+        userID = resultUserID["data"]["Viewer"]["id"]
+        return userID
+    except:
+        return None
 
 # Request user media list, returns JSON Object (Authenticated with token)
 def anilist_userlist(accessToken, userID, MEDIA = "ANIME"):
@@ -112,7 +124,17 @@ def anilist_userlist_public(userID, MEDIA = "ANIME"):
         logger(MEDIA + " Request Error! [Status code: " + str(response.status_code) + "]")
         logger(response.content)
         return None
-    
+
+# Request public code
+def request_pubcode(ANICLIENT, REDIRECT_URL):
+    # Get OAuth and Access Token
+    logger("Login Anilist on browser, and Authorize AniPy")
+    url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={REDIRECT_URL}&response_type=code"
+    webbrowser.open(url)
+
+    code = inputX("Paste your token code here (Copied from Anilist webpage result): ")
+    return code
+
 # Request access token, using code
 def request_accesstkn(ANICLIENT, ANISECRET, REDIRECT_URL, code):
     body = {
@@ -124,6 +146,43 @@ def request_accesstkn(ANICLIENT, ANISECRET, REDIRECT_URL, code):
     }
     try:
         accessToken = requests.post("https://anilist.co/api/v2/oauth/token", json=body).json().get("access_token")
+        #logger("Access Token: [" + accessToken + "]")
     except:
         accessToken = None
     return accessToken
+
+# Setup Anilist config
+def setup_config(anilistConfig):
+    ANICLIENT = ""
+    ANISECRET = ""
+    REDIRECT_URL = ""
+    useOAuth = False
+
+    if not os.path.exists(anilistConfig):
+        while not ANICLIENT:
+            ANICLIENT = inputX("Enter your Client ID: ")
+        while not ANISECRET:
+            ANISECRET = inputX("Enter your Client Secret: ")
+
+        anilistConfigJson = {
+        "aniclient" : ANICLIENT,
+        "anisecret" : ANISECRET,
+        "redirectUrl" : "https://anilist.co/api/v2/oauth/pin"
+        }
+
+        with open(anilistConfig, "w+", encoding='utf-8') as F:
+            F.write(json.dumps(anilistConfigJson, ensure_ascii=False, indent=4).encode('utf8').decode())
+    
+    try:
+      with open(anilistConfig) as f:
+        configData = json.load(f)
+      ANICLIENT = configData['aniclient']
+      ANISECRET = configData['anisecret']
+      REDIRECT_URL = configData['redirectUrl']
+      # fMain.logger("\nClient: " + ANICLIENT + "\nSecret: " + ANISECRET)
+      useOAuth = True
+    except:
+      logger(f"There's no correct {anilistConfig} file!")
+      useOAuth = False
+      
+    return useOAuth, ANICLIENT, ANISECRET, REDIRECT_URL
