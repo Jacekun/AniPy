@@ -41,7 +41,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - ``-tachi "<full_filepath>"`` -> Full filepath where Tachiyomi JSON backup file is located.
 
 ### Switches:
-- ``--a`` -> Use Authentication for lists. Disregards the ``-user`` parameter.
+- ``--a`` -> Use Authentication to fetch for lists. Disregards the ``-user`` parameter.
 - ``--t`` -> Trim lists, showing which entries are not on MAL. Also, write stats to file.
 
 ### Sample command:
