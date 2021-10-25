@@ -1,3 +1,9 @@
+# v1.13
+## New features:
+- **Anipy.py** script for one-liner commands.
+- Option to separate NSFW entries.
+- Add **'rewatching_ep'** to MAL Anime export.
+
 # v1.12
 ## Changes:
 - Have default value for trimming list. (Defaults to 'n').
