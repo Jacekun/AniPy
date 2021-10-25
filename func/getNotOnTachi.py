@@ -27,13 +27,8 @@ def getNotOnTachi(inputManga, inputTachi, isNsfw):
     tachiManga = None
 
     # Declare filepaths
-    if isNsfw:
-        outputManga = inputManga[:-5] + "_NotInTachi.json"
-        outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
-    else:
-        outputManga = inputManga[:-5] + "_NotInTachiNsfw.json"
-        outputTachiBackup = inputManga[:-5] + "_TachiyomiBackupNsfw.json"
-
+    outputManga = inputManga[:-5] + "_NotInTachi.json"
+    outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
     TachiBackupJson = {
         "version": 2,
         "mangas": [],
