@@ -43,6 +43,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 ### Switches:
 - ``--a`` -> Use Authentication to fetch for lists. Disregards the ``-user`` parameter.
 - ``--t`` -> Trim lists, showing which entries are not on MAL. Also, write stats to file.
+- ``--n`` -> Separate NSFW entries on generating output files. Creates files that starts with prefix **'nsfw_'**.
 
 ### Sample command:
 - ``python anipy.py Jace -tachi "D:\Tachi\backup.json" --a --t``

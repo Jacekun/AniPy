@@ -9,7 +9,7 @@ import func.anilist_request as fReq
 fMain.logString("Imported func.anilist_getMedia", "")
 
 # Main Function
-def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog, useOAuth):
+def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog, useOAuth, isSepNsfw):
     # Vars and Objects
     returnMedia = {}
     entryID = [] # List of IDs, to prevent duplicates
@@ -81,7 +81,7 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                         entryID.append(anilistID)
 
                     # Write to json file
-                    if isAdult:
+                    if isAdult and isSepNsfw:
                         jsonToDumpNsfw.append(fMain.entry_json(entry, mediaType))
                     else:
                         jsonToDump.append(fMain.entry_json(entry, mediaType))
@@ -92,7 +92,7 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                         # Get XML strings
                         xmltoWrite = fMain.entry_xmlstr(mediaType, malID, entry, str(AnilistStatus))
                         # Write to xml file
-                        if isAdult:
+                        if isAdult and isSepNsfw:
                             nsfwToggle = 1
                             fMain.write_append(xmlMedia18, xmltoWrite)
                         else:
@@ -122,11 +122,12 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
             fMain.logString(f"Done with {mediaType} JSON file..", source)
 
             # Dump JSON (nsfw) to file..
-            if (fMain.dumpToJson(jsonToDumpNsfw, outputMedia18)):
-                fMain.logString("Succesfully created json file!", source)
-            else:
-                fMain.logString("Error with creating json file!", source)
-            fMain.logString(f"Done with {mediaType} JSON file..", source)
+            if isSepNsfw:
+                if (fMain.dumpToJson(jsonToDumpNsfw, outputMedia18)):
+                    fMain.logString("Succesfully created json file!", source)
+                else:
+                    fMain.logString("Error with creating json file!", source)
+                fMain.logString(f"Done with {mediaType} JSON file..", source)
             
             # Write to MAL xml file
             fMain.logString(f"Finalizing {mediaType} XML file..", source)
@@ -146,7 +147,8 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
                 mediawatchread = "read"
 
             fMain.write_append(xmlMedia, f'</my{mediastring}list>')
-            fMain.write_append(xmlMedia18, f'</my{mediastring}list>')
+            if isSepNsfw:
+                fMain.write_append(xmlMedia18, f'</my{mediastring}list>')
             # Total counts
             fMain.logString(f"Prepend 'myinfo' to {mediaType} XML file..", source)
             malprepend = f'<?xml version="1.0" encoding="UTF-8" ?>\n<my{mediastring}list>\n'
@@ -164,25 +166,28 @@ def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog
             malprepend += '\t\t' + fMain.toMalval(str(cDrop[0]), 'user_total_dropped') + '\n'
             malprepend += '\t\t' + fMain.toMalval(str(cPtw[0]), f'user_total_planto{mediawatchread}') + '\n'
             # Count for 'nsfw'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cTotal[1]), f'user_total_{mediastring}') + '\n'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cWatch[1]), f'user_total_{mediawatchread}ing') + '\n'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cComplete[1]), 'user_total_completed') + '\n'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cHold[1]), 'user_total_onhold') + '\n'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cDrop[1]), 'user_total_dropped') + '\n'
-            malprepend18 += '\t\t' + fMain.toMalval(str(cPtw[1]), f'user_total_planto{mediawatchread}') + '\n'
+            if isSepNsfw:
+                malprepend18 += '\t\t' + fMain.toMalval(str(cTotal[1]), f'user_total_{mediastring}') + '\n'
+                malprepend18 += '\t\t' + fMain.toMalval(str(cWatch[1]), f'user_total_{mediawatchread}ing') + '\n'
+                malprepend18 += '\t\t' + fMain.toMalval(str(cComplete[1]), 'user_total_completed') + '\n'
+                malprepend18 += '\t\t' + fMain.toMalval(str(cHold[1]), 'user_total_onhold') + '\n'
+                malprepend18 += '\t\t' + fMain.toMalval(str(cDrop[1]), 'user_total_dropped') + '\n'
+                malprepend18 += '\t\t' + fMain.toMalval(str(cPtw[1]), f'user_total_planto{mediawatchread}') + '\n'
 
             malprepend += '\t</myinfo>\n'
             malprepend18 += '\t</myinfo>\n'
 
             fMain.line_prepender(xmlMedia, malprepend)
-            fMain.line_prepender(xmlMedia18, malprepend18)
+            if isSepNsfw:
+                fMain.line_prepender(xmlMedia18, malprepend18)
             fMain.logString(f"Done with {mediaType} XML file..", source)
 
             # Done anime/manga
             fMain.logString("Done! File generated: " + outputMedia, source)
             fMain.logString("Done! File generated: " + xmlMedia, source)
-            fMain.logString("Done! File generated: " + outputMedia18, source)
-            fMain.logString("Done! File generated: " + xmlMedia18, source)
+            if isSepNsfw:
+                fMain.logString("Done! File generated: " + outputMedia18, source)
+                fMain.logString("Done! File generated: " + xmlMedia18, source)
 
     # Already existing!
     else:

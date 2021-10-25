@@ -22,6 +22,7 @@ def main():
   PROJECT_PATH = os.path.dirname(os.path.realpath(__file__)) #os.path.dirname(sys.executable)
   fMain.logString("Current path: " + PROJECT_PATH, mainsrc)
   anilistConfig = os.path.join(PROJECT_PATH, "anilistConfig.json")
+  entryLog = os.path.join(PROJECT_PATH, "output", "entries.log") # Log entries
   # Vars for Authentication
   ANICLIENT = ""
   ANISECRET = ""
@@ -29,10 +30,10 @@ def main():
   # User vars
   username = ""
   userID = 0
-  # Output file names
+  isSepNsfw = False # Separate nsfw entries on output
+  # Output files dictionary
   outputAnime = []
   outputManga = []
-  entryLog = os.path.join(PROJECT_PATH, "output", "entries.log") # Log entries
 
   # Create 'output' directory
   if not os.path.exists('output'):
@@ -82,14 +83,22 @@ def main():
     else:
       fMain.logString("User Id cannot be fetched!", mainsrc)
 
+  # Confirm if separating nsfw entries on generating output files
+  inputChoice = fMain.inputX("Separate NSFW entries? [y/n] (Default: n): ")
+  if not inputChoice:
+    inputChoice = "n"
+
+  if inputChoice.lower()[0] == "y":
+    isSepNsfw = True
+
   # Delete prev files
   fMain.deleteFile(entryLog)
 
   # Request anime list
-  outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+  outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
 
   # Request manga list
-  outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+  outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
 
   # Trim List
   tempTrim = fMain.inputX("Trim list (Create list of Entries not on MAL)? [y/n] (Default: n): ")
@@ -97,13 +106,15 @@ def main():
     tempTrim = "n"
   if tempTrim.lower()[0] == "y":
     fTrim.trim_results(PROJECT_PATH, outputAnime.get('main'), outputManga.get('main'), False)
-    fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
+    if isSepNsfw:
+      fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
 
   # Get Entries not on Tachi
   tempTachi = fMain.inputX("Tachiyomi library json file (legacy backup): ")
   if tempTachi:
     fNotOnTachi.getNotOnTachi(outputManga.get('main'), tempTachi, False)
-    fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
+    if isSepNsfw:
+      fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
 
   fMain.inputX("Press <Enter> to exit..")
 

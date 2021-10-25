@@ -35,6 +35,7 @@ parser.add_argument('-tachi', type=str, help='Tachiyomi legacy backup')
 # Flags
 parser.add_argument('--a', action='store_true', help='Use Authenticated mode')
 parser.add_argument('--t', action='store_true', help='Trim generated files')
+parser.add_argument('--n', action='store_true', help='Separate NSFW entries on output files')
 
 # Parse args
 args = parser.parse_args()
@@ -48,6 +49,7 @@ accessToken = ""
 username = args.mal # Required. MAL Username
 userID = 0
 anilistUser = None
+isSepNsfw = False # Separate nsfw entries on output
 # Output file names
 outputAnime = []
 outputManga = []
@@ -94,24 +96,30 @@ else:
 # Display User ID
 fMain.logger("User ID: " + str(userID))
 
+# Separate NSFW Entries
+if (args.n):
+    isSepNsfw = True
+
 # Delete prev files
 fMain.deleteFile(entryLog)
 
 # Request anime list
-outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
 
 # Request manga list
-outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth)
+outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
 
 # Trim List
 if args.t:
     fTrim.trim_results(PROJECT_PATH, outputAnime.get('main'), outputManga.get('main'), False)
-    fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
+    if isSepNsfw:
+        fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
 
 # Get Entries not on Tachi
 tempTachi = str(args.tachi)
 if tempTachi:
     fNotOnTachi.getNotOnTachi(outputManga.get('main'), tempTachi, False)
-    fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
+    if isSepNsfw:
+        fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
 
 fMain.inputX("Press <Enter> to exit..")
