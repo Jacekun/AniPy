@@ -9,8 +9,16 @@ import func.anilist_request as fReq
 fMain.logString("Imported func.anilist_getMedia", "")
 
 # Main Function
-def getMediaEntries(mediaType, accessToken, userID, username, filepath, entryLog, useOAuth, isSepNsfw):
+def getMediaEntries(mediaType, paramvals):
     # Vars and Objects
+    filepath = str(paramvals['root'])
+    entryLog = str(paramvals['log'])
+    accessToken = str(paramvals['access_tkn'])
+    userID = int(paramvals['user_id'])
+    username = str(paramvals['username'])
+    useOAuth = bool(paramvals['use_auth'])
+    isSepNsfw = bool(paramvals['sep_nsfw'])
+
     returnMedia = {}
     entryID = [] # List of IDs, to prevent duplicates
     jsonToDump = [] # List of Json dict object of results

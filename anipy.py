@@ -1,6 +1,5 @@
 # imports
 import os
-import requests
 import argparse
 # Local Imports
 import func.main as fMain
@@ -10,7 +9,7 @@ import func.trim_list as fTrim
 import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
-appVersion = '1.13'
+appVersion = '1.14'
 appMode = 'AniPy (Advanced)'
 # Declare variables
 fMain.logger("Define Filepaths..")
@@ -46,7 +45,7 @@ ANISECRET = ""
 useOAuth = False
 accessToken = ""
 # User vars
-username = args.mal # Required. MAL Username
+username = str(args.mal) # Required. MAL Username
 userID = 0
 anilistUser = None
 isSepNsfw = False # Separate nsfw entries on output
@@ -103,11 +102,22 @@ if (args.n):
 # Delete prev files
 fMain.deleteFile(entryLog)
 
+# Initiate parameter values
+paramvals = {
+    'root': PROJECT_PATH,
+    'log': entryLog,
+    'access_tkn': accessToken,
+    'user_id': userID,
+    'username': username,
+    'use_auth': useOAuth,
+    'sep_nsfw': isSepNsfw
+}
+
 # Request anime list
-outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
+outputAnime = getMediaEntries("ANIME", paramvals)
 
 # Request manga list
-outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
+outputManga = getMediaEntries("MANGA", paramvals)
 
 # Trim List
 if args.t:

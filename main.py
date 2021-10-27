@@ -1,8 +1,5 @@
 # imports
 import os
-import json
-import requests
-from datetime import datetime
 # Local Imports
 import func.main as fMain
 import func.anilist_request as fReq
@@ -11,7 +8,7 @@ import func.trim_list as fTrim
 import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
-appVersion = '1.13'
+appVersion = '1.14'
 appMode = 'AniPy (Easy)'
 mainsrc = "App"
 
@@ -94,11 +91,22 @@ def main():
   # Delete prev files
   fMain.deleteFile(entryLog)
 
+  # Initiate parameter values
+  paramvals = {
+      'root': PROJECT_PATH,
+      'log': entryLog,
+      'access_tkn': accessToken,
+      'user_id': userID,
+      'username': username,
+      'use_auth': useOAuth,
+      'sep_nsfw': isSepNsfw
+  }
+
   # Request anime list
-  outputAnime = getMediaEntries("ANIME", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
+  outputAnime = getMediaEntries("ANIME", paramvals)
 
   # Request manga list
-  outputManga = getMediaEntries("MANGA", accessToken, userID, username, PROJECT_PATH, entryLog, useOAuth, isSepNsfw)
+  outputManga = getMediaEntries("MANGA", paramvals)
 
   # Trim List
   tempTrim = fMain.inputX("Trim list (Create list of Entries not on MAL)? [y/n] (Default: n): ")
