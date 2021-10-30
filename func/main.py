@@ -7,22 +7,25 @@ import json
 print(f'[{datetime.now().strftime("%H:%M:%S")}][]: Imported func.main')
 
 # Simple log
-def logger(text):
+def logger(text: str) -> str:
     print(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
     
 # Log string, and return it
-def logString(text, source="main"):
+def logString(text: str, source="main") -> str:
   print(f'[{datetime.now().strftime("%H:%M:%S")}][{source}]: {text}')
   return text
 
 # Log string to file
-def logFile(file, text):
+def logFile(file: str, text: str):
   write_append(file, f'[{datetime.now().strftime("%Y-%m-%d")} {datetime.now().strftime("%H:%M:%S")}]: {text}\n')
 
 # Ask for Input
-def inputX(text):
+def inputX(text: str, defVal: str):
   try:
-    return input(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+    inputval = input(f'[{datetime.now().strftime("%H:%M:%S")}][main]: {text}')
+    if not inputval:
+      inputval = defVal
+    return inputval
   except:
     return ""
 

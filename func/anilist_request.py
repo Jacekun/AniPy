@@ -132,7 +132,7 @@ def request_pubcode(ANICLIENT, REDIRECT_URL):
     url = f"https://anilist.co/api/v2/oauth/authorize?client_id={ANICLIENT}&redirect_uri={REDIRECT_URL}&response_type=code"
     webbrowser.open(url)
 
-    code = inputX("Paste your token code here (Copied from Anilist webpage result): ")
+    code = inputX("Paste your token code here (Copied from Anilist webpage result): ", "")
     return code
 
 # Request access token, using code
@@ -160,9 +160,9 @@ def setup_config(anilistConfig):
 
     if not os.path.exists(anilistConfig):
         while not ANICLIENT:
-            ANICLIENT = inputX("Enter your Client ID: ")
+            ANICLIENT = inputX("Enter your Client ID: ", None)
         while not ANISECRET:
-            ANISECRET = inputX("Enter your Client Secret: ")
+            ANISECRET = inputX("Enter your Client Secret: ", None)
 
         anilistConfigJson = {
         "aniclient" : ANICLIENT,
