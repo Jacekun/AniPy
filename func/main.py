@@ -30,7 +30,7 @@ def inputX(text: str, defVal: str):
     return ""
 
 # Check if not Null, and return
-def validateStr(x):
+def validateStr(x) -> str:
   if x is not None:
     #fixed = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'', str(x))
     #fixed = str(x).replace('\\', "\\\\") # Allow 'Escape backslash' to be encoded
@@ -133,7 +133,7 @@ def write_remove(filename, char_count):
     filehandle.truncate()
 
 # Return json dict object to be appended
-def entry_json(entry, mediaType):
+def entry_json(entry, mediaType: str):
   jsonObj = {}
   # ID
   jsonObj["idAnilist"] = validateIntAsInt(entry["media"]["id"])
