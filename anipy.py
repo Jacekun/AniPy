@@ -132,4 +132,4 @@ if tempTachi:
     if isSepNsfw:
         fNotOnTachi.getNotOnTachi(outputManga.get('nsfw'), tempTachi, True)
 
-fMain.inputX("Press <Enter> to exit..")
+fMain.inputX("Press <Enter> to exit..", "")
