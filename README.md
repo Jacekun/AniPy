@@ -2,6 +2,8 @@
 
 Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 
+![GitHub release](https://img.shields.io/github/v/release/Jacekun/AniPy?sort=semver&style=for-the-badge)
+
 | [**View Project History**](doc/VERSION.md) | [**Contribute to AniPy**](CONTRIBUTING.md) | [**Report Issues**](ISSUE.md) |
 |--------------------------------------------|--------------------------------------------|-------------------------------|
 
