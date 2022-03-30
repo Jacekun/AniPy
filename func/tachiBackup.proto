@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package TachiyomiBackup;
+
+message Backup {
+    repeated BackupManga backupManga = 1;
+}
+
+message BackupManga {
+    string title = 3;
+    repeated BackupTracking tracking = 18;
+}
+
+message BackupTracking {
+    int32 syncId = 1;
+    int64 libraryId = 2;
+    int32 mediaId = 3;
+    string trackingUrl = 4;
+}

@@ -1,0 +1,1 @@
+protoc tachiBackup.proto --python_out=./

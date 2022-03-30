@@ -2,8 +2,10 @@
 # imports
 import os
 import json
+from google import protobuf
 # Local import
 import func.main as fMain
+from func import tachiBackup_pb2 as tachiBackupProto
 
 fMain.logString("Imported func.getNotOnTachi", "")
 
@@ -53,35 +55,64 @@ def getNotOnTachi(inputManga, inputTachi, isNsfw):
             with open(inputTachi, "r+", encoding='utf-8') as F:
                 tachiManga = json.load(F)
                 logString("Tachi library json file loaded!")
+            
+            # Get entries from Tachiyomi json (legacy backup), and turn into simple list
+            if tachiManga is not None:
+                logString("Checking Tachiyomi library..")
+                for tachiEntry in tachiManga["mangas"]:
+                    try:
+                        tempTracker = tachiEntry["track"]
+                        if tempTracker is not None:
+                            for tachiTrack in tempTracker:
+                                tempTrackLink = str(tachiTrack["u"])
+                                if "anilist" in tempTrackLink:
+                                    # logString("Id: [" + tempTrackLink[25:] + "]")
+                                    # listTachiTracked.append(tempTrackLink[25:])
+                                    listTachiTracked.append(str(tachiTrack["r"]))
+                    except:
+                        # logString("No tracking!")
+                        pass
+        elif inputTachi[-5:] == "proto":
+            #logString("Loading backup: " + inputTachi)
+            logString("Loading backup '" + os.path.basename(inputTachi) + "' into memory..")
+            _backupManga = None
+            try:
+                with open(inputTachi, "rb") as f:
+                    logString("Initiating backup..")
+                    _backupManga = tachiBackupProto.Backup()
+                    logString("Parsing backup..")
+                    _backupManga.ParseFromString(f.read())
+                    
+                if _backupManga is not None:
+                    logString("Backup file has contents!")
+                    _backupMangaList = _backupManga.backupManga
+                    logString("Accessed Backup root!")
+                    if _backupMangaList is not None:
+                        logString("Backup file has manga list!")
+                        for _entry in _backupMangaList:
+                            if _entry is not None:
+                                logString("Parsing: " + _entry.title)
+                                _trackers = _entry.tracking
+                                if _trackers:
+                                    for _track in _trackers:
+                                        if _track is not None:
+                                            if str(_track.syncId) == "2":
+                                                listTachiTracked.append(str(_track.mediaId))
+                                                break
+            except Exception as e:
+                logString("Exception on reading backup!")
+                print(e)
         else:
-            tachiManga = None
             logString("Unrecognized Tachiyomi backup file! Make sure you use Tachiyomi's legacy backup (File ends with .json)")
 
-    # Get entries from Tachiyomi json (legacy backup), and turn into simple list
-    if tachiManga is not None:
-        logString("Checking Tachiyomi library..")
-        for tachiEntry in tachiManga["mangas"]:
-            try:
-                tempTracker = tachiEntry["track"]
-                if tempTracker is not None:
-                    for tachiTrack in tempTracker:
-                        tempTrackLink = str(tachiTrack["u"])
-                        if "anilist" in tempTrackLink:
-                            # logString("Id: [" + tempTrackLink[25:] + "]")
-                            # listTachiTracked.append(tempTrackLink[25:])
-                            listTachiTracked.append(str(tachiTrack["r"]))
-            except:
-                # logString("No tracking!")
-                pass
-
-    # Skip if no tachi library is provided
+    # Skip if tachi backup has no tracked entries
     if not listTachiTracked:
-        logString("Tachiyomi library checking skipped!")
+        logString("No tracked Manga on Tachiyomi backup file!")
     # Else, continue
     else:
         # Load Anilist MANGA
         if not (os.path.exists(inputManga)):
-            logString("Manga json file does not exists!")
+            logString("Manga data file does not exists!")
             jsonManga = None
         else:
             logString("Loading " + os.path.basename(inputManga) + " into memory..")
