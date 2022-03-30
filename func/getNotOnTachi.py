@@ -19,7 +19,7 @@ def sort_byval(json):
     except KeyError:
         return ""
 
-def getNotOnTachi(inputManga, inputTachi, isNsfw):
+def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
     # Vars
     logSrc = "getNotOnTachi"
     tempAnilist = ""

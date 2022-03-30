@@ -164,6 +164,7 @@ def entry_json(entry, mediaType: str):
   jsonObj["score"] = validateIntAsInt(entry["score"])
   jsonObj["private"] = str(entry["private"])
   jsonObj["notes"] = validateStr(entry["notes"])
+  jsonObj["isAdult"] = entry["media"]["isAdult"]
   return jsonObj
 
 # Return strings to add to json
