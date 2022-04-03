@@ -112,6 +112,9 @@ def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
             listTachiTracked = parseLegacyBackup(inputTachi)
         elif inputTachi[-5:] == "proto":
             listTachiTracked = parseProtoBackup(inputTachi)
+        elif inputTachi[-2:] == "gz":
+            extracted = fMain.extractGz(inputTachi)
+            listTachiTracked = parseProtoBackup(extracted)
         else:
             logString("Unrecognized Tachiyomi backup file! Make sure you use Tachiyomi's legacy backup (File ends with .json)")
 

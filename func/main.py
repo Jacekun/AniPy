@@ -3,6 +3,8 @@
 import os
 from datetime import datetime
 import json
+import gzip
+import shutil
 # 
 print(f'[{datetime.now().strftime("%H:%M:%S")}][]: Imported func.main')
 
@@ -280,3 +282,14 @@ def createJsonFile(filepath, jsonObject, logSrc = "main"):
         logString("File generated: " + filepath, logSrc)
   except:
     logString(f"Cannot write json file: {filepath}", logSrc)
+
+# Extract gz file
+def extractGz(input: str) -> str:
+  #logString("Input: " + input)
+  output = input[:-3]
+  with gzip.open(input, 'rb') as f_in:
+    #logString(f"Output: {output}")
+    with open(output, 'wb') as f_out:
+        shutil.copyfileobj(f_in, f_out)
+  return output
+  
