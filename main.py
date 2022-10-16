@@ -113,7 +113,7 @@ def main():
       fTrim.trim_results(PROJECT_PATH, outputAnime.get('nsfw'), outputManga.get('nsfw'), True)
 
   # Get Entries not on Tachi
-  tempTachi = fMain.inputX("Tachiyomi library json file (legacy backup): ", None)
+  tempTachi = fMain.inputX("Tachiyomi backup file (json, proto, gz): ", None)
   if tempTachi:
     fNotOnTachi.getNotOnTachi(outputManga.get('main'), tempTachi, False)
     if isSepNsfw:

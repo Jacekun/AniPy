@@ -116,6 +116,17 @@ def toMalStatus(status, media):
   else:
     return ""
 
+# Read file and return contents
+def read_file(filename) -> str:
+    content: str = ""
+    try:
+      with open(filename, 'r+', encoding='utf-8') as f:
+        content = f.read()
+    except Exception as e:
+      logString(f'Failed to read file: {filename}')
+
+    return content
+
 # Add texts on beginning of file
 def line_prepender(filename, line):
     with open(filename, 'r+', encoding='utf-8') as f:
@@ -291,5 +302,13 @@ def extractGz(input: str) -> str:
     #logString(f"Output: {output}")
     with open(output, 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
+  return output
+
+# Compress file to gz
+def compressGz(input: str) -> str:
+  logString("Compressing file to gz..")
+  output:str = f'{input}.gz'
+  with open(input, 'rb') as f_in, gzip.open(output, 'wb') as f_out:
+    f_out.writelines(f_in)
   return output
   

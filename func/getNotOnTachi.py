@@ -3,6 +3,8 @@
 import os
 import json
 from google import protobuf
+from google.protobuf import text_format
+from google.protobuf.json_format import ParseDict
 # Local import
 import func.main as fMain
 from func import tachiBackup_pb2 as tachiBackupProto
@@ -88,21 +90,27 @@ def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
     listSkippedStatus = [ "COMPLETED", "DROPPED" ]
 
     # Declare filepaths
-    outputManga = inputManga[:-5] + "_NotInTachi.json"
-    outputTachiBackup = inputManga[:-5] + "_TachiyomiBackup.json"
-    TachiBackupJson = {
-        "version": 2,
-        "mangas": [],
-        "categories": [
-            [ "Anilist", 0 ]
-        ]
-    }
+    inputMangaFileName: str = inputManga[:-5]
+    outputSuffix: str = "_nsfw" if isNsfw else ""
+    outputManga: str = f'{inputMangaFileName}_NotInTachi{outputSuffix}.json'
+    outputTachiBackup: str = f'{inputMangaFileName}_TachiyomiBackup{outputSuffix}.json'
+    outputProtoBackup: str = f'{inputMangaFileName}_TachiyomiBackup{outputSuffix}.proto'
 
     # Delete previous file
     fMain.deleteFile(outputManga)
 
     # json Objects
     jsonOutputManga = []
+    tachiBackupJson = {
+        "version": 2,
+        "mangas": [],
+        "categories": [
+            [ "Anilist", 0 ]
+        ]
+    }
+    protoBackupManga = {
+        "backupManga": []
+    }
 
     # Load Tachiyomi Library
     if not (os.path.exists(inputTachi)):
@@ -116,7 +124,7 @@ def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
             extracted = fMain.extractGz(inputTachi)
             listTachiTracked = parseProtoBackup(extracted)
         else:
-            logString("Unrecognized Tachiyomi backup file! Make sure you use Tachiyomi's legacy backup (File ends with .json)")
+            logString("Unrecognized Tachiyomi backup file! Make sure you use Tachiyomi-generate file.")
 
     # Skip if tachi backup has no tracked entries
     if not listTachiTracked:
@@ -137,27 +145,35 @@ def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
         if jsonManga is not None:
             logString("Checking Anilist manga entries..")
             for entry in jsonManga:
-                if str(entry["idAnilist"]) not in listTachiTracked:
-                    jsonData = {}
-                    jsonData["idAnilist"] = entry["idAnilist"]
-                    jsonData["titleEnglish"] = entry["titleEnglish"]
-                    jsonData["titleRomaji"] = entry["titleRomaji"]
-                    if str(entry["synonyms"]) == "[]":
-                        jsonData["synonyms"] = ""
-                    else:
-                        jsonData["synonyms"] = entry["synonyms"]
-                    jsonData["status"] = entry["status"]
-                    # Append to JSON object
+                # Iterate every manga entry, and check if its already tracked on provided Tachiyomi backup file.
+                idAnilist: str = str(entry["idAnilist"])
+                if idAnilist not in listTachiTracked:
+                    # If entry should be included, or skipped.
                     if str(entry["status"]) not in listSkippedStatus:
+                        # Disregard NOVEL entries.
                         if str(entry["format"]) != "NOVEL":
+                            # Create JSON object
+                            jsonData = {}
+                            jsonData["idAnilist"] = entry["idAnilist"]
+                            jsonData["titleEnglish"] = entry["titleEnglish"]
+                            jsonData["titleRomaji"] = entry["titleRomaji"]
+                            if str(entry["synonyms"]) == "[]":
+                                jsonData["synonyms"] = ""
+                            else:
+                                jsonData["synonyms"] = entry["synonyms"]
+                            jsonData["status"] = entry["status"]
+
+                            # Append to JSON object
                             jsonOutputManga.append(jsonData) # add to json list of manga_NotInTachi
+
                             # Add to Tachiyomi backup json
                             titleEntry = ""
                             if jsonData["titleEnglish"] is not None:
-                                titleEntry = jsonData["titleEnglish"]
-                                if not titleEntry:
-                                    if jsonData["titleRomaji"] is not None:
-                                        titleEntry = jsonData["titleRomaji"]
+                                titleEntry = str(jsonData["titleEnglish"])
+                            if titleEntry == "":
+                                if jsonData["titleRomaji"] is not None:
+                                    titleEntry = str(jsonData["titleRomaji"])
+
                             TachiBackupEntry = {
                                 "manga": [
                                     titleEntry,
@@ -170,9 +186,37 @@ def getNotOnTachi(inputManga: str, inputTachi: str, isNsfw: bool):
                                     "Anilist"
                                 ]
                             }
-                            TachiBackupJson["mangas"].append(TachiBackupEntry)
+                            tachiBackupJson["mangas"].append(TachiBackupEntry)
+
+                            # Add to Proto backup file
+                            protoDataTrack = {
+                                "syncId": 2,
+                                "mediaId": int(idAnilist),
+                                "trackingUrl": "https://anilist.co/manga/" + idAnilist
+                            }
+                            protoDataManga = {
+                                "title" : titleEntry,
+                                "tracking": [
+                                    protoDataTrack
+                                ]
+                            }
+                            protoBackupManga["backupManga"].append(protoDataManga)
                     
             # Write 'outputManga': manga_NotInTachi
             fMain.createJsonFile(outputManga, jsonOutputManga, logSrc)
-            # Write TachiBackupJson to file: __TachiyomiBackup.json
-            fMain.createJsonFile(outputTachiBackup, TachiBackupJson, logSrc)
+            # Write 'tachiBackupJson' to file: __TachiyomiBackup.json
+            fMain.createJsonFile(outputTachiBackup, tachiBackupJson, logSrc)
+
+            # Write proto backup file
+            try:
+                logString("Generating proto backup file..")
+                protoBackupMessage = ParseDict(protoBackupManga, tachiBackupProto.Backup())
+                with open(outputProtoBackup, "w") as F:
+                    text_format.PrintMessage(protoBackupMessage, F)
+                    logString(f'File generated: {outputProtoBackup}')
+                    outputProtoBackupGz = fMain.compressGz(outputProtoBackup)
+                    logString(f'File compressed: {outputProtoBackupGz}')
+            except:
+                logString(f"Cannot write proto file: {outputProtoBackup}")
+            
+            logString("Done Tachiyomi parsing functions.")
