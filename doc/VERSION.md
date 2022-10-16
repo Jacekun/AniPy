@@ -1,3 +1,12 @@
+# v1.20
+## New features:
+- Fully support proto backup file for Tachiyomi.
+
+## Changes:
+- Updated module versions.
+- Add **'isAdult'** to JSON output.
+- Various code cleanups and optimizations.
+
 # v1.13
 ## New features:
 - **Anipy.py** script for one-liner commands.

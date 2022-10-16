@@ -10,6 +10,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 # Requirements:
 - Python 3.9
 - 2GB RAM, or higher.
+- Stable internet connection.
 
 # Setup:
 1. Install required packages (run Command Prompt in the same folder as '*main.py*'): <br>
@@ -35,7 +36,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 2. Run **[main.py](main.py)**, with command: ``python main.py``.
 3. Follow on-screen instructions.
 
-## 'Advanced mode
+## 'Advanced' mode
 1. Run command using: ``python anipy.py <MAL Username> -[parameters] --[switches]``
 
 ### Parameters:

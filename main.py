@@ -8,7 +8,7 @@ import func.trim_list as fTrim
 import func.getNotOnTachi as fNotOnTachi
 
 # App Properties
-appVersion = '1.14'
+appVersion = '1.20'
 appMode = 'AniPy (Easy)'
 mainsrc = "App"
 
