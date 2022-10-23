@@ -37,10 +37,11 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 3. Follow on-screen instructions.
 
 ## 'Advanced' mode
-1. Run command using: ``python anipy.py <MAL Username> -[parameters] --[switches]``
+1. Run command using: ``python anipy.py -[parameters] --[switches]``
 
 ### Parameters:
 - ``-user "<type_here>"`` -> Anilist username, if using 'Public Lists Mode'.
+- ``-mal "<type_here>"`` -> MyAnimeList username. Will export XML file if provided.
 - ``-tachi "<full_filepath>"`` -> Full filepath where Tachiyomi JSON backup file is located.
 
 ### Switches:
@@ -49,7 +50,15 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - ``--n`` -> Separate NSFW entries on generating output files. Creates files that starts with prefix **'nsfw_'**.
 
 ### Sample command:
-- ``python anipy.py Jace -tachi "D:\Tachi\backup.json" --a --t``
+1. Backup all ANIME and MANGA using Authenticated Mode:
+
+```bash
+python anipy.py --a
+```
+2. 
+```bash
+python anipy.py -user Jace -tachi "D:\Tachi\backup.json" --t
+```
 
 # Features:
 - Export User Anime/Manga list to JSON file.

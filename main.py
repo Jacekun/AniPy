@@ -25,7 +25,8 @@ def main():
   ANISECRET = ""
   useOAuth = False
   # User vars
-  username = ""
+  userAnilist = None
+  userMal = None
   userID = 0
   isSepNsfw = False # Separate nsfw entries on output
   # Output files dictionary
@@ -61,6 +62,8 @@ def main():
   else:
     useOAuth = False
 
+  # Ask for MAL username
+  userMal = fMain.inputX("Enter your MAL Username: ", "")
 
   # Check whether authenticated, or use public Username
   if not useOAuth:
@@ -68,8 +71,8 @@ def main():
     accessToken = ""
     while (userID < 1):
       # Get Anilist Username
-      anilistUser = fMain.inputX("Enter your Anilist Username: ", "")
-      userID = fReq.anilist_getUserID(anilistUser)
+      userAnilist = fMain.inputX("Enter your Anilist Username: ", "")
+      userID = fReq.anilist_getUserID(userAnilist)
   else:
     fMain.logString("Getting User ID, from Authenticated user..", mainsrc)
     userID = fReq.anilist_getUserID_auth(accessToken)
@@ -93,7 +96,8 @@ def main():
       'log': entryLog,
       'access_tkn': accessToken,
       'user_id': userID,
-      'username': username,
+      'user_anilist': userAnilist,
+      'user_mal': userMal,
       'use_auth': useOAuth,
       'sep_nsfw': isSepNsfw
   }

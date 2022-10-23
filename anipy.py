@@ -27,12 +27,12 @@ if not os.path.exists('output'):
 parser = argparse.ArgumentParser(description='AniPy parameters and flags')
 
 # Required params
-parser.add_argument('mal', type=str, help='MAL Username')
 # Optional params
-parser.add_argument('-user', type=str, help='Anilist Username, if using Public mode') # If using Public mode
+parser.add_argument('-user', type=str, help='Anilist Username')
+parser.add_argument('-mal', type=str, help='MAL Username') 
 parser.add_argument('-tachi', type=str, help='Tachiyomi legacy backup')
 # Flags
-parser.add_argument('--a', action='store_true', help='Use Authenticated mode')
+parser.add_argument('--a', action='store_true', help='Use Authenticated mode. Disregard `user` param')
 parser.add_argument('--t', action='store_true', help='Trim generated files')
 parser.add_argument('--n', action='store_true', help='Separate NSFW entries on output files')
 
@@ -45,20 +45,22 @@ ANISECRET = ""
 useOAuth = False
 accessToken = ""
 # User vars
-username = str(args.mal) # Required. MAL Username
 userID = 0
-anilistUser = None
+userAnilist = None
+userMal = None
 isSepNsfw = False # Separate nsfw entries on output
 # Output file names
 outputAnime = []
 outputManga = []
 
 if args.user is not None:
-    anilistUser = str(args.user)
+    userAnilist = str(args.user)
 
-# use same MAL username if none
-if anilistUser is None:
-    anilistUser = str(username)
+if args.mal is not None:
+    userMal = str(args.mal)
+
+if userMal is None or not userMal:
+    fMain.logger("No MAL username provided! Certain features will not work.")
 
 if (args.a):
     useOAuth, ANICLIENT, ANISECRET, REDIRECT_URL = fReq.setup_config(anilistConfig)
@@ -79,9 +81,12 @@ if (args.a):
     
 # Check whether authenticated, or use public Username
 if not useOAuth:
-    fMain.logger("'Public Username' Mode")
+    fMain.logger("Fetch user ID using Anilist username..")
     accessToken = ""
-    userID = fReq.anilist_getUserID(anilistUser) # Fetch UserID using username
+    if userAnilist:
+        userID = fReq.anilist_getUserID(userAnilist) # Fetch UserID using username. Public mode.
+    else:
+        fMain.logger("No Anilist username provided!")
 else:
     fMain.logger("Getting User ID, from Authenticated user..")
     userID = fReq.anilist_getUserID_auth(accessToken)
@@ -92,8 +97,9 @@ if userID is not None:
 else:
     fMain.logger("User Id cannot be fetched!")
 
-# Display User ID
-fMain.logger("User ID: " + str(userID))
+# Display User Info
+if userAnilist:
+    fMain.logger(f"User: {str(userAnilist)} ({str(userID)})")
 
 # Separate NSFW Entries
 if (args.n):
@@ -107,8 +113,9 @@ paramvals = {
     'root': PROJECT_PATH,
     'log': entryLog,
     'access_tkn': accessToken,
+    'user_anilist': userAnilist,
+    'user_mal': userMal,
     'user_id': userID,
-    'username': username,
     'use_auth': useOAuth,
     'sep_nsfw': isSepNsfw
 }
