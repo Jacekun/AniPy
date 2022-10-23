@@ -29,6 +29,7 @@ def main():
   userMal = None
   userID = 0
   isSepNsfw = False # Separate nsfw entries on output
+  isClearFile = False
   # Output files dictionary
   outputAnime = []
   outputManga = []
@@ -83,9 +84,13 @@ def main():
 
   # Confirm if separating nsfw entries on generating output files
   inputChoice = fMain.inputX("Separate NSFW entries? [y/n] (Default: n): ", "n")
-
   if inputChoice.lower()[0] == "y":
     isSepNsfw = True
+  
+  # Clear existing output files
+  inputChoice = fMain.inputX("Clear existing output files? [y/n] (Default: n): ", "n")
+  if inputChoice.lower()[0] == "y":
+    isClearFile = True
 
   # Delete prev files
   fMain.deleteFile(entryLog)
@@ -99,7 +104,8 @@ def main():
       'user_anilist': userAnilist,
       'user_mal': userMal,
       'use_auth': useOAuth,
-      'sep_nsfw': isSepNsfw
+      'sep_nsfw': isSepNsfw,
+      'clear_files': isClearFile
   }
 
   # Request anime list

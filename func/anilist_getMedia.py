@@ -18,6 +18,7 @@ def getMediaEntries(mediaType, paramvals):
     userID = int(paramvals['user_id'])
     useOAuth = bool(paramvals['use_auth'])
     isSepNsfw = bool(paramvals['sep_nsfw'])
+    isClearFile = bool(paramvals['clear_files'])
     if paramvals['user_mal']:
         userMal = str(paramvals['user_mal'])
 
@@ -48,6 +49,19 @@ def getMediaEntries(mediaType, paramvals):
         xmlMedia = os.path.join(filepath, "output", "manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
         outputMedia18 = os.path.join(filepath, "output", "nsfw_manga_" + datetime.now().strftime("%Y-%m-%d") + ".json")
         xmlMedia18 = os.path.join(filepath, "output", "nsfw_manga_" + datetime.now().strftime("%Y-%m-%d") + ".xml")
+    
+    # Clear files if already existing
+    fMain.logString(f"Will clear output files: {isClearFile}")
+    if isClearFile:
+        try:
+            fMain.logString("Deleting output files..")
+            fMain.deleteFile(outputMedia)
+            fMain.deleteFile(xmlMedia)
+            fMain.deleteFile(outputMedia18)
+            fMain.deleteFile(xmlMedia18)
+            fMain.logString("Done deleting output files!")
+        except Exception as e:
+            fMain.logString(f"Clear File error: {e}", source)
 
     # Check if not existing
     if not (os.path.exists(outputMedia)):

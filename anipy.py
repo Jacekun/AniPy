@@ -35,6 +35,7 @@ parser.add_argument('-tachi', type=str, help='Tachiyomi legacy backup')
 parser.add_argument('--a', action='store_true', help='Use Authenticated mode. Disregard `user` param')
 parser.add_argument('--t', action='store_true', help='Trim generated files')
 parser.add_argument('--n', action='store_true', help='Separate NSFW entries on output files')
+parser.add_argument('--c', action='store_true', help='Clear existing output files')
 
 # Parse args
 args = parser.parse_args()
@@ -49,6 +50,7 @@ userID = 0
 userAnilist = None
 userMal = None
 isSepNsfw = False # Separate nsfw entries on output
+isClearFile = False # Clear existing output files
 # Output file names
 outputAnime = []
 outputManga = []
@@ -105,9 +107,11 @@ if userAnilist and userID > 0:
 else:
     fMain.logger(f"User: {str(userAnilist)}")
 
-# Separate NSFW Entries
-if (args.n):
+# Check boolean flags
+if (args.n): # Separate NSFW Entries
     isSepNsfw = True
+if (args.c):
+    isClearFile = True
 
 # Delete prev files
 fMain.deleteFile(entryLog)
@@ -121,7 +125,8 @@ paramvals = {
     'user_mal': userMal,
     'user_id': userID,
     'use_auth': useOAuth,
-    'sep_nsfw': isSepNsfw
+    'sep_nsfw': isSepNsfw,
+    'clear_files': isClearFile
 }
 
 # Request anime list
