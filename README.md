@@ -49,6 +49,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 - ``--t`` -> Trim lists, showing which entries are not on MAL. Also, write stats to file.
 - ``--n`` -> Separate NSFW entries on generating output files. Creates files that starts with prefix **'nsfw_'**.
 - ``--c`` -> Clear existing output files.
+- ``--m`` -> Use **Anilist** as **MAL** username, if **MAL** username is not provided.
 
 ### Sample command:
 1. Backup all ANIME and MANGA using Authenticated Mode:
@@ -62,7 +63,7 @@ python anipy.py -user Jace
 ```
 
 3. Trim current list and export Tachiyomi backup:
-````bash
+```bash
 python anipy.py -tachi "D:\Tachi\backup.json" --t
 ```
 

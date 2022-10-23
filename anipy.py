@@ -32,10 +32,11 @@ parser.add_argument('-user', type=str, help='Anilist Username')
 parser.add_argument('-mal', type=str, help='MAL Username') 
 parser.add_argument('-tachi', type=str, help='Tachiyomi legacy backup')
 # Flags
-parser.add_argument('--a', action='store_true', help='Use Authenticated mode. Disregard `user` param')
-parser.add_argument('--t', action='store_true', help='Trim generated files')
-parser.add_argument('--n', action='store_true', help='Separate NSFW entries on output files')
-parser.add_argument('--c', action='store_true', help='Clear existing output files')
+parser.add_argument('--a', action='store_true', help='Use Authenticated mode. Disregard `user` parameter.')
+parser.add_argument('--t', action='store_true', help='Trim generated files.')
+parser.add_argument('--n', action='store_true', help='Separate NSFW entries on output files.')
+parser.add_argument('--c', action='store_true', help='Clear existing output files.')
+parser.add_argument('--m', action='store_true', help='Use Anilist as MAL username, if MAL username is not provided.')
 
 # Parse args
 args = parser.parse_args()
@@ -55,15 +56,28 @@ isClearFile = False # Clear existing output files
 outputAnime = []
 outputManga = []
 
+# Check boolean flags
+if (args.n): # Separate NSFW Entries
+    isSepNsfw = True
+if (args.c):
+    isClearFile = True
+
+# Check parameters
 if args.user is not None:
     userAnilist = str(args.user)
 
 if args.mal is not None:
     userMal = str(args.mal)
 
-if userMal is None or not userMal:
+if not userMal or userMal.isspace():
+    if (args.m):
+        if userAnilist and not userAnilist.isspace():
+            userMal = userAnilist
+
+if not userMal or userMal.isspace():
     fMain.logger("No MAL username provided! Certain features will not work.")
 
+# Check if using authentication
 if (args.a):
     useOAuth, ANICLIENT, ANISECRET, REDIRECT_URL = fReq.setup_config(anilistConfig)
 
@@ -106,12 +120,6 @@ if userAnilist and userID > 0:
     fMain.logger(f"User: {str(userAnilist)} ({str(userID)})")
 else:
     fMain.logger(f"User: {str(userAnilist)}")
-
-# Check boolean flags
-if (args.n): # Separate NSFW Entries
-    isSepNsfw = True
-if (args.c):
-    isClearFile = True
 
 # Delete prev files
 fMain.deleteFile(entryLog)
