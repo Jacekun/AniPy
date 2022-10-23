@@ -91,15 +91,19 @@ else:
     fMain.logger("Getting User ID, from Authenticated user..")
     userID = fReq.anilist_getUserID_auth(accessToken)
 
+# Default to Public mode if user ID is invalid
 if userID is not None:
     if (userID < 1):
         fMain.logger(f'Invalid user ID: {userID}!')
 else:
+    userID = -1
     fMain.logger("User Id cannot be fetched!")
 
 # Display User Info
-if userAnilist:
+if userAnilist and userID > 0:
     fMain.logger(f"User: {str(userAnilist)} ({str(userID)})")
+else:
+    fMain.logger(f"User: {str(userAnilist)}")
 
 # Separate NSFW Entries
 if (args.n):
