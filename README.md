@@ -7,6 +7,26 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 | [**View Project History**](doc/VERSION.md) | [**Contribute to AniPy**](CONTRIBUTING.md) | [**Report Issues**](ISSUE.md) |
 |--------------------------------------------|--------------------------------------------|-------------------------------|
 
+# Features:
+- Export User Anime/Manga list to JSON file.
+- Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
+- Uses Authentication to Fetch private lists.
+- Compare against Tachiyomi backup, and lists all entries not on your library.
+- Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
+- Separate NSFW entries. Create files with prefix **'nsfw_'**.
+
+# Limitations:
+- Cannot get full information from **"Re-watches / Re-reads"**.
+- Cannot cherry-pick entries. (*Planned feature*)
+
+# Output files:
+1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
+2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
+3. **anime_NotInMal.json** / **manga_NotInMal.json**  : Entries not existing on MAL.
+4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
+5. **manga_NotInTachi.json** : Anilist manga entries not on your Tachiyomi library.
+6. **manga_TachiyomiBackup.json** : Tachiyomi backup file which contains Anilist entries not on your Tachiyomi library. Import it to your Tachiyomi, and Migrate each entries from **'Anilist'** category to appropriate sources.
+
 # Requirements:
 - Python 3.9
 - 2GB RAM, or higher.
@@ -47,7 +67,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 ### Switches:
 - ``--a`` -> Use Authentication to fetch for lists. Disregards the ``-user`` parameter.
 - ``--t`` -> Trim lists, showing which entries are not on MAL. Also, write stats to file.
-- ``--n`` -> Separate NSFW entries on generating output files. Creates files that starts with prefix **'nsfw_'**.
+- ``--n`` -> Separate NSFW entries on generating output files. Creates files with prefix **'nsfw_'**.
 - ``--c`` -> Clear existing output files.
 - ``--m`` -> Use **Anilist** as **MAL** username, if **MAL** username is not provided.
 
@@ -66,26 +86,6 @@ python anipy.py -user Jace
 ```bash
 python anipy.py -tachi "D:\Tachi\backup.json" --t
 ```
-
-# Features:
-- Export User Anime/Manga list to JSON file.
-- Export User Anime/Manga list to [MyAnimeList](https://myanimelist.net/) XML export file (Can be imported to [MyAnimeList](https://myanimelist.net/import.php)).
-- Uses Authentication to Fetch private lists.
-- Compare against Tachiyomi backup, and lists all entries not on your library.
-- Create Tachiyomi backup file containing Anilist entries not on your library. (*Skips COMPLETED AND DROPPED*)
-  - **NOTE** It only works on older Tachiyomi backups. (.json format)
-
-# Limitations:
-- Cannot get full information from **"Re-watches / Re-reads"**.
-- Cannot cherry-pick entries. (*Planned feature*)
-
-# Output files:
-1. **anime.json** / **manga.json** :   Local backup of User [Anilist.co](https://anilist.co/).
-2. **anime.xml** / **manga.xml**   :   [MyAnimeList](https://myanimelist.net/) XML export. Can be [imported into MAL](https://myanimelist.net/import.php).  
-3. **anime_NotInMal.json** / **manga_NotInMal.json**  : Entries not existing on MAL.
-4. **animemanga_stats.txt** : Save Entries' stats. (Average score, Watch/Read count, etc..).
-5. **manga_NotInTachi.json** : Anilist manga entries not on your Tachiyomi library.
-6. **manga_TachiyomiBackup.json** : Tachiyomi backup file which contains Anilist entries not on your Tachiyomi library. Import it to your Tachiyomi, and Migrate each entries from **'Anilist'** category to appropriate sources.
 
 # Scripts and Files:
 ## Main scripts:
