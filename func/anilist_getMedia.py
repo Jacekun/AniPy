@@ -171,11 +171,11 @@ def getMediaEntries(mediaType, paramvals):
                 mediawatchread = ""
                 if mediaType == "ANIME":
                     mediastring = "anime"
-                    mediaexport = '2'
+                    mediaexport = '1'
                     mediawatchread = "watch"
                 else:
                     mediastring = "manga"
-                    mediaexport = '1'
+                    mediaexport = '2'
                     mediawatchread = "read"
 
                 fMain.write_append(xmlMedia, f'</my{mediastring}list>')
