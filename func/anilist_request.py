@@ -30,7 +30,7 @@ def queryMedia():
                 startedAt { year month day }
                 progress
                 progressVolumes
-                score
+                score(format: POINT_10)
                 notes
                 private
                 media
