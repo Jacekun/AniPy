@@ -62,7 +62,7 @@ Create local backup of anime/manga list from [Anilist.co](https://anilist.co/).
 ### Parameters:
 - ``-user "<type_here>"`` -> Anilist username, if using 'Public Lists Mode'.
 - ``-mal "<type_here>"`` -> MyAnimeList username. Will export XML file if provided.
-- ``-tachi "<full_filepath>"`` -> Full filepath where Tachiyomi JSON backup file is located.
+- ``-tachi "<full_filepath>"`` -> Full filepath where Tachiyomi backup file is located.
 
 ### Switches:
 - ``--a`` -> Use Authentication to fetch for lists. Disregards the ``-user`` parameter.
@@ -84,7 +84,7 @@ python anipy.py -user Jace
 
 3. Trim current list and export Tachiyomi backup:
 ```bash
-python anipy.py -tachi "D:\Tachi\backup.json" --t
+python anipy.py -tachi "D:\Tachi\backup.proto.gz" --t
 ```
 
 # Scripts and Files:
